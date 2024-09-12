@@ -1,0 +1,17 @@
+meta:
+    lang: en
+    title: Sample Page
+    project: ${ $import("./project/project.yml").id }
+
+content:
+    -   type: md
+        content: |
+            # Sample Page
+
+            - metadata
+            - complex content model
+            - computed data
+
+    -   type: card
+        content: Lorem ipsum dolor sit amet!
+        #content: ${ $get('cards/project') }

@@ -1,0 +1,4 @@
+payments:
+    -   invoice_id: A12
+    -   invoice_id: A13
+    -   invoice_id: A14

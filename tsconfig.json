@@ -1,0 +1,44 @@
+{
+    "compilerOptions": {
+        "target": "ES2020",
+        "module": "ES2022",
+        "moduleResolution": "Node",
+        "useDefineForClassFields": true,
+        "lib": [
+            "DOM",
+            "DOM.Iterable",
+            "ESNext"
+        ],
+        "allowJs": false,
+        "skipLibCheck": true,
+        "esModuleInterop": false,
+        "allowSyntheticDefaultImports": true,
+        "strict": true,
+        "noImplicitAny": false,
+        "forceConsistentCasingInFileNames": true,
+        "resolveJsonModule": true,
+        "isolatedModules": true,
+        "noEmit": true,
+        "jsx": "react-jsx"
+    },
+    "paths": {
+        "@comyata/run": [
+            "packages/comyata-run"
+        ],
+        "@comyata/run/*": [
+            "packages/comyata-run/*"
+        ],
+        "@comyata/fe": [
+            "packages/comyata-fe"
+        ],
+        "@comyata/fe/*": [
+            "packages/comyata-fe/*"
+        ]
+    },
+    "include": [
+        "jest.config.ts",
+        "apps/sandbox/src",
+        "server/fe/src",
+        "packages"
+    ]
+}

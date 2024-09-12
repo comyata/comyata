@@ -1,0 +1,6 @@
+id: 2
+quote: Adipisci et alum
+
+#circular_import: ${ $import('./project_card.yml').title }
+# circular load works, as the other file is not processed and already in-memory
+circular_load: ${ $load('./project_card.yml').title }

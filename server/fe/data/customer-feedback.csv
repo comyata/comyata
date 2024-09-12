@@ -1,0 +1,41 @@
+feedback_id,customer_id,feedback_rating,feedback_comment,feedback_date
+5001,1001,4,"Great product and fast shipping!",2023-05-25
+5002,1002,5,"Excellent service and quality.",2023-06-28
+5003,1003,3,"Product was good but delivery took longer than expected.",2023-07-15
+5004,1004,4,"Satisfied with the purchase, will buy again.",2023-08-20
+5005,1005,2,"Product quality was not up to the mark.",2023-09-18
+5006,1006,5,"Best customer service experience ever!",2023-10-12
+5007,1007,3,"Average product, nothing extraordinary.",2023-11-05
+5008,1008,4,"Fast delivery and good packaging.",2023-12-30
+5009,1009,5,"Absolutely love the product, highly recommend.",2024-01-25
+5010,1010,2,"Disappointed with the purchase, didn't meet expectations.",2024-02-18
+5011,1011,4,"Good value for money, satisfied with the purchase.",2024-03-15
+5012,1012,3,"Product was okay, expected better quality.",2024-04-10
+5013,1013,5,"Amazing product, exceeded expectations!",2024-05-05
+5014,1014,4,"Happy with the purchase, will shop again.",2024-06-28
+5015,1015,3,"Product was late, but customer service was helpful.",2024-07-20
+5016,1016,5,"Excellent product quality and fast delivery.",2024-08-15
+5017,1017,4,"Satisfied with the product and service.",2024-09-10
+5018,1018,2,"Product didn't work as expected, disappointed.",2024-10-05
+5019,1019,5,"Impressed with the product, exceeded my expectations.",2024-11-25
+5020,1020,3,"Product was average, nothing special.",2024-12-20
+5021,1021,4,"Good experience overall, product met expectations.",2025-01-15
+5022,1022,5,"Fantastic product, couldn't be happier!",2025-02-10
+5023,1023,3,"Product quality could be better for the price.",2025-03-05
+5024,1024,4,"Satisfied with the purchase, worth the money.",2025-04-30
+5025,1025,5,"Great product and excellent customer service.",2025-05-25
+5026,1026,3,"Product didn't match the description, disappointed.",2025-06-18
+5027,1027,4,"Happy with the product, delivery could have been faster.",2025-07-15
+5028,1028,5,"Outstanding product quality and service.",2025-08-10
+5029,1029,3,"Average product, nothing exceptional.",2025-09-05
+5030,1030,4,"Good product, met my expectations.",2025-10-30
+5031,1031,5,"Absolutely love the product, exceeded expectations!",2025-11-25
+5032,1032,3,"Product quality could be improved.",2025-12-20
+5033,1033,4,"Satisfied with the purchase, will recommend to others.",2026-01-15
+5034,1034,5,"Highly impressed with the product quality and service.",2026-02-10
+5035,1035,3,"Product didn't arrive on time, disappointed.",2026-03-05
+5036,1036,4,"Good value for money, product as described.",2026-04-30
+5037,1037,5,"Exceptional product quality, exceeded expectations.",2026-05-25
+5038,1038,3,"Average product, expected better quality.",2026-06-20
+5039,1039,4,"Happy with the purchase, product works as expected.",2026-07-15
+5040,1040,5,"Best purchase ever, highly recommend!",2026-08-10

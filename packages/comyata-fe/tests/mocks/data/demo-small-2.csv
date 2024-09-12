@@ -1,0 +1,1558 @@
+welcome,name,score,locale,date-or-time,accept
+Hello,Michael,30,"German,DE",2020-10-22,yes
+Hola,Miguel,50,"Espanol,ES",2020-10-22 19:00,yes
+Ohayou,Maikaru,25,"Japanese,JP",2020-10-22 19:20,no
+Hello,Michael,30,"German,DE",2020-10-22 19:30,yes
+Hola,Miguel,50,"Espanol,ES",2020-10-22 19:40,no
+Ohayou,Maikaru,25,"Japanese,JP",2020-10-22 19:50,no
+Hello,Michael,30,"German,DE",2020-10-22 20:00,yes
+Hola,Miguel,50,"Espanol,ES",2020-10-22 20:05,no
+Hola,Miguel,50,"Espanol,ES",2020-10-22 20:15:28,yes
+Ohayou,Maikaru,25,"Japanese,JP",2020-10-22,yes
+Hello,Michael,null,"German,DE",,yes
+Hola,Miguel,50,"Espanol,ES",null,yes
+Ohayou,Maikaru,,"Japanese,JP",null,yes
+Hello,Michael,30,"German,DE",null,yes
+Hola,Miguel,50,"Espanol,ES",,no
+Ohayou,Maikaru,25,"Japanese,JP",,no
+Hola,Miguel,50,"Espanol,ES",,no
+Hello,Michael,30,"German,DE",2020-10-22,yes
+Hola,Miguel,50,"Espanol,ES",2020-10-22 19:00,yes
+Ohayou,Maikaru,25,"Japanese,JP",2020-10-22 19:20,no
+Hello,Michael,30,"German,DE",2020-10-22 19:30,yes
+Hola,Miguel,50,"Espanol,ES",2020-10-22 19:40,no
+Ohayou,Maikaru,25,"Japanese,JP",2020-10-22 19:50,no
+Hello,Michael,30,"German,DE",2020-10-22 20:00,yes
+Hola,Miguel,50,"Espanol,ES",2020-10-22 20:05,no
+Hola,Miguel,50,"Espanol,ES",2020-10-22 20:15:28,yes
+Ohayou,Maikaru,25,"Japanese,JP",2020-10-22,yes
+Hello,Michael,30,"German,DE",,yes
+Hola,Miguel,50,"Espanol,ES",null,yes
+Ohayou,Maikaru,25,"Japanese,JP",null,yes
+Hello,Michael,30,"German,DE",null,yes
+Hola,Miguel,50,"Espanol,ES",,no
+Ohayou,Maikaru,25,"Japanese,JP",,no
+Hola,Miguel,50,"Espanol,ES",,no
+Hello,Michael,30,"German,DE",2020-10-22,yes
+Hola,Miguel,50,"Espanol,ES",2020-10-22 19:00,yes
+Ohayou,Maikaru,25,"Japanese,JP",2020-10-22 19:20,no
+Hello,Michael,30,"German,DE",2020-10-22 19:30,yes
+Hola,Miguel,50,"Espanol,ES",2020-10-22 19:40,no
+Ohayou,Maikaru,25,"Japanese,JP",2020-10-22 19:50,no
+Hello,Michael,30,"German,DE",2020-10-22 20:00,yes
+Hola,Miguel,50,"Espanol,ES",2020-10-22 20:05,no
+Hola,Miguel,50,"Espanol,ES",2020-10-22 20:15:28,yes
+Ohayou,Maikaru,25,"Japanese,JP",2020-10-22,yes
+Hello,Michael,30,"German,DE",,yes
+Hola,Miguel,50,"Espanol,ES",null,yes
+Ohayou,Maikaru,25,"Japanese,JP",null,yes
+Hello,Michael,30,"German,DE",null,yes
+Hola,Miguel,50,"Espanol,ES",,no
+Ohayou,Maikaru,25,"Japanese,JP",,no
+Hola,Miguel,50,"Espanol,ES",,no
+Hello,Michael,30,"German,DE",2020-10-22,yes
+Hola,Miguel,50,"Espanol,ES",2020-10-22 19:00,yes
+Ohayou,Maikaru,25,"Japanese,JP",2020-10-22 19:20,no
+Hello,Michael,30,"German,DE",2020-10-22 19:30,yes
+Hola,Miguel,50,"Espanol,ES",2020-10-22 19:40,no
+Ohayou,Maikaru,25,"Japanese,JP",2020-10-22 19:50,no
+Hello,Michael,30,"German,DE",2020-10-22 20:00,yes
+Hola,Miguel,50,"Espanol,ES",2020-10-22 20:05,no
+Hola,Miguel,50,"Espanol,ES",2020-10-22 20:15:28,yes
+Ohayou,Maikaru,25,"Japanese,JP",2020-10-22,yes
+Hello,Michael,30,"German,DE",,yes
+Hola,Miguel,50,"Espanol,ES",null,yes
+Ohayou,Maikaru,25,"Japanese,JP",null,yes
+Hello,Michael,30,"German,DE",null,yes
+Hola,Miguel,50,"Espanol,ES",,no
+Ohayou,Maikaru,25,"Japanese,JP",,no
+Hola,Miguel,50,"Espanol,ES",,no
+Hello,Michael,30,"German,DE",2020-10-22,yes
+Hola,Miguel,50,"Espanol,ES",2020-10-22 19:00,yes
+Ohayou,Maikaru,25,"Japanese,JP",2020-10-22 19:20,no
+Hello,Michael,30,"German,DE",2020-10-22 19:30,yes
+Hola,Miguel,50,"Espanol,ES",2020-10-22 19:40,no
+Ohayou,Maikaru,25,"Japanese,JP",2020-10-22 19:50,no
+Hello,Michael,30,"German,DE",2020-10-22 20:00,yes
+Hola,Miguel,50,"Espanol,ES",2020-10-22 20:05,no
+Hola,Miguel,50,"Espanol,ES",2020-10-22 20:15:28,yes
+Ohayou,Maikaru,25,"Japanese,JP",2020-10-22,yes
+Hello,Michael,30,"German,DE",,yes
+Hola,Miguel,50,"Espanol,ES",null,yes
+Ohayou,Maikaru,25,"Japanese,JP",null,yes
+Hello,Michael,30,"German,DE",null,yes
+Hola,Miguel,50,"Espanol,ES",,no
+Ohayou,Maikaru,25,"Japanese,JP",,no
+Hola,Miguel,50,"Espanol,ES",,no
+Hello,Michael,30,"German,DE",2020-10-22,yes
+Hola,Miguel,50,"Espanol,ES",2020-10-22 19:00,yes
+Ohayou,Maikaru,25,"Japanese,JP",2020-10-22 19:20,no
+Hello,Michael,30,"German,DE",2020-10-22 19:30,yes
+Hola,Miguel,50,"Espanol,ES",2020-10-22 19:40,no
+Ohayou,Maikaru,25,"Japanese,JP",2020-10-22 19:50,no
+Hello,Michael,30,"German,DE",2020-10-22 20:00,yes
+Hola,Miguel,50,"Espanol,ES",2020-10-22 20:05,no
+Hola,Miguel,50,"Espanol,ES",2020-10-22 20:15:28,yes
+Ohayou,Maikaru,25,"Japanese,JP",2020-10-22,yes
+Hello,Michael,null,"German,DE",,yes
+Hola,Miguel,50,"Espanol,ES",null,yes
+Ohayou,Maikaru,,"Japanese,JP",null,yes
+Hello,Michael,30,"German,DE",null,yes
+Hola,Miguel,50,"Espanol,ES",,no
+Ohayou,Maikaru,25,"Japanese,JP",,no
+Hola,Miguel,50,"Espanol,ES",,no
+Hello,Michael,30,"German,DE",2020-10-22,yes
+Hola,Miguel,50,"Espanol,ES",2020-10-22 19:00,yes
+Ohayou,Maikaru,25,"Japanese,JP",2020-10-22 19:20,no
+Hello,Michael,30,"German,DE",2020-10-22 19:30,yes
+Hola,Miguel,50,"Espanol,ES",2020-10-22 19:40,no
+Ohayou,Maikaru,25,"Japanese,JP",2020-10-22 19:50,no
+Hello,Michael,30,"German,DE",2020-10-22 20:00,yes
+Hola,Miguel,50,"Espanol,ES",2020-10-22 20:05,no
+Hola,Miguel,50,"Espanol,ES",2020-10-22 20:15:28,yes
+Ohayou,Maikaru,25,"Japanese,JP",2020-10-22,yes
+Hello,Michael,30,"German,DE",,yes
+Hola,Miguel,50,"Espanol,ES",null,yes
+Ohayou,Maikaru,25,"Japanese,JP",null,yes
+Hello,Michael,30,"German,DE",null,yes
+Hola,Miguel,50,"Espanol,ES",,no
+Ohayou,Maikaru,25,"Japanese,JP",,no
+Hola,Miguel,50,"Espanol,ES",,no
+Hello,Michael,30,"German,DE",2020-10-22,yes
+Hola,Miguel,50,"Espanol,ES",2020-10-22 19:00,yes
+Ohayou,Maikaru,25,"Japanese,JP",2020-10-22 19:20,no
+Hello,Michael,30,"German,DE",2020-10-22 19:30,yes
+Hola,Miguel,50,"Espanol,ES",2020-10-22 19:40,no
+Ohayou,Maikaru,25,"Japanese,JP",2020-10-22 19:50,no
+Hello,Michael,30,"German,DE",2020-10-22 20:00,yes
+Hola,Miguel,50,"Espanol,ES",2020-10-22 20:05,no
+Hola,Miguel,50,"Espanol,ES",2020-10-22 20:15:28,yes
+Ohayou,Maikaru,25,"Japanese,JP",2020-10-22,yes
+Hello,Michael,30,"German,DE",,yes
+Hola,Miguel,50,"Espanol,ES",null,yes
+Ohayou,Maikaru,25,"Japanese,JP",null,yes
+Hello,Michael,30,"German,DE",null,yes
+Hola,Miguel,50,"Espanol,ES",,no
+Ohayou,Maikaru,25,"Japanese,JP",,no
+Hola,Miguel,50,"Espanol,ES",,no
+Hello,Michael,30,"German,DE",2020-10-22,yes
+Hola,Miguel,50,"Espanol,ES",2020-10-22 19:00,yes
+Ohayou,Maikaru,25,"Japanese,JP",2020-10-22 19:20,no
+Hello,Michael,30,"German,DE",2020-10-22 19:30,yes
+Hola,Miguel,50,"Espanol,ES",2020-10-22 19:40,no
+Ohayou,Maikaru,25,"Japanese,JP",2020-10-22 19:50,no
+Hello,Michael,30,"German,DE",2020-10-22 20:00,yes
+Hola,Miguel,50,"Espanol,ES",2020-10-22 20:05,no
+Hola,Miguel,50,"Espanol,ES",2020-10-22 20:15:28,yes
+Ohayou,Maikaru,25,"Japanese,JP",2020-10-22,yes
+Hello,Michael,30,"German,DE",,yes
+Hola,Miguel,50,"Espanol,ES",null,yes
+Ohayou,Maikaru,25,"Japanese,JP",null,yes
+Hello,Michael,30,"German,DE",null,yes
+Hola,Miguel,50,"Espanol,ES",,no
+Ohayou,Maikaru,25,"Japanese,JP",,no
+Hola,Miguel,50,"Espanol,ES",,no
+Hello,Michael,30,"German,DE",2020-10-22,yes
+Hola,Miguel,50,"Espanol,ES",2020-10-22 19:00,yes
+Ohayou,Maikaru,25,"Japanese,JP",2020-10-22 19:20,no
+Hello,Michael,30,"German,DE",2020-10-22 19:30,yes
+Hola,Miguel,50,"Espanol,ES",2020-10-22 19:40,no
+Ohayou,Maikaru,25,"Japanese,JP",2020-10-22 19:50,no
+Hello,Michael,30,"German,DE",2020-10-22 20:00,yes
+Hola,Miguel,50,"Espanol,ES",2020-10-22 20:05,no
+Hola,Miguel,50,"Espanol,ES",2020-10-22 20:15:28,yes
+Ohayou,Maikaru,25,"Japanese,JP",2020-10-22,yes
+Hello,Michael,30,"German,DE",,yes
+Hola,Miguel,50,"Espanol,ES",null,yes
+Ohayou,Maikaru,25,"Japanese,JP",null,yes
+Hello,Michael,30,"German,DE",null,yes
+Hola,Miguel,50,"Espanol,ES",,no
+Ohayou,Maikaru,25,"Japanese,JP",,no
+Hola,Miguel,50,"Espanol,ES",,no
+Hello,Michael,30,"German,DE",2020-10-22,yes
+Hola,Miguel,50,"Espanol,ES",2020-10-22 19:00,yes
+Ohayou,Maikaru,25,"Japanese,JP",2020-10-22 19:20,no
+Hello,Michael,30,"German,DE",2020-10-22 19:30,yes
+Hola,Miguel,50,"Espanol,ES",2020-10-22 19:40,no
+Ohayou,Maikaru,25,"Japanese,JP",2020-10-22 19:50,no
+Hello,Michael,30,"German,DE",2020-10-22 20:00,yes
+Hola,Miguel,50,"Espanol,ES",2020-10-22 20:05,no
+Hola,Miguel,50,"Espanol,ES",2020-10-22 20:15:28,yes
+Ohayou,Maikaru,25,"Japanese,JP",2020-10-22,yes
+Hello,Michael,null,"German,DE",,yes
+Hola,Miguel,50,"Espanol,ES",null,yes
+Ohayou,Maikaru,,"Japanese,JP",null,yes
+Hello,Michael,30,"German,DE",null,yes
+Hola,Miguel,50,"Espanol,ES",,no
+Ohayou,Maikaru,25,"Japanese,JP",,no
+Hola,Miguel,50,"Espanol,ES",,no
+Hello,Michael,30,"German,DE",2020-10-22,yes
+Hola,Miguel,50,"Espanol,ES",2020-10-22 19:00,yes
+Ohayou,Maikaru,25,"Japanese,JP",2020-10-22 19:20,no
+Hello,Michael,30,"German,DE",2020-10-22 19:30,yes
+Hola,Miguel,50,"Espanol,ES",2020-10-22 19:40,no
+Ohayou,Maikaru,25,"Japanese,JP",2020-10-22 19:50,no
+Hello,Michael,30,"German,DE",2020-10-22 20:00,yes
+Hola,Miguel,50,"Espanol,ES",2020-10-22 20:05,no
+Hola,Miguel,50,"Espanol,ES",2020-10-22 20:15:28,yes
+Ohayou,Maikaru,25,"Japanese,JP",2020-10-22,yes
+Hello,Michael,30,"German,DE",,yes
+Hola,Miguel,50,"Espanol,ES",null,yes
+Ohayou,Maikaru,25,"Japanese,JP",null,yes
+Hello,Michael,30,"German,DE",null,yes
+Hola,Miguel,50,"Espanol,ES",,no
+Ohayou,Maikaru,25,"Japanese,JP",,no
+Hola,Miguel,50,"Espanol,ES",,no
+Hello,Michael,30,"German,DE",2020-10-22,yes
+Hola,Miguel,50,"Espanol,ES",2020-10-22 19:00,yes
+Ohayou,Maikaru,25,"Japanese,JP",2020-10-22 19:20,no
+Hello,Michael,30,"German,DE",2020-10-22 19:30,yes
+Hola,Miguel,50,"Espanol,ES",2020-10-22 19:40,no
+Ohayou,Maikaru,25,"Japanese,JP",2020-10-22 19:50,no
+Hello,Michael,30,"German,DE",2020-10-22 20:00,yes
+Hola,Miguel,50,"Espanol,ES",2020-10-22 20:05,no
+Hola,Miguel,50,"Espanol,ES",2020-10-22 20:15:28,yes
+Ohayou,Maikaru,25,"Japanese,JP",2020-10-22,yes
+Hello,Michael,30,"German,DE",,yes
+Hola,Miguel,50,"Espanol,ES",null,yes
+Ohayou,Maikaru,25,"Japanese,JP",null,yes
+Hello,Michael,30,"German,DE",null,yes
+Hola,Miguel,50,"Espanol,ES",,no
+Ohayou,Maikaru,25,"Japanese,JP",,no
+Hola,Miguel,50,"Espanol,ES",,no
+Hello,Michael,30,"German,DE",2020-10-22,yes
+Hola,Miguel,50,"Espanol,ES",2020-10-22 19:00,yes
+Ohayou,Maikaru,25,"Japanese,JP",2020-10-22 19:20,no
+Hello,Michael,30,"German,DE",2020-10-22 19:30,yes
+Hola,Miguel,50,"Espanol,ES",2020-10-22 19:40,no
+Ohayou,Maikaru,25,"Japanese,JP",2020-10-22 19:50,no
+Hello,Michael,30,"German,DE",2020-10-22 20:00,yes
+Hola,Miguel,50,"Espanol,ES",2020-10-22 20:05,no
+Hola,Miguel,50,"Espanol,ES",2020-10-22 20:15:28,yes
+Ohayou,Maikaru,25,"Japanese,JP",2020-10-22,yes
+Hello,Michael,30,"German,DE",,yes
+Hola,Miguel,50,"Espanol,ES",null,yes
+Ohayou,Maikaru,25,"Japanese,JP",null,yes
+Hello,Michael,30,"German,DE",null,yes
+Hola,Miguel,50,"Espanol,ES",,no
+Ohayou,Maikaru,25,"Japanese,JP",,no
+Hola,Miguel,50,"Espanol,ES",,no
+Hello,Michael,30,"German,DE",2020-10-22,yes
+Hola,Miguel,50,"Espanol,ES",2020-10-22 19:00,yes
+Ohayou,Maikaru,25,"Japanese,JP",2020-10-22 19:20,no
+Hello,Michael,30,"German,DE",2020-10-22 19:30,yes
+Hola,Miguel,50,"Espanol,ES",2020-10-22 19:40,no
+Ohayou,Maikaru,25,"Japanese,JP",2020-10-22 19:50,no
+Hello,Michael,30,"German,DE",2020-10-22 20:00,yes
+Hola,Miguel,50,"Espanol,ES",2020-10-22 20:05,no
+Hola,Miguel,50,"Espanol,ES",2020-10-22 20:15:28,yes
+Ohayou,Maikaru,25,"Japanese,JP",2020-10-22,yes
+Hello,Michael,30,"German,DE",,yes
+Hola,Miguel,50,"Espanol,ES",null,yes
+Ohayou,Maikaru,25,"Japanese,JP",null,yes
+Hello,Michael,30,"German,DE",null,yes
+Hola,Miguel,50,"Espanol,ES",,no
+Ohayou,Maikaru,25,"Japanese,JP",,no
+Hola,Miguel,50,"Espanol,ES",,no
+Hello,Michael,30,"German,DE",2020-10-22,yes
+Hola,Miguel,50,"Espanol,ES",2020-10-22 19:00,yes
+Ohayou,Maikaru,25,"Japanese,JP",2020-10-22 19:20,no
+Hello,Michael,30,"German,DE",2020-10-22 19:30,yes
+Hola,Miguel,50,"Espanol,ES",2020-10-22 19:40,no
+Ohayou,Maikaru,25,"Japanese,JP",2020-10-22 19:50,no
+Hello,Michael,30,"German,DE",2020-10-22 20:00,yes
+Hola,Miguel,50,"Espanol,ES",2020-10-22 20:05,no
+Hola,Miguel,50,"Espanol,ES",2020-10-22 20:15:28,yes
+Ohayou,Maikaru,25,"Japanese,JP",2020-10-22,yes
+Hello,Michael,null,"German,DE",,yes
+Hola,Miguel,50,"Espanol,ES",null,yes
+Ohayou,Maikaru,,"Japanese,JP",null,yes
+Hello,Michael,30,"German,DE",null,yes
+Hola,Miguel,50,"Espanol,ES",,no
+Ohayou,Maikaru,25,"Japanese,JP",,no
+Hola,Miguel,50,"Espanol,ES",,no
+Hello,Michael,30,"German,DE",2020-10-22,yes
+Hola,Miguel,50,"Espanol,ES",2020-10-22 19:00,yes
+Ohayou,Maikaru,25,"Japanese,JP",2020-10-22 19:20,no
+Hello,Michael,30,"German,DE",2020-10-22 19:30,yes
+Hola,Miguel,50,"Espanol,ES",2020-10-22 19:40,no
+Ohayou,Maikaru,25,"Japanese,JP",2020-10-22 19:50,no
+Hello,Michael,30,"German,DE",2020-10-22 20:00,yes
+Hola,Miguel,50,"Espanol,ES",2020-10-22 20:05,no
+Hola,Miguel,50,"Espanol,ES",2020-10-22 20:15:28,yes
+Ohayou,Maikaru,25,"Japanese,JP",2020-10-22,yes
+Hello,Michael,30,"German,DE",,yes
+Hola,Miguel,50,"Espanol,ES",null,yes
+Ohayou,Maikaru,25,"Japanese,JP",null,yes
+Hello,Michael,30,"German,DE",null,yes
+Hola,Miguel,50,"Espanol,ES",,no
+Ohayou,Maikaru,25,"Japanese,JP",,no
+Hola,Miguel,50,"Espanol,ES",,no
+Hello,Michael,30,"German,DE",2020-10-22,yes
+Hola,Miguel,50,"Espanol,ES",2020-10-22 19:00,yes
+Ohayou,Maikaru,25,"Japanese,JP",2020-10-22 19:20,no
+Hello,Michael,30,"German,DE",2020-10-22 19:30,yes
+Hola,Miguel,50,"Espanol,ES",2020-10-22 19:40,no
+Ohayou,Maikaru,25,"Japanese,JP",2020-10-22 19:50,no
+Hello,Michael,30,"German,DE",2020-10-22 20:00,yes
+Hola,Miguel,50,"Espanol,ES",2020-10-22 20:05,no
+Hola,Miguel,50,"Espanol,ES",2020-10-22 20:15:28,yes
+Ohayou,Maikaru,25,"Japanese,JP",2020-10-22,yes
+Hello,Michael,30,"German,DE",,yes
+Hola,Miguel,50,"Espanol,ES",null,yes
+Ohayou,Maikaru,25,"Japanese,JP",null,yes
+Hello,Michael,30,"German,DE",null,yes
+Hola,Miguel,50,"Espanol,ES",,no
+Ohayou,Maikaru,25,"Japanese,JP",,no
+Hola,Miguel,50,"Espanol,ES",,no
+Hello,Michael,30,"German,DE",2020-10-22,yes
+Hola,Miguel,50,"Espanol,ES",2020-10-22 19:00,yes
+Ohayou,Maikaru,25,"Japanese,JP",2020-10-22 19:20,no
+Hello,Michael,30,"German,DE",2020-10-22 19:30,yes
+Hola,Miguel,50,"Espanol,ES",2020-10-22 19:40,no
+Ohayou,Maikaru,25,"Japanese,JP",2020-10-22 19:50,no
+Hello,Michael,30,"German,DE",2020-10-22 20:00,yes
+Hola,Miguel,50,"Espanol,ES",2020-10-22 20:05,no
+Hola,Miguel,50,"Espanol,ES",2020-10-22 20:15:28,yes
+Ohayou,Maikaru,25,"Japanese,JP",2020-10-22,yes
+Hello,Michael,30,"German,DE",,yes
+Hola,Miguel,50,"Espanol,ES",null,yes
+Ohayou,Maikaru,25,"Japanese,JP",null,yes
+Hello,Michael,30,"German,DE",null,yes
+Hola,Miguel,50,"Espanol,ES",,no
+Ohayou,Maikaru,25,"Japanese,JP",,no
+Hola,Miguel,50,"Espanol,ES",,no
+Hello,Michael,30,"German,DE",2020-10-22,yes
+Hola,Miguel,50,"Espanol,ES",2020-10-22 19:00,yes
+Ohayou,Maikaru,25,"Japanese,JP",2020-10-22 19:20,no
+Hello,Michael,30,"German,DE",2020-10-22 19:30,yes
+Hola,Miguel,50,"Espanol,ES",2020-10-22 19:40,no
+Ohayou,Maikaru,25,"Japanese,JP",2020-10-22 19:50,no
+Hello,Michael,30,"German,DE",2020-10-22 20:00,yes
+Hola,Miguel,50,"Espanol,ES",2020-10-22 20:05,no
+Hola,Miguel,50,"Espanol,ES",2020-10-22 20:15:28,yes
+Ohayou,Maikaru,25,"Japanese,JP",2020-10-22,yes
+Hello,Michael,30,"German,DE",,yes
+Hola,Miguel,50,"Espanol,ES",null,yes
+Ohayou,Maikaru,25,"Japanese,JP",null,yes
+Hello,Michael,30,"German,DE",null,yes
+Hola,Miguel,50,"Espanol,ES",,no
+Ohayou,Maikaru,25,"Japanese,JP",,no
+Hola,Miguel,50,"Espanol,ES",,no
+Hello,Michael,30,"German,DE",2020-10-22,yes
+Hola,Miguel,50,"Espanol,ES",2020-10-22 19:00,yes
+Ohayou,Maikaru,25,"Japanese,JP",2020-10-22 19:20,no
+Hello,Michael,30,"German,DE",2020-10-22 19:30,yes
+Hola,Miguel,50,"Espanol,ES",2020-10-22 19:40,no
+Ohayou,Maikaru,25,"Japanese,JP",2020-10-22 19:50,no
+Hello,Michael,30,"German,DE",2020-10-22 20:00,yes
+Hola,Miguel,50,"Espanol,ES",2020-10-22 20:05,no
+Hola,Miguel,50,"Espanol,ES",2020-10-22 20:15:28,yes
+Ohayou,Maikaru,25,"Japanese,JP",2020-10-22,yes
+Hello,Michael,null,"German,DE",,yes
+Hola,Miguel,50,"Espanol,ES",null,yes
+Ohayou,Maikaru,,"Japanese,JP",null,yes
+Hello,Michael,30,"German,DE",null,yes
+Hola,Miguel,50,"Espanol,ES",,no
+Ohayou,Maikaru,25,"Japanese,JP",,no
+Hola,Miguel,50,"Espanol,ES",,no
+Hello,Michael,30,"German,DE",2020-10-22,yes
+Hola,Miguel,50,"Espanol,ES",2020-10-22 19:00,yes
+Ohayou,Maikaru,25,"Japanese,JP",2020-10-22 19:20,no
+Hello,Michael,30,"German,DE",2020-10-22 19:30,yes
+Hola,Miguel,50,"Espanol,ES",2020-10-22 19:40,no
+Ohayou,Maikaru,25,"Japanese,JP",2020-10-22 19:50,no
+Hello,Michael,30,"German,DE",2020-10-22 20:00,yes
+Hola,Miguel,50,"Espanol,ES",2020-10-22 20:05,no
+Hola,Miguel,50,"Espanol,ES",2020-10-22 20:15:28,yes
+Ohayou,Maikaru,25,"Japanese,JP",2020-10-22,yes
+Hello,Michael,30,"German,DE",,yes
+Hola,Miguel,50,"Espanol,ES",null,yes
+Ohayou,Maikaru,25,"Japanese,JP",null,yes
+Hello,Michael,30,"German,DE",null,yes
+Hola,Miguel,50,"Espanol,ES",,no
+Ohayou,Maikaru,25,"Japanese,JP",,no
+Hola,Miguel,50,"Espanol,ES",,no
+Hello,Michael,30,"German,DE",2020-10-22,yes
+Hola,Miguel,50,"Espanol,ES",2020-10-22 19:00,yes
+Ohayou,Maikaru,25,"Japanese,JP",2020-10-22 19:20,no
+Hello,Michael,30,"German,DE",2020-10-22 19:30,yes
+Hola,Miguel,50,"Espanol,ES",2020-10-22 19:40,no
+Ohayou,Maikaru,25,"Japanese,JP",2020-10-22 19:50,no
+Hello,Michael,30,"German,DE",2020-10-22 20:00,yes
+Hola,Miguel,50,"Espanol,ES",2020-10-22 20:05,no
+Hola,Miguel,50,"Espanol,ES",2020-10-22 20:15:28,yes
+Ohayou,Maikaru,25,"Japanese,JP",2020-10-22,yes
+Hello,Michael,30,"German,DE",,yes
+Hola,Miguel,50,"Espanol,ES",null,yes
+Ohayou,Maikaru,25,"Japanese,JP",null,yes
+Hello,Michael,30,"German,DE",null,yes
+Hola,Miguel,50,"Espanol,ES",,no
+Ohayou,Maikaru,25,"Japanese,JP",,no
+Hola,Miguel,50,"Espanol,ES",,no
+Hello,Michael,30,"German,DE",2020-10-22,yes
+Hola,Miguel,50,"Espanol,ES",2020-10-22 19:00,yes
+Ohayou,Maikaru,25,"Japanese,JP",2020-10-22 19:20,no
+Hello,Michael,30,"German,DE",2020-10-22 19:30,yes
+Hola,Miguel,50,"Espanol,ES",2020-10-22 19:40,no
+Ohayou,Maikaru,25,"Japanese,JP",2020-10-22 19:50,no
+Hello,Michael,30,"German,DE",2020-10-22 20:00,yes
+Hola,Miguel,50,"Espanol,ES",2020-10-22 20:05,no
+Hola,Miguel,50,"Espanol,ES",2020-10-22 20:15:28,yes
+Ohayou,Maikaru,25,"Japanese,JP",2020-10-22,yes
+Hello,Michael,30,"German,DE",,yes
+Hola,Miguel,50,"Espanol,ES",null,yes
+Ohayou,Maikaru,25,"Japanese,JP",null,yes
+Hello,Michael,30,"German,DE",null,yes
+Hola,Miguel,50,"Espanol,ES",,no
+Ohayou,Maikaru,25,"Japanese,JP",,no
+Hola,Miguel,50,"Espanol,ES",,no
+Hello,Michael,30,"German,DE",2020-10-22,yes
+Hola,Miguel,50,"Espanol,ES",2020-10-22 19:00,yes
+Ohayou,Maikaru,25,"Japanese,JP",2020-10-22 19:20,no
+Hello,Michael,30,"German,DE",2020-10-22 19:30,yes
+Hola,Miguel,50,"Espanol,ES",2020-10-22 19:40,no
+Ohayou,Maikaru,25,"Japanese,JP",2020-10-22 19:50,no
+Hello,Michael,30,"German,DE",2020-10-22 20:00,yes
+Hola,Miguel,50,"Espanol,ES",2020-10-22 20:05,no
+Hola,Miguel,50,"Espanol,ES",2020-10-22 20:15:28,yes
+Ohayou,Maikaru,25,"Japanese,JP",2020-10-22,yes
+Hello,Michael,30,"German,DE",,yes
+Hola,Miguel,50,"Espanol,ES",null,yes
+Ohayou,Maikaru,25,"Japanese,JP",null,yes
+Hello,Michael,30,"German,DE",null,yes
+Hola,Miguel,50,"Espanol,ES",,no
+Ohayou,Maikaru,25,"Japanese,JP",,no
+Hola,Miguel,50,"Espanol,ES",,no
+Hello,Michael,30,"German,DE",2020-10-22,yes
+Hola,Miguel,50,"Espanol,ES",2020-10-22 19:00,yes
+Ohayou,Maikaru,25,"Japanese,JP",2020-10-22 19:20,no
+Hello,Michael,30,"German,DE",2020-10-22 19:30,yes
+Hola,Miguel,50,"Espanol,ES",2020-10-22 19:40,no
+Ohayou,Maikaru,25,"Japanese,JP",2020-10-22 19:50,no
+Hello,Michael,30,"German,DE",2020-10-22 20:00,yes
+Hola,Miguel,50,"Espanol,ES",2020-10-22 20:05,no
+Hola,Miguel,50,"Espanol,ES",2020-10-22 20:15:28,yes
+Ohayou,Maikaru,25,"Japanese,JP",2020-10-22,yes
+Hello,Michael,null,"German,DE",,yes
+Hola,Miguel,50,"Espanol,ES",null,yes
+Ohayou,Maikaru,,"Japanese,JP",null,yes
+Hello,Michael,30,"German,DE",null,yes
+Hola,Miguel,50,"Espanol,ES",,no
+Ohayou,Maikaru,25,"Japanese,JP",,no
+Hola,Miguel,50,"Espanol,ES",,no
+Hello,Michael,30,"German,DE",2020-10-22,yes
+Hola,Miguel,50,"Espanol,ES",2020-10-22 19:00,yes
+Ohayou,Maikaru,25,"Japanese,JP",2020-10-22 19:20,no
+Hello,Michael,30,"German,DE",2020-10-22 19:30,yes
+Hola,Miguel,50,"Espanol,ES",2020-10-22 19:40,no
+Ohayou,Maikaru,25,"Japanese,JP",2020-10-22 19:50,no
+Hello,Michael,30,"German,DE",2020-10-22 20:00,yes
+Hola,Miguel,50,"Espanol,ES",2020-10-22 20:05,no
+Hola,Miguel,50,"Espanol,ES",2020-10-22 20:15:28,yes
+Ohayou,Maikaru,25,"Japanese,JP",2020-10-22,yes
+Hello,Michael,30,"German,DE",,yes
+Hola,Miguel,50,"Espanol,ES",null,yes
+Ohayou,Maikaru,25,"Japanese,JP",null,yes
+Hello,Michael,30,"German,DE",null,yes
+Hola,Miguel,50,"Espanol,ES",,no
+Ohayou,Maikaru,25,"Japanese,JP",,no
+Hola,Miguel,50,"Espanol,ES",,no
+Hello,Michael,30,"German,DE",2020-10-22,yes
+Hola,Miguel,50,"Espanol,ES",2020-10-22 19:00,yes
+Ohayou,Maikaru,25,"Japanese,JP",2020-10-22 19:20,no
+Hello,Michael,30,"German,DE",2020-10-22 19:30,yes
+Hola,Miguel,50,"Espanol,ES",2020-10-22 19:40,no
+Ohayou,Maikaru,25,"Japanese,JP",2020-10-22 19:50,no
+Hello,Michael,30,"German,DE",2020-10-22 20:00,yes
+Hola,Miguel,50,"Espanol,ES",2020-10-22 20:05,no
+Hola,Miguel,50,"Espanol,ES",2020-10-22 20:15:28,yes
+Ohayou,Maikaru,25,"Japanese,JP",2020-10-22,yes
+Hello,Michael,30,"German,DE",,yes
+Hola,Miguel,50,"Espanol,ES",null,yes
+Ohayou,Maikaru,25,"Japanese,JP",null,yes
+Hello,Michael,30,"German,DE",null,yes
+Hola,Miguel,50,"Espanol,ES",,no
+Ohayou,Maikaru,25,"Japanese,JP",,no
+Hola,Miguel,50,"Espanol,ES",,no
+Hello,Michael,30,"German,DE",2020-10-22,yes
+Hola,Miguel,50,"Espanol,ES",2020-10-22 19:00,yes
+Ohayou,Maikaru,25,"Japanese,JP",2020-10-22 19:20,no
+Hello,Michael,30,"German,DE",2020-10-22 19:30,yes
+Hola,Miguel,50,"Espanol,ES",2020-10-22 19:40,no
+Ohayou,Maikaru,25,"Japanese,JP",2020-10-22 19:50,no
+Hello,Michael,30,"German,DE",2020-10-22 20:00,yes
+Hola,Miguel,50,"Espanol,ES",2020-10-22 20:05,no
+Hola,Miguel,50,"Espanol,ES",2020-10-22 20:15:28,yes
+Ohayou,Maikaru,25,"Japanese,JP",2020-10-22,yes
+Hello,Michael,30,"German,DE",,yes
+Hola,Miguel,50,"Espanol,ES",null,yes
+Ohayou,Maikaru,25,"Japanese,JP",null,yes
+Hello,Michael,30,"German,DE",null,yes
+Hola,Miguel,50,"Espanol,ES",,no
+Ohayou,Maikaru,25,"Japanese,JP",,no
+Hola,Miguel,50,"Espanol,ES",,no
+Hello,Michael,30,"German,DE",2020-10-22,yes
+Hola,Miguel,50,"Espanol,ES",2020-10-22 19:00,yes
+Ohayou,Maikaru,25,"Japanese,JP",2020-10-22 19:20,no
+Hello,Michael,30,"German,DE",2020-10-22 19:30,yes
+Hola,Miguel,50,"Espanol,ES",2020-10-22 19:40,no
+Ohayou,Maikaru,25,"Japanese,JP",2020-10-22 19:50,no
+Hello,Michael,30,"German,DE",2020-10-22 20:00,yes
+Hola,Miguel,50,"Espanol,ES",2020-10-22 20:05,no
+Hola,Miguel,50,"Espanol,ES",2020-10-22 20:15:28,yes
+Ohayou,Maikaru,25,"Japanese,JP",2020-10-22,yes
+Hello,Michael,30,"German,DE",,yes
+Hola,Miguel,50,"Espanol,ES",null,yes
+Ohayou,Maikaru,25,"Japanese,JP",null,yes
+Hello,Michael,30,"German,DE",null,yes
+Hola,Miguel,50,"Espanol,ES",,no
+Ohayou,Maikaru,25,"Japanese,JP",,no
+Hola,Miguel,50,"Espanol,ES",,no
+Hello,Michael,30,"German,DE",2020-10-22,yes
+Hola,Miguel,50,"Espanol,ES",2020-10-22 19:00,yes
+Ohayou,Maikaru,25,"Japanese,JP",2020-10-22 19:20,no
+Hello,Michael,30,"German,DE",2020-10-22 19:30,yes
+Hola,Miguel,50,"Espanol,ES",2020-10-22 19:40,no
+Ohayou,Maikaru,25,"Japanese,JP",2020-10-22 19:50,no
+Hello,Michael,30,"German,DE",2020-10-22 20:00,yes
+Hola,Miguel,50,"Espanol,ES",2020-10-22 20:05,no
+Hola,Miguel,50,"Espanol,ES",2020-10-22 20:15:28,yes
+Ohayou,Maikaru,25,"Japanese,JP",2020-10-22,yes
+Hello,Michael,null,"German,DE",,yes
+Hola,Miguel,50,"Espanol,ES",null,yes
+Ohayou,Maikaru,,"Japanese,JP",null,yes
+Hello,Michael,30,"German,DE",null,yes
+Hola,Miguel,50,"Espanol,ES",,no
+Ohayou,Maikaru,25,"Japanese,JP",,no
+Hola,Miguel,50,"Espanol,ES",,no
+Hello,Michael,30,"German,DE",2020-10-22,yes
+Hola,Miguel,50,"Espanol,ES",2020-10-22 19:00,yes
+Ohayou,Maikaru,25,"Japanese,JP",2020-10-22 19:20,no
+Hello,Michael,30,"German,DE",2020-10-22 19:30,yes
+Hola,Miguel,50,"Espanol,ES",2020-10-22 19:40,no
+Ohayou,Maikaru,25,"Japanese,JP",2020-10-22 19:50,no
+Hello,Michael,30,"German,DE",2020-10-22 20:00,yes
+Hola,Miguel,50,"Espanol,ES",2020-10-22 20:05,no
+Hola,Miguel,50,"Espanol,ES",2020-10-22 20:15:28,yes
+Ohayou,Maikaru,25,"Japanese,JP",2020-10-22,yes
+Hello,Michael,30,"German,DE",,yes
+Hola,Miguel,50,"Espanol,ES",null,yes
+Ohayou,Maikaru,25,"Japanese,JP",null,yes
+Hello,Michael,30,"German,DE",null,yes
+Hola,Miguel,50,"Espanol,ES",,no
+Ohayou,Maikaru,25,"Japanese,JP",,no
+Hola,Miguel,50,"Espanol,ES",,no
+Hello,Michael,30,"German,DE",2020-10-22,yes
+Hola,Miguel,50,"Espanol,ES",2020-10-22 19:00,yes
+Ohayou,Maikaru,25,"Japanese,JP",2020-10-22 19:20,no
+Hello,Michael,30,"German,DE",2020-10-22 19:30,yes
+Hola,Miguel,50,"Espanol,ES",2020-10-22 19:40,no
+Ohayou,Maikaru,25,"Japanese,JP",2020-10-22 19:50,no
+Hello,Michael,30,"German,DE",2020-10-22 20:00,yes
+Hola,Miguel,50,"Espanol,ES",2020-10-22 20:05,no
+Hola,Miguel,50,"Espanol,ES",2020-10-22 20:15:28,yes
+Ohayou,Maikaru,25,"Japanese,JP",2020-10-22,yes
+Hello,Michael,30,"German,DE",,yes
+Hola,Miguel,50,"Espanol,ES",null,yes
+Ohayou,Maikaru,25,"Japanese,JP",null,yes
+Hello,Michael,30,"German,DE",null,yes
+Hola,Miguel,50,"Espanol,ES",,no
+Ohayou,Maikaru,25,"Japanese,JP",,no
+Hola,Miguel,50,"Espanol,ES",,no
+Hello,Michael,30,"German,DE",2020-10-22,yes
+Hola,Miguel,50,"Espanol,ES",2020-10-22 19:00,yes
+Ohayou,Maikaru,25,"Japanese,JP",2020-10-22 19:20,no
+Hello,Michael,30,"German,DE",2020-10-22 19:30,yes
+Hola,Miguel,50,"Espanol,ES",2020-10-22 19:40,no
+Ohayou,Maikaru,25,"Japanese,JP",2020-10-22 19:50,no
+Hello,Michael,30,"German,DE",2020-10-22 20:00,yes
+Hola,Miguel,50,"Espanol,ES",2020-10-22 20:05,no
+Hola,Miguel,50,"Espanol,ES",2020-10-22 20:15:28,yes
+Ohayou,Maikaru,25,"Japanese,JP",2020-10-22,yes
+Hello,Michael,30,"German,DE",,yes
+Hola,Miguel,50,"Espanol,ES",null,yes
+Ohayou,Maikaru,25,"Japanese,JP",null,yes
+Hello,Michael,30,"German,DE",null,yes
+Hola,Miguel,50,"Espanol,ES",,no
+Ohayou,Maikaru,25,"Japanese,JP",,no
+Hola,Miguel,50,"Espanol,ES",,no
+Hello,Michael,30,"German,DE",2020-10-22,yes
+Hola,Miguel,50,"Espanol,ES",2020-10-22 19:00,yes
+Ohayou,Maikaru,25,"Japanese,JP",2020-10-22 19:20,no
+Hello,Michael,30,"German,DE",2020-10-22 19:30,yes
+Hola,Miguel,50,"Espanol,ES",2020-10-22 19:40,no
+Ohayou,Maikaru,25,"Japanese,JP",2020-10-22 19:50,no
+Hello,Michael,30,"German,DE",2020-10-22 20:00,yes
+Hola,Miguel,50,"Espanol,ES",2020-10-22 20:05,no
+Hola,Miguel,50,"Espanol,ES",2020-10-22 20:15:28,yes
+Ohayou,Maikaru,25,"Japanese,JP",2020-10-22,yes
+Hello,Michael,30,"German,DE",,yes
+Hola,Miguel,50,"Espanol,ES",null,yes
+Ohayou,Maikaru,25,"Japanese,JP",null,yes
+Hello,Michael,30,"German,DE",null,yes
+Hola,Miguel,50,"Espanol,ES",,no
+Ohayou,Maikaru,25,"Japanese,JP",,no
+Hola,Miguel,50,"Espanol,ES",,no
+Hello,Michael,30,"German,DE",2020-10-22,yes
+Hola,Miguel,50,"Espanol,ES",2020-10-22 19:00,yes
+Ohayou,Maikaru,25,"Japanese,JP",2020-10-22 19:20,no
+Hello,Michael,30,"German,DE",2020-10-22 19:30,yes
+Hola,Miguel,50,"Espanol,ES",2020-10-22 19:40,no
+Ohayou,Maikaru,25,"Japanese,JP",2020-10-22 19:50,no
+Hello,Michael,30,"German,DE",2020-10-22 20:00,yes
+Hola,Miguel,50,"Espanol,ES",2020-10-22 20:05,no
+Hola,Miguel,50,"Espanol,ES",2020-10-22 20:15:28,yes
+Ohayou,Maikaru,25,"Japanese,JP",2020-10-22,yes
+Hello,Michael,null,"German,DE",,yes
+Hola,Miguel,50,"Espanol,ES",null,yes
+Ohayou,Maikaru,,"Japanese,JP",null,yes
+Hello,Michael,30,"German,DE",null,yes
+Hola,Miguel,50,"Espanol,ES",,no
+Ohayou,Maikaru,25,"Japanese,JP",,no
+Hola,Miguel,50,"Espanol,ES",,no
+Hello,Michael,30,"German,DE",2020-10-22,yes
+Hola,Miguel,50,"Espanol,ES",2020-10-22 19:00,yes
+Ohayou,Maikaru,25,"Japanese,JP",2020-10-22 19:20,no
+Hello,Michael,30,"German,DE",2020-10-22 19:30,yes
+Hola,Miguel,50,"Espanol,ES",2020-10-22 19:40,no
+Ohayou,Maikaru,25,"Japanese,JP",2020-10-22 19:50,no
+Hello,Michael,30,"German,DE",2020-10-22 20:00,yes
+Hola,Miguel,50,"Espanol,ES",2020-10-22 20:05,no
+Hola,Miguel,50,"Espanol,ES",2020-10-22 20:15:28,yes
+Ohayou,Maikaru,25,"Japanese,JP",2020-10-22,yes
+Hello,Michael,30,"German,DE",,yes
+Hola,Miguel,50,"Espanol,ES",null,yes
+Ohayou,Maikaru,25,"Japanese,JP",null,yes
+Hello,Michael,30,"German,DE",null,yes
+Hola,Miguel,50,"Espanol,ES",,no
+Ohayou,Maikaru,25,"Japanese,JP",,no
+Hola,Miguel,50,"Espanol,ES",,no
+Hello,Michael,30,"German,DE",2020-10-22,yes
+Hola,Miguel,50,"Espanol,ES",2020-10-22 19:00,yes
+Ohayou,Maikaru,25,"Japanese,JP",2020-10-22 19:20,no
+Hello,Michael,30,"German,DE",2020-10-22 19:30,yes
+Hola,Miguel,50,"Espanol,ES",2020-10-22 19:40,no
+Ohayou,Maikaru,25,"Japanese,JP",2020-10-22 19:50,no
+Hello,Michael,30,"German,DE",2020-10-22 20:00,yes
+Hola,Miguel,50,"Espanol,ES",2020-10-22 20:05,no
+Hola,Miguel,50,"Espanol,ES",2020-10-22 20:15:28,yes
+Ohayou,Maikaru,25,"Japanese,JP",2020-10-22,yes
+Hello,Michael,30,"German,DE",,yes
+Hola,Miguel,50,"Espanol,ES",null,yes
+Ohayou,Maikaru,25,"Japanese,JP",null,yes
+Hello,Michael,30,"German,DE",null,yes
+Hola,Miguel,50,"Espanol,ES",,no
+Ohayou,Maikaru,25,"Japanese,JP",,no
+Hola,Miguel,50,"Espanol,ES",,no
+Hello,Michael,30,"German,DE",2020-10-22,yes
+Hola,Miguel,50,"Espanol,ES",2020-10-22 19:00,yes
+Ohayou,Maikaru,25,"Japanese,JP",2020-10-22 19:20,no
+Hello,Michael,30,"German,DE",2020-10-22 19:30,yes
+Hola,Miguel,50,"Espanol,ES",2020-10-22 19:40,no
+Ohayou,Maikaru,25,"Japanese,JP",2020-10-22 19:50,no
+Hello,Michael,30,"German,DE",2020-10-22 20:00,yes
+Hola,Miguel,50,"Espanol,ES",2020-10-22 20:05,no
+Hola,Miguel,50,"Espanol,ES",2020-10-22 20:15:28,yes
+Ohayou,Maikaru,25,"Japanese,JP",2020-10-22,yes
+Hello,Michael,30,"German,DE",,yes
+Hola,Miguel,50,"Espanol,ES",null,yes
+Ohayou,Maikaru,25,"Japanese,JP",null,yes
+Hello,Michael,30,"German,DE",null,yes
+Hola,Miguel,50,"Espanol,ES",,no
+Ohayou,Maikaru,25,"Japanese,JP",,no
+Hola,Miguel,50,"Espanol,ES",,no
+Hello,Michael,30,"German,DE",2020-10-22,yes
+Hola,Miguel,50,"Espanol,ES",2020-10-22 19:00,yes
+Ohayou,Maikaru,25,"Japanese,JP",2020-10-22 19:20,no
+Hello,Michael,30,"German,DE",2020-10-22 19:30,yes
+Hola,Miguel,50,"Espanol,ES",2020-10-22 19:40,no
+Ohayou,Maikaru,25,"Japanese,JP",2020-10-22 19:50,no
+Hello,Michael,30,"German,DE",2020-10-22 20:00,yes
+Hola,Miguel,50,"Espanol,ES",2020-10-22 20:05,no
+Hola,Miguel,50,"Espanol,ES",2020-10-22 20:15:28,yes
+Ohayou,Maikaru,25,"Japanese,JP",2020-10-22,yes
+Hello,Michael,30,"German,DE",,yes
+Hola,Miguel,50,"Espanol,ES",null,yes
+Ohayou,Maikaru,25,"Japanese,JP",null,yes
+Hello,Michael,30,"German,DE",null,yes
+Hola,Miguel,50,"Espanol,ES",,no
+Ohayou,Maikaru,25,"Japanese,JP",,no
+Hola,Miguel,50,"Espanol,ES",,no
+Hello,Michael,30,"German,DE",2020-10-22,yes
+Hola,Miguel,50,"Espanol,ES",2020-10-22 19:00,yes
+Ohayou,Maikaru,25,"Japanese,JP",2020-10-22 19:20,no
+Hello,Michael,30,"German,DE",2020-10-22 19:30,yes
+Hola,Miguel,50,"Espanol,ES",2020-10-22 19:40,no
+Ohayou,Maikaru,25,"Japanese,JP",2020-10-22 19:50,no
+Hello,Michael,30,"German,DE",2020-10-22 20:00,yes
+Hola,Miguel,50,"Espanol,ES",2020-10-22 20:05,no
+Hola,Miguel,50,"Espanol,ES",2020-10-22 20:15:28,yes
+Ohayou,Maikaru,25,"Japanese,JP",2020-10-22,yes
+Hello,Michael,null,"German,DE",,yes
+Hola,Miguel,50,"Espanol,ES",null,yes
+Ohayou,Maikaru,,"Japanese,JP",null,yes
+Hello,Michael,30,"German,DE",null,yes
+Hola,Miguel,50,"Espanol,ES",,no
+Ohayou,Maikaru,25,"Japanese,JP",,no
+Hola,Miguel,50,"Espanol,ES",,no
+Hello,Michael,30,"German,DE",2020-10-22,yes
+Hola,Miguel,50,"Espanol,ES",2020-10-22 19:00,yes
+Ohayou,Maikaru,25,"Japanese,JP",2020-10-22 19:20,no
+Hello,Michael,30,"German,DE",2020-10-22 19:30,yes
+Hola,Miguel,50,"Espanol,ES",2020-10-22 19:40,no
+Ohayou,Maikaru,25,"Japanese,JP",2020-10-22 19:50,no
+Hello,Michael,30,"German,DE",2020-10-22 20:00,yes
+Hola,Miguel,50,"Espanol,ES",2020-10-22 20:05,no
+Hola,Miguel,50,"Espanol,ES",2020-10-22 20:15:28,yes
+Ohayou,Maikaru,25,"Japanese,JP",2020-10-22,yes
+Hello,Michael,30,"German,DE",,yes
+Hola,Miguel,50,"Espanol,ES",null,yes
+Ohayou,Maikaru,25,"Japanese,JP",null,yes
+Hello,Michael,30,"German,DE",null,yes
+Hola,Miguel,50,"Espanol,ES",,no
+Ohayou,Maikaru,25,"Japanese,JP",,no
+Hola,Miguel,50,"Espanol,ES",,no
+Hello,Michael,30,"German,DE",2020-10-22,yes
+Hola,Miguel,50,"Espanol,ES",2020-10-22 19:00,yes
+Ohayou,Maikaru,25,"Japanese,JP",2020-10-22 19:20,no
+Hello,Michael,30,"German,DE",2020-10-22 19:30,yes
+Hola,Miguel,50,"Espanol,ES",2020-10-22 19:40,no
+Ohayou,Maikaru,25,"Japanese,JP",2020-10-22 19:50,no
+Hello,Michael,30,"German,DE",2020-10-22 20:00,yes
+Hola,Miguel,50,"Espanol,ES",2020-10-22 20:05,no
+Hola,Miguel,50,"Espanol,ES",2020-10-22 20:15:28,yes
+Ohayou,Maikaru,25,"Japanese,JP",2020-10-22,yes
+Hello,Michael,30,"German,DE",,yes
+Hola,Miguel,50,"Espanol,ES",null,yes
+Ohayou,Maikaru,25,"Japanese,JP",null,yes
+Hello,Michael,30,"German,DE",null,yes
+Hola,Miguel,50,"Espanol,ES",,no
+Ohayou,Maikaru,25,"Japanese,JP",,no
+Hola,Miguel,50,"Espanol,ES",,no
+Hello,Michael,30,"German,DE",2020-10-22,yes
+Hola,Miguel,50,"Espanol,ES",2020-10-22 19:00,yes
+Ohayou,Maikaru,25,"Japanese,JP",2020-10-22 19:20,no
+Hello,Michael,30,"German,DE",2020-10-22 19:30,yes
+Hola,Miguel,50,"Espanol,ES",2020-10-22 19:40,no
+Ohayou,Maikaru,25,"Japanese,JP",2020-10-22 19:50,no
+Hello,Michael,30,"German,DE",2020-10-22 20:00,yes
+Hola,Miguel,50,"Espanol,ES",2020-10-22 20:05,no
+Hola,Miguel,50,"Espanol,ES",2020-10-22 20:15:28,yes
+Ohayou,Maikaru,25,"Japanese,JP",2020-10-22,yes
+Hello,Michael,30,"German,DE",,yes
+Hola,Miguel,50,"Espanol,ES",null,yes
+Ohayou,Maikaru,25,"Japanese,JP",null,yes
+Hello,Michael,30,"German,DE",null,yes
+Hola,Miguel,50,"Espanol,ES",,no
+Ohayou,Maikaru,25,"Japanese,JP",,no
+Hola,Miguel,50,"Espanol,ES",,no
+Hello,Michael,30,"German,DE",2020-10-22,yes
+Hola,Miguel,50,"Espanol,ES",2020-10-22 19:00,yes
+Ohayou,Maikaru,25,"Japanese,JP",2020-10-22 19:20,no
+Hello,Michael,30,"German,DE",2020-10-22 19:30,yes
+Hola,Miguel,50,"Espanol,ES",2020-10-22 19:40,no
+Ohayou,Maikaru,25,"Japanese,JP",2020-10-22 19:50,no
+Hello,Michael,30,"German,DE",2020-10-22 20:00,yes
+Hola,Miguel,50,"Espanol,ES",2020-10-22 20:05,no
+Hola,Miguel,50,"Espanol,ES",2020-10-22 20:15:28,yes
+Ohayou,Maikaru,25,"Japanese,JP",2020-10-22,yes
+Hello,Michael,30,"German,DE",,yes
+Hola,Miguel,50,"Espanol,ES",null,yes
+Ohayou,Maikaru,25,"Japanese,JP",null,yes
+Hello,Michael,30,"German,DE",null,yes
+Hola,Miguel,50,"Espanol,ES",,no
+Ohayou,Maikaru,25,"Japanese,JP",,no
+Hola,Miguel,50,"Espanol,ES",,no
+Hello,Michael,30,"German,DE",2020-10-22,yes
+Hola,Miguel,50,"Espanol,ES",2020-10-22 19:00,yes
+Ohayou,Maikaru,25,"Japanese,JP",2020-10-22 19:20,no
+Hello,Michael,30,"German,DE",2020-10-22 19:30,yes
+Hola,Miguel,50,"Espanol,ES",2020-10-22 19:40,no
+Ohayou,Maikaru,25,"Japanese,JP",2020-10-22 19:50,no
+Hello,Michael,30,"German,DE",2020-10-22 20:00,yes
+Hola,Miguel,50,"Espanol,ES",2020-10-22 20:05,no
+Hola,Miguel,50,"Espanol,ES",2020-10-22 20:15:28,yes
+Ohayou,Maikaru,25,"Japanese,JP",2020-10-22,yes
+Hello,Michael,null,"German,DE",,yes
+Hola,Miguel,50,"Espanol,ES",null,yes
+Ohayou,Maikaru,,"Japanese,JP",null,yes
+Hello,Michael,30,"German,DE",null,yes
+Hola,Miguel,50,"Espanol,ES",,no
+Ohayou,Maikaru,25,"Japanese,JP",,no
+Hola,Miguel,50,"Espanol,ES",,no
+Hello,Michael,30,"German,DE",2020-10-22,yes
+Hola,Miguel,50,"Espanol,ES",2020-10-22 19:00,yes
+Ohayou,Maikaru,25,"Japanese,JP",2020-10-22 19:20,no
+Hello,Michael,30,"German,DE",2020-10-22 19:30,yes
+Hola,Miguel,50,"Espanol,ES",2020-10-22 19:40,no
+Ohayou,Maikaru,25,"Japanese,JP",2020-10-22 19:50,no
+Hello,Michael,30,"German,DE",2020-10-22 20:00,yes
+Hola,Miguel,50,"Espanol,ES",2020-10-22 20:05,no
+Hola,Miguel,50,"Espanol,ES",2020-10-22 20:15:28,yes
+Ohayou,Maikaru,25,"Japanese,JP",2020-10-22,yes
+Hello,Michael,30,"German,DE",,yes
+Hola,Miguel,50,"Espanol,ES",null,yes
+Ohayou,Maikaru,25,"Japanese,JP",null,yes
+Hello,Michael,30,"German,DE",null,yes
+Hola,Miguel,50,"Espanol,ES",,no
+Ohayou,Maikaru,25,"Japanese,JP",,no
+Hola,Miguel,50,"Espanol,ES",,no
+Hello,Michael,30,"German,DE",2020-10-22,yes
+Hola,Miguel,50,"Espanol,ES",2020-10-22 19:00,yes
+Ohayou,Maikaru,25,"Japanese,JP",2020-10-22 19:20,no
+Hello,Michael,30,"German,DE",2020-10-22 19:30,yes
+Hola,Miguel,50,"Espanol,ES",2020-10-22 19:40,no
+Ohayou,Maikaru,25,"Japanese,JP",2020-10-22 19:50,no
+Hello,Michael,30,"German,DE",2020-10-22 20:00,yes
+Hola,Miguel,50,"Espanol,ES",2020-10-22 20:05,no
+Hola,Miguel,50,"Espanol,ES",2020-10-22 20:15:28,yes
+Ohayou,Maikaru,25,"Japanese,JP",2020-10-22,yes
+Hello,Michael,30,"German,DE",,yes
+Hola,Miguel,50,"Espanol,ES",null,yes
+Ohayou,Maikaru,25,"Japanese,JP",null,yes
+Hello,Michael,30,"German,DE",null,yes
+Hola,Miguel,50,"Espanol,ES",,no
+Ohayou,Maikaru,25,"Japanese,JP",,no
+Hola,Miguel,50,"Espanol,ES",,no
+Hello,Michael,30,"German,DE",2020-10-22,yes
+Hola,Miguel,50,"Espanol,ES",2020-10-22 19:00,yes
+Ohayou,Maikaru,25,"Japanese,JP",2020-10-22 19:20,no
+Hello,Michael,30,"German,DE",2020-10-22 19:30,yes
+Hola,Miguel,50,"Espanol,ES",2020-10-22 19:40,no
+Ohayou,Maikaru,25,"Japanese,JP",2020-10-22 19:50,no
+Hello,Michael,30,"German,DE",2020-10-22 20:00,yes
+Hola,Miguel,50,"Espanol,ES",2020-10-22 20:05,no
+Hola,Miguel,50,"Espanol,ES",2020-10-22 20:15:28,yes
+Ohayou,Maikaru,25,"Japanese,JP",2020-10-22,yes
+Hello,Michael,30,"German,DE",,yes
+Hola,Miguel,50,"Espanol,ES",null,yes
+Ohayou,Maikaru,25,"Japanese,JP",null,yes
+Hello,Michael,30,"German,DE",null,yes
+Hola,Miguel,50,"Espanol,ES",,no
+Ohayou,Maikaru,25,"Japanese,JP",,no
+Hola,Miguel,50,"Espanol,ES",,no
+Hello,Michael,30,"German,DE",2020-10-22,yes
+Hola,Miguel,50,"Espanol,ES",2020-10-22 19:00,yes
+Ohayou,Maikaru,25,"Japanese,JP",2020-10-22 19:20,no
+Hello,Michael,30,"German,DE",2020-10-22 19:30,yes
+Hola,Miguel,50,"Espanol,ES",2020-10-22 19:40,no
+Ohayou,Maikaru,25,"Japanese,JP",2020-10-22 19:50,no
+Hello,Michael,30,"German,DE",2020-10-22 20:00,yes
+Hola,Miguel,50,"Espanol,ES",2020-10-22 20:05,no
+Hola,Miguel,50,"Espanol,ES",2020-10-22 20:15:28,yes
+Ohayou,Maikaru,25,"Japanese,JP",2020-10-22,yes
+Hello,Michael,30,"German,DE",,yes
+Hola,Miguel,50,"Espanol,ES",null,yes
+Ohayou,Maikaru,25,"Japanese,JP",null,yes
+Hello,Michael,30,"German,DE",null,yes
+Hola,Miguel,50,"Espanol,ES",,no
+Ohayou,Maikaru,25,"Japanese,JP",,no
+Hola,Miguel,50,"Espanol,ES",,no
+Hello,Michael,30,"German,DE",2020-10-22,yes
+Hola,Miguel,50,"Espanol,ES",2020-10-22 19:00,yes
+Ohayou,Maikaru,25,"Japanese,JP",2020-10-22 19:20,no
+Hello,Michael,30,"German,DE",2020-10-22 19:30,yes
+Hola,Miguel,50,"Espanol,ES",2020-10-22 19:40,no
+Ohayou,Maikaru,25,"Japanese,JP",2020-10-22 19:50,no
+Hello,Michael,30,"German,DE",2020-10-22 20:00,yes
+Hola,Miguel,50,"Espanol,ES",2020-10-22 20:05,no
+Hola,Miguel,50,"Espanol,ES",2020-10-22 20:15:28,yes
+Ohayou,Maikaru,25,"Japanese,JP",2020-10-22,yes
+Hello,Michael,null,"German,DE",,yes
+Hola,Miguel,50,"Espanol,ES",null,yes
+Ohayou,Maikaru,,"Japanese,JP",null,yes
+Hello,Michael,30,"German,DE",null,yes
+Hola,Miguel,50,"Espanol,ES",,no
+Ohayou,Maikaru,25,"Japanese,JP",,no
+Hola,Miguel,50,"Espanol,ES",,no
+Hello,Michael,30,"German,DE",2020-10-22,yes
+Hola,Miguel,50,"Espanol,ES",2020-10-22 19:00,yes
+Ohayou,Maikaru,25,"Japanese,JP",2020-10-22 19:20,no
+Hello,Michael,30,"German,DE",2020-10-22 19:30,yes
+Hola,Miguel,50,"Espanol,ES",2020-10-22 19:40,no
+Ohayou,Maikaru,25,"Japanese,JP",2020-10-22 19:50,no
+Hello,Michael,30,"German,DE",2020-10-22 20:00,yes
+Hola,Miguel,50,"Espanol,ES",2020-10-22 20:05,no
+Hola,Miguel,50,"Espanol,ES",2020-10-22 20:15:28,yes
+Ohayou,Maikaru,25,"Japanese,JP",2020-10-22,yes
+Hello,Michael,30,"German,DE",,yes
+Hola,Miguel,50,"Espanol,ES",null,yes
+Ohayou,Maikaru,25,"Japanese,JP",null,yes
+Hello,Michael,30,"German,DE",null,yes
+Hola,Miguel,50,"Espanol,ES",,no
+Ohayou,Maikaru,25,"Japanese,JP",,no
+Hola,Miguel,50,"Espanol,ES",,no
+Hello,Michael,30,"German,DE",2020-10-22,yes
+Hola,Miguel,50,"Espanol,ES",2020-10-22 19:00,yes
+Ohayou,Maikaru,25,"Japanese,JP",2020-10-22 19:20,no
+Hello,Michael,30,"German,DE",2020-10-22 19:30,yes
+Hola,Miguel,50,"Espanol,ES",2020-10-22 19:40,no
+Ohayou,Maikaru,25,"Japanese,JP",2020-10-22 19:50,no
+Hello,Michael,30,"German,DE",2020-10-22 20:00,yes
+Hola,Miguel,50,"Espanol,ES",2020-10-22 20:05,no
+Hola,Miguel,50,"Espanol,ES",2020-10-22 20:15:28,yes
+Ohayou,Maikaru,25,"Japanese,JP",2020-10-22,yes
+Hello,Michael,30,"German,DE",,yes
+Hola,Miguel,50,"Espanol,ES",null,yes
+Ohayou,Maikaru,25,"Japanese,JP",null,yes
+Hello,Michael,30,"German,DE",null,yes
+Hola,Miguel,50,"Espanol,ES",,no
+Ohayou,Maikaru,25,"Japanese,JP",,no
+Hola,Miguel,50,"Espanol,ES",,no
+Hello,Michael,30,"German,DE",2020-10-22,yes
+Hola,Miguel,50,"Espanol,ES",2020-10-22 19:00,yes
+Ohayou,Maikaru,25,"Japanese,JP",2020-10-22 19:20,no
+Hello,Michael,30,"German,DE",2020-10-22 19:30,yes
+Hola,Miguel,50,"Espanol,ES",2020-10-22 19:40,no
+Ohayou,Maikaru,25,"Japanese,JP",2020-10-22 19:50,no
+Hello,Michael,30,"German,DE",2020-10-22 20:00,yes
+Hola,Miguel,50,"Espanol,ES",2020-10-22 20:05,no
+Hola,Miguel,50,"Espanol,ES",2020-10-22 20:15:28,yes
+Ohayou,Maikaru,25,"Japanese,JP",2020-10-22,yes
+Hello,Michael,30,"German,DE",,yes
+Hola,Miguel,50,"Espanol,ES",null,yes
+Ohayou,Maikaru,25,"Japanese,JP",null,yes
+Hello,Michael,30,"German,DE",null,yes
+Hola,Miguel,50,"Espanol,ES",,no
+Ohayou,Maikaru,25,"Japanese,JP",,no
+Hola,Miguel,50,"Espanol,ES",,no
+Hello,Michael,30,"German,DE",2020-10-22,yes
+Hola,Miguel,50,"Espanol,ES",2020-10-22 19:00,yes
+Ohayou,Maikaru,25,"Japanese,JP",2020-10-22 19:20,no
+Hello,Michael,30,"German,DE",2020-10-22 19:30,yes
+Hola,Miguel,50,"Espanol,ES",2020-10-22 19:40,no
+Ohayou,Maikaru,25,"Japanese,JP",2020-10-22 19:50,no
+Hello,Michael,30,"German,DE",2020-10-22 20:00,yes
+Hola,Miguel,50,"Espanol,ES",2020-10-22 20:05,no
+Hola,Miguel,50,"Espanol,ES",2020-10-22 20:15:28,yes
+Ohayou,Maikaru,25,"Japanese,JP",2020-10-22,yes
+Hello,Michael,30,"German,DE",,yes
+Hola,Miguel,50,"Espanol,ES",null,yes
+Ohayou,Maikaru,25,"Japanese,JP",null,yes
+Hello,Michael,30,"German,DE",null,yes
+Hola,Miguel,50,"Espanol,ES",,no
+Ohayou,Maikaru,25,"Japanese,JP",,no
+Hola,Miguel,50,"Espanol,ES",,no
+Hello,Michael,30,"German,DE",2020-10-22,yes
+Hola,Miguel,50,"Espanol,ES",2020-10-22 19:00,yes
+Ohayou,Maikaru,25,"Japanese,JP",2020-10-22 19:20,no
+Hello,Michael,30,"German,DE",2020-10-22 19:30,yes
+Hola,Miguel,50,"Espanol,ES",2020-10-22 19:40,no
+Ohayou,Maikaru,25,"Japanese,JP",2020-10-22 19:50,no
+Hello,Michael,30,"German,DE",2020-10-22 20:00,yes
+Hola,Miguel,50,"Espanol,ES",2020-10-22 20:05,no
+Hola,Miguel,50,"Espanol,ES",2020-10-22 20:15:28,yes
+Ohayou,Maikaru,25,"Japanese,JP",2020-10-22,yes
+Hello,Michael,null,"German,DE",,yes
+Hola,Miguel,50,"Espanol,ES",null,yes
+Ohayou,Maikaru,,"Japanese,JP",null,yes
+Hello,Michael,30,"German,DE",null,yes
+Hola,Miguel,50,"Espanol,ES",,no
+Ohayou,Maikaru,25,"Japanese,JP",,no
+Hola,Miguel,50,"Espanol,ES",,no
+Hello,Michael,30,"German,DE",2020-10-22,yes
+Hola,Miguel,50,"Espanol,ES",2020-10-22 19:00,yes
+Ohayou,Maikaru,25,"Japanese,JP",2020-10-22 19:20,no
+Hello,Michael,30,"German,DE",2020-10-22 19:30,yes
+Hola,Miguel,50,"Espanol,ES",2020-10-22 19:40,no
+Ohayou,Maikaru,25,"Japanese,JP",2020-10-22 19:50,no
+Hello,Michael,30,"German,DE",2020-10-22 20:00,yes
+Hola,Miguel,50,"Espanol,ES",2020-10-22 20:05,no
+Hola,Miguel,50,"Espanol,ES",2020-10-22 20:15:28,yes
+Ohayou,Maikaru,25,"Japanese,JP",2020-10-22,yes
+Hello,Michael,30,"German,DE",,yes
+Hola,Miguel,50,"Espanol,ES",null,yes
+Ohayou,Maikaru,25,"Japanese,JP",null,yes
+Hello,Michael,30,"German,DE",null,yes
+Hola,Miguel,50,"Espanol,ES",,no
+Ohayou,Maikaru,25,"Japanese,JP",,no
+Hola,Miguel,50,"Espanol,ES",,no
+Hello,Michael,30,"German,DE",2020-10-22,yes
+Hola,Miguel,50,"Espanol,ES",2020-10-22 19:00,yes
+Ohayou,Maikaru,25,"Japanese,JP",2020-10-22 19:20,no
+Hello,Michael,30,"German,DE",2020-10-22 19:30,yes
+Hola,Miguel,50,"Espanol,ES",2020-10-22 19:40,no
+Ohayou,Maikaru,25,"Japanese,JP",2020-10-22 19:50,no
+Hello,Michael,30,"German,DE",2020-10-22 20:00,yes
+Hola,Miguel,50,"Espanol,ES",2020-10-22 20:05,no
+Hola,Miguel,50,"Espanol,ES",2020-10-22 20:15:28,yes
+Ohayou,Maikaru,25,"Japanese,JP",2020-10-22,yes
+Hello,Michael,30,"German,DE",,yes
+Hola,Miguel,50,"Espanol,ES",null,yes
+Ohayou,Maikaru,25,"Japanese,JP",null,yes
+Hello,Michael,30,"German,DE",null,yes
+Hola,Miguel,50,"Espanol,ES",,no
+Ohayou,Maikaru,25,"Japanese,JP",,no
+Hola,Miguel,50,"Espanol,ES",,no
+Hello,Michael,30,"German,DE",2020-10-22,yes
+Hola,Miguel,50,"Espanol,ES",2020-10-22 19:00,yes
+Ohayou,Maikaru,25,"Japanese,JP",2020-10-22 19:20,no
+Hello,Michael,30,"German,DE",2020-10-22 19:30,yes
+Hola,Miguel,50,"Espanol,ES",2020-10-22 19:40,no
+Ohayou,Maikaru,25,"Japanese,JP",2020-10-22 19:50,no
+Hello,Michael,30,"German,DE",2020-10-22 20:00,yes
+Hola,Miguel,50,"Espanol,ES",2020-10-22 20:05,no
+Hola,Miguel,50,"Espanol,ES",2020-10-22 20:15:28,yes
+Ohayou,Maikaru,25,"Japanese,JP",2020-10-22,yes
+Hello,Michael,30,"German,DE",,yes
+Hola,Miguel,50,"Espanol,ES",null,yes
+Ohayou,Maikaru,25,"Japanese,JP",null,yes
+Hello,Michael,30,"German,DE",null,yes
+Hola,Miguel,50,"Espanol,ES",,no
+Ohayou,Maikaru,25,"Japanese,JP",,no
+Hola,Miguel,50,"Espanol,ES",,no
+Hello,Michael,30,"German,DE",2020-10-22,yes
+Hola,Miguel,50,"Espanol,ES",2020-10-22 19:00,yes
+Ohayou,Maikaru,25,"Japanese,JP",2020-10-22 19:20,no
+Hello,Michael,30,"German,DE",2020-10-22 19:30,yes
+Hola,Miguel,50,"Espanol,ES",2020-10-22 19:40,no
+Ohayou,Maikaru,25,"Japanese,JP",2020-10-22 19:50,no
+Hello,Michael,30,"German,DE",2020-10-22 20:00,yes
+Hola,Miguel,50,"Espanol,ES",2020-10-22 20:05,no
+Hola,Miguel,50,"Espanol,ES",2020-10-22 20:15:28,yes
+Ohayou,Maikaru,25,"Japanese,JP",2020-10-22,yes
+Hello,Michael,30,"German,DE",,yes
+Hola,Miguel,50,"Espanol,ES",null,yes
+Ohayou,Maikaru,25,"Japanese,JP",null,yes
+Hello,Michael,30,"German,DE",null,yes
+Hola,Miguel,50,"Espanol,ES",,no
+Ohayou,Maikaru,25,"Japanese,JP",,no
+Hola,Miguel,50,"Espanol,ES",,no
+Hello,Michael,30,"German,DE",2020-10-22,yes
+Hola,Miguel,50,"Espanol,ES",2020-10-22 19:00,yes
+Ohayou,Maikaru,25,"Japanese,JP",2020-10-22 19:20,no
+Hello,Michael,30,"German,DE",2020-10-22 19:30,yes
+Hola,Miguel,50,"Espanol,ES",2020-10-22 19:40,no
+Ohayou,Maikaru,25,"Japanese,JP",2020-10-22 19:50,no
+Hello,Michael,30,"German,DE",2020-10-22 20:00,yes
+Hola,Miguel,50,"Espanol,ES",2020-10-22 20:05,no
+Hola,Miguel,50,"Espanol,ES",2020-10-22 20:15:28,yes
+Ohayou,Maikaru,25,"Japanese,JP",2020-10-22,yes
+Hello,Michael,null,"German,DE",,yes
+Hola,Miguel,50,"Espanol,ES",null,yes
+Ohayou,Maikaru,,"Japanese,JP",null,yes
+Hello,Michael,30,"German,DE",null,yes
+Hola,Miguel,50,"Espanol,ES",,no
+Ohayou,Maikaru,25,"Japanese,JP",,no
+Hola,Miguel,50,"Espanol,ES",,no
+Hello,Michael,30,"German,DE",2020-10-22,yes
+Hola,Miguel,50,"Espanol,ES",2020-10-22 19:00,yes
+Ohayou,Maikaru,25,"Japanese,JP",2020-10-22 19:20,no
+Hello,Michael,30,"German,DE",2020-10-22 19:30,yes
+Hola,Miguel,50,"Espanol,ES",2020-10-22 19:40,no
+Ohayou,Maikaru,25,"Japanese,JP",2020-10-22 19:50,no
+Hello,Michael,30,"German,DE",2020-10-22 20:00,yes
+Hola,Miguel,50,"Espanol,ES",2020-10-22 20:05,no
+Hola,Miguel,50,"Espanol,ES",2020-10-22 20:15:28,yes
+Ohayou,Maikaru,25,"Japanese,JP",2020-10-22,yes
+Hello,Michael,30,"German,DE",,yes
+Hola,Miguel,50,"Espanol,ES",null,yes
+Ohayou,Maikaru,25,"Japanese,JP",null,yes
+Hello,Michael,30,"German,DE",null,yes
+Hola,Miguel,50,"Espanol,ES",,no
+Ohayou,Maikaru,25,"Japanese,JP",,no
+Hola,Miguel,50,"Espanol,ES",,no
+Hello,Michael,30,"German,DE",2020-10-22,yes
+Hola,Miguel,50,"Espanol,ES",2020-10-22 19:00,yes
+Ohayou,Maikaru,25,"Japanese,JP",2020-10-22 19:20,no
+Hello,Michael,30,"German,DE",2020-10-22 19:30,yes
+Hola,Miguel,50,"Espanol,ES",2020-10-22 19:40,no
+Ohayou,Maikaru,25,"Japanese,JP",2020-10-22 19:50,no
+Hello,Michael,30,"German,DE",2020-10-22 20:00,yes
+Hola,Miguel,50,"Espanol,ES",2020-10-22 20:05,no
+Hola,Miguel,50,"Espanol,ES",2020-10-22 20:15:28,yes
+Ohayou,Maikaru,25,"Japanese,JP",2020-10-22,yes
+Hello,Michael,30,"German,DE",,yes
+Hola,Miguel,50,"Espanol,ES",null,yes
+Ohayou,Maikaru,25,"Japanese,JP",null,yes
+Hello,Michael,30,"German,DE",null,yes
+Hola,Miguel,50,"Espanol,ES",,no
+Ohayou,Maikaru,25,"Japanese,JP",,no
+Hola,Miguel,50,"Espanol,ES",,no
+Hello,Michael,30,"German,DE",2020-10-22,yes
+Hola,Miguel,50,"Espanol,ES",2020-10-22 19:00,yes
+Ohayou,Maikaru,25,"Japanese,JP",2020-10-22 19:20,no
+Hello,Michael,30,"German,DE",2020-10-22 19:30,yes
+Hola,Miguel,50,"Espanol,ES",2020-10-22 19:40,no
+Ohayou,Maikaru,25,"Japanese,JP",2020-10-22 19:50,no
+Hello,Michael,30,"German,DE",2020-10-22 20:00,yes
+Hola,Miguel,50,"Espanol,ES",2020-10-22 20:05,no
+Hola,Miguel,50,"Espanol,ES",2020-10-22 20:15:28,yes
+Ohayou,Maikaru,25,"Japanese,JP",2020-10-22,yes
+Hello,Michael,30,"German,DE",,yes
+Hola,Miguel,50,"Espanol,ES",null,yes
+Ohayou,Maikaru,25,"Japanese,JP",null,yes
+Hello,Michael,30,"German,DE",null,yes
+Hola,Miguel,50,"Espanol,ES",,no
+Ohayou,Maikaru,25,"Japanese,JP",,no
+Hola,Miguel,50,"Espanol,ES",,no
+Hello,Michael,30,"German,DE",2020-10-22,yes
+Hola,Miguel,50,"Espanol,ES",2020-10-22 19:00,yes
+Ohayou,Maikaru,25,"Japanese,JP",2020-10-22 19:20,no
+Hello,Michael,30,"German,DE",2020-10-22 19:30,yes
+Hola,Miguel,50,"Espanol,ES",2020-10-22 19:40,no
+Ohayou,Maikaru,25,"Japanese,JP",2020-10-22 19:50,no
+Hello,Michael,30,"German,DE",2020-10-22 20:00,yes
+Hola,Miguel,50,"Espanol,ES",2020-10-22 20:05,no
+Hola,Miguel,50,"Espanol,ES",2020-10-22 20:15:28,yes
+Ohayou,Maikaru,25,"Japanese,JP",2020-10-22,yes
+Hello,Michael,30,"German,DE",,yes
+Hola,Miguel,50,"Espanol,ES",null,yes
+Ohayou,Maikaru,25,"Japanese,JP",null,yes
+Hello,Michael,30,"German,DE",null,yes
+Hola,Miguel,50,"Espanol,ES",,no
+Ohayou,Maikaru,25,"Japanese,JP",,no
+Hola,Miguel,50,"Espanol,ES",,no
+Hello,Michael,30,"German,DE",2020-10-22,yes
+Hola,Miguel,50,"Espanol,ES",2020-10-22 19:00,yes
+Ohayou,Maikaru,25,"Japanese,JP",2020-10-22 19:20,no
+Hello,Michael,30,"German,DE",2020-10-22 19:30,yes
+Hola,Miguel,50,"Espanol,ES",2020-10-22 19:40,no
+Ohayou,Maikaru,25,"Japanese,JP",2020-10-22 19:50,no
+Hello,Michael,30,"German,DE",2020-10-22 20:00,yes
+Hola,Miguel,50,"Espanol,ES",2020-10-22 20:05,no
+Hola,Miguel,50,"Espanol,ES",2020-10-22 20:15:28,yes
+Ohayou,Maikaru,25,"Japanese,JP",2020-10-22,yes
+Hello,Michael,null,"German,DE",,yes
+Hola,Miguel,50,"Espanol,ES",null,yes
+Ohayou,Maikaru,,"Japanese,JP",null,yes
+Hello,Michael,30,"German,DE",null,yes
+Hola,Miguel,50,"Espanol,ES",,no
+Ohayou,Maikaru,25,"Japanese,JP",,no
+Hola,Miguel,50,"Espanol,ES",,no
+Hello,Michael,30,"German,DE",2020-10-22,yes
+Hola,Miguel,50,"Espanol,ES",2020-10-22 19:00,yes
+Ohayou,Maikaru,25,"Japanese,JP",2020-10-22 19:20,no
+Hello,Michael,30,"German,DE",2020-10-22 19:30,yes
+Hola,Miguel,50,"Espanol,ES",2020-10-22 19:40,no
+Ohayou,Maikaru,25,"Japanese,JP",2020-10-22 19:50,no
+Hello,Michael,30,"German,DE",2020-10-22 20:00,yes
+Hola,Miguel,50,"Espanol,ES",2020-10-22 20:05,no
+Hola,Miguel,50,"Espanol,ES",2020-10-22 20:15:28,yes
+Ohayou,Maikaru,25,"Japanese,JP",2020-10-22,yes
+Hello,Michael,30,"German,DE",,yes
+Hola,Miguel,50,"Espanol,ES",null,yes
+Ohayou,Maikaru,25,"Japanese,JP",null,yes
+Hello,Michael,30,"German,DE",null,yes
+Hola,Miguel,50,"Espanol,ES",,no
+Ohayou,Maikaru,25,"Japanese,JP",,no
+Hola,Miguel,50,"Espanol,ES",,no
+Hello,Michael,30,"German,DE",2020-10-22,yes
+Hola,Miguel,50,"Espanol,ES",2020-10-22 19:00,yes
+Ohayou,Maikaru,25,"Japanese,JP",2020-10-22 19:20,no
+Hello,Michael,30,"German,DE",2020-10-22 19:30,yes
+Hola,Miguel,50,"Espanol,ES",2020-10-22 19:40,no
+Ohayou,Maikaru,25,"Japanese,JP",2020-10-22 19:50,no
+Hello,Michael,30,"German,DE",2020-10-22 20:00,yes
+Hola,Miguel,50,"Espanol,ES",2020-10-22 20:05,no
+Hola,Miguel,50,"Espanol,ES",2020-10-22 20:15:28,yes
+Ohayou,Maikaru,25,"Japanese,JP",2020-10-22,yes
+Hello,Michael,30,"German,DE",,yes
+Hola,Miguel,50,"Espanol,ES",null,yes
+Ohayou,Maikaru,25,"Japanese,JP",null,yes
+Hello,Michael,30,"German,DE",null,yes
+Hola,Miguel,50,"Espanol,ES",,no
+Ohayou,Maikaru,25,"Japanese,JP",,no
+Hola,Miguel,50,"Espanol,ES",,no
+Hello,Michael,30,"German,DE",2020-10-22,yes
+Hola,Miguel,50,"Espanol,ES",2020-10-22 19:00,yes
+Ohayou,Maikaru,25,"Japanese,JP",2020-10-22 19:20,no
+Hello,Michael,30,"German,DE",2020-10-22 19:30,yes
+Hola,Miguel,50,"Espanol,ES",2020-10-22 19:40,no
+Ohayou,Maikaru,25,"Japanese,JP",2020-10-22 19:50,no
+Hello,Michael,30,"German,DE",2020-10-22 20:00,yes
+Hola,Miguel,50,"Espanol,ES",2020-10-22 20:05,no
+Hola,Miguel,50,"Espanol,ES",2020-10-22 20:15:28,yes
+Ohayou,Maikaru,25,"Japanese,JP",2020-10-22,yes
+Hello,Michael,30,"German,DE",,yes
+Hola,Miguel,50,"Espanol,ES",null,yes
+Ohayou,Maikaru,25,"Japanese,JP",null,yes
+Hello,Michael,30,"German,DE",null,yes
+Hola,Miguel,50,"Espanol,ES",,no
+Ohayou,Maikaru,25,"Japanese,JP",,no
+Hola,Miguel,50,"Espanol,ES",,no
+Hello,Michael,30,"German,DE",2020-10-22,yes
+Hola,Miguel,50,"Espanol,ES",2020-10-22 19:00,yes
+Ohayou,Maikaru,25,"Japanese,JP",2020-10-22 19:20,no
+Hello,Michael,30,"German,DE",2020-10-22 19:30,yes
+Hola,Miguel,50,"Espanol,ES",2020-10-22 19:40,no
+Ohayou,Maikaru,25,"Japanese,JP",2020-10-22 19:50,no
+Hello,Michael,30,"German,DE",2020-10-22 20:00,yes
+Hola,Miguel,50,"Espanol,ES",2020-10-22 20:05,no
+Hola,Miguel,50,"Espanol,ES",2020-10-22 20:15:28,yes
+Ohayou,Maikaru,25,"Japanese,JP",2020-10-22,yes
+Hello,Michael,30,"German,DE",,yes
+Hola,Miguel,50,"Espanol,ES",null,yes
+Ohayou,Maikaru,25,"Japanese,JP",null,yes
+Hello,Michael,30,"German,DE",null,yes
+Hola,Miguel,50,"Espanol,ES",,no
+Ohayou,Maikaru,25,"Japanese,JP",,no
+Hola,Miguel,50,"Espanol,ES",,no
+Hello,Michael,30,"German,DE",2020-10-22,yes
+Hola,Miguel,50,"Espanol,ES",2020-10-22 19:00,yes
+Ohayou,Maikaru,25,"Japanese,JP",2020-10-22 19:20,no
+Hello,Michael,30,"German,DE",2020-10-22 19:30,yes
+Hola,Miguel,50,"Espanol,ES",2020-10-22 19:40,no
+Ohayou,Maikaru,25,"Japanese,JP",2020-10-22 19:50,no
+Hello,Michael,30,"German,DE",2020-10-22 20:00,yes
+Hola,Miguel,50,"Espanol,ES",2020-10-22 20:05,no
+Hola,Miguel,50,"Espanol,ES",2020-10-22 20:15:28,yes
+Ohayou,Maikaru,25,"Japanese,JP",2020-10-22,yes
+Hello,Michael,null,"German,DE",,yes
+Hola,Miguel,50,"Espanol,ES",null,yes
+Ohayou,Maikaru,,"Japanese,JP",null,yes
+Hello,Michael,30,"German,DE",null,yes
+Hola,Miguel,50,"Espanol,ES",,no
+Ohayou,Maikaru,25,"Japanese,JP",,no
+Hola,Miguel,50,"Espanol,ES",,no
+Hello,Michael,30,"German,DE",2020-10-22,yes
+Hola,Miguel,50,"Espanol,ES",2020-10-22 19:00,yes
+Ohayou,Maikaru,25,"Japanese,JP",2020-10-22 19:20,no
+Hello,Michael,30,"German,DE",2020-10-22 19:30,yes
+Hola,Miguel,50,"Espanol,ES",2020-10-22 19:40,no
+Ohayou,Maikaru,25,"Japanese,JP",2020-10-22 19:50,no
+Hello,Michael,30,"German,DE",2020-10-22 20:00,yes
+Hola,Miguel,50,"Espanol,ES",2020-10-22 20:05,no
+Hola,Miguel,50,"Espanol,ES",2020-10-22 20:15:28,yes
+Ohayou,Maikaru,25,"Japanese,JP",2020-10-22,yes
+Hello,Michael,30,"German,DE",,yes
+Hola,Miguel,50,"Espanol,ES",null,yes
+Ohayou,Maikaru,25,"Japanese,JP",null,yes
+Hello,Michael,30,"German,DE",null,yes
+Hola,Miguel,50,"Espanol,ES",,no
+Ohayou,Maikaru,25,"Japanese,JP",,no
+Hola,Miguel,50,"Espanol,ES",,no
+Hello,Michael,30,"German,DE",2020-10-22,yes
+Hola,Miguel,50,"Espanol,ES",2020-10-22 19:00,yes
+Ohayou,Maikaru,25,"Japanese,JP",2020-10-22 19:20,no
+Hello,Michael,30,"German,DE",2020-10-22 19:30,yes
+Hola,Miguel,50,"Espanol,ES",2020-10-22 19:40,no
+Ohayou,Maikaru,25,"Japanese,JP",2020-10-22 19:50,no
+Hello,Michael,30,"German,DE",2020-10-22 20:00,yes
+Hola,Miguel,50,"Espanol,ES",2020-10-22 20:05,no
+Hola,Miguel,50,"Espanol,ES",2020-10-22 20:15:28,yes
+Ohayou,Maikaru,25,"Japanese,JP",2020-10-22,yes
+Hello,Michael,30,"German,DE",,yes
+Hola,Miguel,50,"Espanol,ES",null,yes
+Ohayou,Maikaru,25,"Japanese,JP",null,yes
+Hello,Michael,30,"German,DE",null,yes
+Hola,Miguel,50,"Espanol,ES",,no
+Ohayou,Maikaru,25,"Japanese,JP",,no
+Hola,Miguel,50,"Espanol,ES",,no
+Hello,Michael,30,"German,DE",2020-10-22,yes
+Hola,Miguel,50,"Espanol,ES",2020-10-22 19:00,yes
+Ohayou,Maikaru,25,"Japanese,JP",2020-10-22 19:20,no
+Hello,Michael,30,"German,DE",2020-10-22 19:30,yes
+Hola,Miguel,50,"Espanol,ES",2020-10-22 19:40,no
+Ohayou,Maikaru,25,"Japanese,JP",2020-10-22 19:50,no
+Hello,Michael,30,"German,DE",2020-10-22 20:00,yes
+Hola,Miguel,50,"Espanol,ES",2020-10-22 20:05,no
+Hola,Miguel,50,"Espanol,ES",2020-10-22 20:15:28,yes
+Ohayou,Maikaru,25,"Japanese,JP",2020-10-22,yes
+Hello,Michael,30,"German,DE",,yes
+Hola,Miguel,50,"Espanol,ES",null,yes
+Ohayou,Maikaru,25,"Japanese,JP",null,yes
+Hello,Michael,30,"German,DE",null,yes
+Hola,Miguel,50,"Espanol,ES",,no
+Ohayou,Maikaru,25,"Japanese,JP",,no
+Hola,Miguel,50,"Espanol,ES",,no
+Hello,Michael,30,"German,DE",2020-10-22,yes
+Hola,Miguel,50,"Espanol,ES",2020-10-22 19:00,yes
+Ohayou,Maikaru,25,"Japanese,JP",2020-10-22 19:20,no
+Hello,Michael,30,"German,DE",2020-10-22 19:30,yes
+Hola,Miguel,50,"Espanol,ES",2020-10-22 19:40,no
+Ohayou,Maikaru,25,"Japanese,JP",2020-10-22 19:50,no
+Hello,Michael,30,"German,DE",2020-10-22 20:00,yes
+Hola,Miguel,50,"Espanol,ES",2020-10-22 20:05,no
+Hola,Miguel,50,"Espanol,ES",2020-10-22 20:15:28,yes
+Ohayou,Maikaru,25,"Japanese,JP",2020-10-22,yes
+Hello,Michael,30,"German,DE",,yes
+Hola,Miguel,50,"Espanol,ES",null,yes
+Ohayou,Maikaru,25,"Japanese,JP",null,yes
+Hello,Michael,30,"German,DE",null,yes
+Hola,Miguel,50,"Espanol,ES",,no
+Ohayou,Maikaru,25,"Japanese,JP",,no
+Hola,Miguel,50,"Espanol,ES",,no
+Hello,Michael,30,"German,DE",2020-10-22,yes
+Hola,Miguel,50,"Espanol,ES",2020-10-22 19:00,yes
+Ohayou,Maikaru,25,"Japanese,JP",2020-10-22 19:20,no
+Hello,Michael,30,"German,DE",2020-10-22 19:30,yes
+Hola,Miguel,50,"Espanol,ES",2020-10-22 19:40,no
+Ohayou,Maikaru,25,"Japanese,JP",2020-10-22 19:50,no
+Hello,Michael,30,"German,DE",2020-10-22 20:00,yes
+Hola,Miguel,50,"Espanol,ES",2020-10-22 20:05,no
+Hola,Miguel,50,"Espanol,ES",2020-10-22 20:15:28,yes
+Ohayou,Maikaru,25,"Japanese,JP",2020-10-22,yes
+Hello,Michael,null,"German,DE",,yes
+Hola,Miguel,50,"Espanol,ES",null,yes
+Ohayou,Maikaru,,"Japanese,JP",null,yes
+Hello,Michael,30,"German,DE",null,yes
+Hola,Miguel,50,"Espanol,ES",,no
+Ohayou,Maikaru,25,"Japanese,JP",,no
+Hola,Miguel,50,"Espanol,ES",,no
+Hello,Michael,30,"German,DE",2020-10-22,yes
+Hola,Miguel,50,"Espanol,ES",2020-10-22 19:00,yes
+Ohayou,Maikaru,25,"Japanese,JP",2020-10-22 19:20,no
+Hello,Michael,30,"German,DE",2020-10-22 19:30,yes
+Hola,Miguel,50,"Espanol,ES",2020-10-22 19:40,no
+Ohayou,Maikaru,25,"Japanese,JP",2020-10-22 19:50,no
+Hello,Michael,30,"German,DE",2020-10-22 20:00,yes
+Hola,Miguel,50,"Espanol,ES",2020-10-22 20:05,no
+Hola,Miguel,50,"Espanol,ES",2020-10-22 20:15:28,yes
+Ohayou,Maikaru,25,"Japanese,JP",2020-10-22,yes
+Hello,Michael,30,"German,DE",,yes
+Hola,Miguel,50,"Espanol,ES",null,yes
+Ohayou,Maikaru,25,"Japanese,JP",null,yes
+Hello,Michael,30,"German,DE",null,yes
+Hola,Miguel,50,"Espanol,ES",,no
+Ohayou,Maikaru,25,"Japanese,JP",,no
+Hola,Miguel,50,"Espanol,ES",,no
+Hello,Michael,30,"German,DE",2020-10-22,yes
+Hola,Miguel,50,"Espanol,ES",2020-10-22 19:00,yes
+Ohayou,Maikaru,25,"Japanese,JP",2020-10-22 19:20,no
+Hello,Michael,30,"German,DE",2020-10-22 19:30,yes
+Hola,Miguel,50,"Espanol,ES",2020-10-22 19:40,no
+Ohayou,Maikaru,25,"Japanese,JP",2020-10-22 19:50,no
+Hello,Michael,30,"German,DE",2020-10-22 20:00,yes
+Hola,Miguel,50,"Espanol,ES",2020-10-22 20:05,no
+Hola,Miguel,50,"Espanol,ES",2020-10-22 20:15:28,yes
+Ohayou,Maikaru,25,"Japanese,JP",2020-10-22,yes
+Hello,Michael,30,"German,DE",,yes
+Hola,Miguel,50,"Espanol,ES",null,yes
+Ohayou,Maikaru,25,"Japanese,JP",null,yes
+Hello,Michael,30,"German,DE",null,yes
+Hola,Miguel,50,"Espanol,ES",,no
+Ohayou,Maikaru,25,"Japanese,JP",,no
+Hola,Miguel,50,"Espanol,ES",,no
+Hello,Michael,30,"German,DE",2020-10-22,yes
+Hola,Miguel,50,"Espanol,ES",2020-10-22 19:00,yes
+Ohayou,Maikaru,25,"Japanese,JP",2020-10-22 19:20,no
+Hello,Michael,30,"German,DE",2020-10-22 19:30,yes
+Hola,Miguel,50,"Espanol,ES",2020-10-22 19:40,no
+Ohayou,Maikaru,25,"Japanese,JP",2020-10-22 19:50,no
+Hello,Michael,30,"German,DE",2020-10-22 20:00,yes
+Hola,Miguel,50,"Espanol,ES",2020-10-22 20:05,no
+Hola,Miguel,50,"Espanol,ES",2020-10-22 20:15:28,yes
+Ohayou,Maikaru,25,"Japanese,JP",2020-10-22,yes
+Hello,Michael,30,"German,DE",,yes
+Hola,Miguel,50,"Espanol,ES",null,yes
+Ohayou,Maikaru,25,"Japanese,JP",null,yes
+Hello,Michael,30,"German,DE",null,yes
+Hola,Miguel,50,"Espanol,ES",,no
+Ohayou,Maikaru,25,"Japanese,JP",,no
+Hola,Miguel,50,"Espanol,ES",,no
+Hello,Michael,30,"German,DE",2020-10-22,yes
+Hola,Miguel,50,"Espanol,ES",2020-10-22 19:00,yes
+Ohayou,Maikaru,25,"Japanese,JP",2020-10-22 19:20,no
+Hello,Michael,30,"German,DE",2020-10-22 19:30,yes
+Hola,Miguel,50,"Espanol,ES",2020-10-22 19:40,no
+Ohayou,Maikaru,25,"Japanese,JP",2020-10-22 19:50,no
+Hello,Michael,30,"German,DE",2020-10-22 20:00,yes
+Hola,Miguel,50,"Espanol,ES",2020-10-22 20:05,no
+Hola,Miguel,50,"Espanol,ES",2020-10-22 20:15:28,yes
+Ohayou,Maikaru,25,"Japanese,JP",2020-10-22,yes
+Hello,Michael,30,"German,DE",,yes
+Hola,Miguel,50,"Espanol,ES",null,yes
+Ohayou,Maikaru,25,"Japanese,JP",null,yes
+Hello,Michael,30,"German,DE",null,yes
+Hola,Miguel,50,"Espanol,ES",,no
+Ohayou,Maikaru,25,"Japanese,JP",,no
+Hola,Miguel,50,"Espanol,ES",,no
+Hello,Michael,30,"German,DE",2020-10-22,yes
+Hola,Miguel,50,"Espanol,ES",2020-10-22 19:00,yes
+Ohayou,Maikaru,25,"Japanese,JP",2020-10-22 19:20,no
+Hello,Michael,30,"German,DE",2020-10-22 19:30,yes
+Hola,Miguel,50,"Espanol,ES",2020-10-22 19:40,no
+Ohayou,Maikaru,25,"Japanese,JP",2020-10-22 19:50,no
+Hello,Michael,30,"German,DE",2020-10-22 20:00,yes
+Hola,Miguel,50,"Espanol,ES",2020-10-22 20:05,no
+Hola,Miguel,50,"Espanol,ES",2020-10-22 20:15:28,yes
+Ohayou,Maikaru,25,"Japanese,JP",2020-10-22,yes
+Hello,Michael,null,"German,DE",,yes
+Hola,Miguel,50,"Espanol,ES",null,yes
+Ohayou,Maikaru,,"Japanese,JP",null,yes
+Hello,Michael,30,"German,DE",null,yes
+Hola,Miguel,50,"Espanol,ES",,no
+Ohayou,Maikaru,25,"Japanese,JP",,no
+Hola,Miguel,50,"Espanol,ES",,no
+Hello,Michael,30,"German,DE",2020-10-22,yes
+Hola,Miguel,50,"Espanol,ES",2020-10-22 19:00,yes
+Ohayou,Maikaru,25,"Japanese,JP",2020-10-22 19:20,no
+Hello,Michael,30,"German,DE",2020-10-22 19:30,yes
+Hola,Miguel,50,"Espanol,ES",2020-10-22 19:40,no
+Ohayou,Maikaru,25,"Japanese,JP",2020-10-22 19:50,no
+Hello,Michael,30,"German,DE",2020-10-22 20:00,yes
+Hola,Miguel,50,"Espanol,ES",2020-10-22 20:05,no
+Hola,Miguel,50,"Espanol,ES",2020-10-22 20:15:28,yes
+Ohayou,Maikaru,25,"Japanese,JP",2020-10-22,yes
+Hello,Michael,30,"German,DE",,yes
+Hola,Miguel,50,"Espanol,ES",null,yes
+Ohayou,Maikaru,25,"Japanese,JP",null,yes
+Hello,Michael,30,"German,DE",null,yes
+Hola,Miguel,50,"Espanol,ES",,no
+Ohayou,Maikaru,25,"Japanese,JP",,no
+Hola,Miguel,50,"Espanol,ES",,no
+Hello,Michael,30,"German,DE",2020-10-22,yes
+Hola,Miguel,50,"Espanol,ES",2020-10-22 19:00,yes
+Ohayou,Maikaru,25,"Japanese,JP",2020-10-22 19:20,no
+Hello,Michael,30,"German,DE",2020-10-22 19:30,yes
+Hola,Miguel,50,"Espanol,ES",2020-10-22 19:40,no
+Ohayou,Maikaru,25,"Japanese,JP",2020-10-22 19:50,no
+Hello,Michael,30,"German,DE",2020-10-22 20:00,yes
+Hola,Miguel,50,"Espanol,ES",2020-10-22 20:05,no
+Hola,Miguel,50,"Espanol,ES",2020-10-22 20:15:28,yes
+Ohayou,Maikaru,25,"Japanese,JP",2020-10-22,yes
+Hello,Michael,30,"German,DE",,yes
+Hola,Miguel,50,"Espanol,ES",null,yes
+Ohayou,Maikaru,25,"Japanese,JP",null,yes
+Hello,Michael,30,"German,DE",null,yes
+Hola,Miguel,50,"Espanol,ES",,no
+Ohayou,Maikaru,25,"Japanese,JP",,no
+Hola,Miguel,50,"Espanol,ES",,no
+Hello,Michael,30,"German,DE",2020-10-22,yes
+Hola,Miguel,50,"Espanol,ES",2020-10-22 19:00,yes
+Ohayou,Maikaru,25,"Japanese,JP",2020-10-22 19:20,no
+Hello,Michael,30,"German,DE",2020-10-22 19:30,yes
+Hola,Miguel,50,"Espanol,ES",2020-10-22 19:40,no
+Ohayou,Maikaru,25,"Japanese,JP",2020-10-22 19:50,no
+Hello,Michael,30,"German,DE",2020-10-22 20:00,yes
+Hola,Miguel,50,"Espanol,ES",2020-10-22 20:05,no
+Hola,Miguel,50,"Espanol,ES",2020-10-22 20:15:28,yes
+Ohayou,Maikaru,25,"Japanese,JP",2020-10-22,yes
+Hello,Michael,30,"German,DE",,yes
+Hola,Miguel,50,"Espanol,ES",null,yes
+Ohayou,Maikaru,25,"Japanese,JP",null,yes
+Hello,Michael,30,"German,DE",null,yes
+Hola,Miguel,50,"Espanol,ES",,no
+Ohayou,Maikaru,25,"Japanese,JP",,no
+Hola,Miguel,50,"Espanol,ES",,no
+Hello,Michael,30,"German,DE",2020-10-22,yes
+Hola,Miguel,50,"Espanol,ES",2020-10-22 19:00,yes
+Ohayou,Maikaru,25,"Japanese,JP",2020-10-22 19:20,no
+Hello,Michael,30,"German,DE",2020-10-22 19:30,yes
+Hola,Miguel,50,"Espanol,ES",2020-10-22 19:40,no
+Ohayou,Maikaru,25,"Japanese,JP",2020-10-22 19:50,no
+Hello,Michael,30,"German,DE",2020-10-22 20:00,yes
+Hola,Miguel,50,"Espanol,ES",2020-10-22 20:05,no
+Hola,Miguel,50,"Espanol,ES",2020-10-22 20:15:28,yes
+Ohayou,Maikaru,25,"Japanese,JP",2020-10-22,yes
+Hello,Michael,30,"German,DE",,yes
+Hola,Miguel,50,"Espanol,ES",null,yes
+Ohayou,Maikaru,25,"Japanese,JP",null,yes
+Hello,Michael,30,"German,DE",null,yes
+Hola,Miguel,50,"Espanol,ES",,no
+Ohayou,Maikaru,25,"Japanese,JP",,no
+Hola,Miguel,50,"Espanol,ES",,no
+Hello,Michael,30,"German,DE",2020-10-22,yes
+Hola,Miguel,50,"Espanol,ES",2020-10-22 19:00,yes
+Ohayou,Maikaru,25,"Japanese,JP",2020-10-22 19:20,no
+Hello,Michael,30,"German,DE",2020-10-22 19:30,yes
+Hola,Miguel,50,"Espanol,ES",2020-10-22 19:40,no
+Ohayou,Maikaru,25,"Japanese,JP",2020-10-22 19:50,no
+Hello,Michael,30,"German,DE",2020-10-22 20:00,yes
+Hola,Miguel,50,"Espanol,ES",2020-10-22 20:05,no
+Hola,Miguel,50,"Espanol,ES",2020-10-22 20:15:28,yes
+Ohayou,Maikaru,25,"Japanese,JP",2020-10-22,yes
+Hello,Michael,null,"German,DE",,yes
+Hola,Miguel,50,"Espanol,ES",null,yes
+Ohayou,Maikaru,,"Japanese,JP",null,yes
+Hello,Michael,30,"German,DE",null,yes
+Hola,Miguel,50,"Espanol,ES",,no
+Ohayou,Maikaru,25,"Japanese,JP",,no
+Hola,Miguel,50,"Espanol,ES",,no
+Hello,Michael,30,"German,DE",2020-10-22,yes
+Hola,Miguel,50,"Espanol,ES",2020-10-22 19:00,yes
+Ohayou,Maikaru,25,"Japanese,JP",2020-10-22 19:20,no
+Hello,Michael,30,"German,DE",2020-10-22 19:30,yes
+Hola,Miguel,50,"Espanol,ES",2020-10-22 19:40,no
+Ohayou,Maikaru,25,"Japanese,JP",2020-10-22 19:50,no
+Hello,Michael,30,"German,DE",2020-10-22 20:00,yes
+Hola,Miguel,50,"Espanol,ES",2020-10-22 20:05,no
+Hola,Miguel,50,"Espanol,ES",2020-10-22 20:15:28,yes
+Ohayou,Maikaru,25,"Japanese,JP",2020-10-22,yes
+Hello,Michael,30,"German,DE",,yes
+Hola,Miguel,50,"Espanol,ES",null,yes
+Ohayou,Maikaru,25,"Japanese,JP",null,yes
+Hello,Michael,30,"German,DE",null,yes
+Hola,Miguel,50,"Espanol,ES",,no
+Ohayou,Maikaru,25,"Japanese,JP",,no
+Hola,Miguel,50,"Espanol,ES",,no
+Hello,Michael,30,"German,DE",2020-10-22,yes
+Hola,Miguel,50,"Espanol,ES",2020-10-22 19:00,yes
+Ohayou,Maikaru,25,"Japanese,JP",2020-10-22 19:20,no
+Hello,Michael,30,"German,DE",2020-10-22 19:30,yes
+Hola,Miguel,50,"Espanol,ES",2020-10-22 19:40,no
+Ohayou,Maikaru,25,"Japanese,JP",2020-10-22 19:50,no
+Hello,Michael,30,"German,DE",2020-10-22 20:00,yes
+Hola,Miguel,50,"Espanol,ES",2020-10-22 20:05,no
+Hola,Miguel,50,"Espanol,ES",2020-10-22 20:15:28,yes
+Ohayou,Maikaru,25,"Japanese,JP",2020-10-22,yes
+Hello,Michael,30,"German,DE",,yes
+Hola,Miguel,50,"Espanol,ES",null,yes
+Ohayou,Maikaru,25,"Japanese,JP",null,yes
+Hello,Michael,30,"German,DE",null,yes
+Hola,Miguel,50,"Espanol,ES",,no
+Ohayou,Maikaru,25,"Japanese,JP",,no
+Hola,Miguel,50,"Espanol,ES",,no
+Hello,Michael,30,"German,DE",2020-10-22,yes
+Hola,Miguel,50,"Espanol,ES",2020-10-22 19:00,yes
+Ohayou,Maikaru,25,"Japanese,JP",2020-10-22 19:20,no
+Hello,Michael,30,"German,DE",2020-10-22 19:30,yes
+Hola,Miguel,50,"Espanol,ES",2020-10-22 19:40,no
+Ohayou,Maikaru,25,"Japanese,JP",2020-10-22 19:50,no
+Hello,Michael,30,"German,DE",2020-10-22 20:00,yes
+Hola,Miguel,50,"Espanol,ES",2020-10-22 20:05,no
+Hola,Miguel,50,"Espanol,ES",2020-10-22 20:15:28,yes
+Ohayou,Maikaru,25,"Japanese,JP",2020-10-22,yes
+Hello,Michael,30,"German,DE",,yes
+Hola,Miguel,50,"Espanol,ES",null,yes
+Ohayou,Maikaru,25,"Japanese,JP",null,yes
+Hello,Michael,30,"German,DE",null,yes
+Hola,Miguel,50,"Espanol,ES",,no
+Ohayou,Maikaru,25,"Japanese,JP",,no
+Hola,Miguel,50,"Espanol,ES",,no
+Hello,Michael,30,"German,DE",2020-10-22,yes
+Hola,Miguel,50,"Espanol,ES",2020-10-22 19:00,yes
+Ohayou,Maikaru,25,"Japanese,JP",2020-10-22 19:20,no
+Hello,Michael,30,"German,DE",2020-10-22 19:30,yes
+Hola,Miguel,50,"Espanol,ES",2020-10-22 19:40,no
+Ohayou,Maikaru,25,"Japanese,JP",2020-10-22 19:50,no
+Hello,Michael,30,"German,DE",2020-10-22 20:00,yes
+Hola,Miguel,50,"Espanol,ES",2020-10-22 20:05,no
+Hola,Miguel,50,"Espanol,ES",2020-10-22 20:15:28,yes
+Ohayou,Maikaru,25,"Japanese,JP",2020-10-22,yes
+Hello,Michael,30,"German,DE",,yes
+Hola,Miguel,50,"Espanol,ES",null,yes
+Ohayou,Maikaru,25,"Japanese,JP",null,yes
+Hello,Michael,30,"German,DE",null,yes
+Hola,Miguel,50,"Espanol,ES",,no
+Ohayou,Maikaru,25,"Japanese,JP",,no
+Hola,Miguel,50,"Espanol,ES",,no
+Hello,Michael,30,"German,DE",2020-10-22,yes
+Hola,Miguel,50,"Espanol,ES",2020-10-22 19:00,yes
+Ohayou,Maikaru,25,"Japanese,JP",2020-10-22 19:20,no
+Hello,Michael,30,"German,DE",2020-10-22 19:30,yes
+Hola,Miguel,50,"Espanol,ES",2020-10-22 19:40,no
+Ohayou,Maikaru,25,"Japanese,JP",2020-10-22 19:50,no
+Hello,Michael,30,"German,DE",2020-10-22 20:00,yes
+Hola,Miguel,50,"Espanol,ES",2020-10-22 20:05,no
+Hola,Miguel,50,"Espanol,ES",2020-10-22 20:15:28,yes
+Ohayou,Maikaru,25,"Japanese,JP",2020-10-22,yes
+Hello,Michael,null,"German,DE",,yes
+Hola,Miguel,50,"Espanol,ES",null,yes
+Ohayou,Maikaru,,"Japanese,JP",null,yes
+Hello,Michael,30,"German,DE",null,yes
+Hola,Miguel,50,"Espanol,ES",,no
+Ohayou,Maikaru,25,"Japanese,JP",,no
+Hola,Miguel,50,"Espanol,ES",,no
+Hello,Michael,30,"German,DE",2020-10-22,yes
+Hola,Miguel,50,"Espanol,ES",2020-10-22 19:00,yes
+Ohayou,Maikaru,25,"Japanese,JP",2020-10-22 19:20,no
+Hello,Michael,30,"German,DE",2020-10-22 19:30,yes
+Hola,Miguel,50,"Espanol,ES",2020-10-22 19:40,no
+Ohayou,Maikaru,25,"Japanese,JP",2020-10-22 19:50,no
+Hello,Michael,30,"German,DE",2020-10-22 20:00,yes
+Hola,Miguel,50,"Espanol,ES",2020-10-22 20:05,no
+Hola,Miguel,50,"Espanol,ES",2020-10-22 20:15:28,yes
+Ohayou,Maikaru,25,"Japanese,JP",2020-10-22,yes

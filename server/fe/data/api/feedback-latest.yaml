@@ -1,0 +1,5 @@
+intro: |-
+    View the 5 latest positive and negative customer feedback.
+
+good: ${ $import("./feedback-good.yaml")^(>feedback_date)[[0..4]] }
+bad: ${ $import("./feedback-bad.yaml")^(>feedback_date)[[0..4]] }

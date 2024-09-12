@@ -1,0 +1,1 @@
+${ $load("../sales-transactions.csv")^(>total_price)[[0..2]] }

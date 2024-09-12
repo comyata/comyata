@@ -1,0 +1,23 @@
+{
+    "name": "@comyata/fe",
+    "version": "0.0.1",
+    "description": "Comyata FileEngine",
+    "author": {
+        "name": "Michael Becker",
+        "url": "https://i-am-digital.eu"
+    },
+    "license": "MIT",
+    "type": "module",
+    "exports": {
+        "./*": "./*.js"
+    },
+    "peerDependencies": {
+    },
+    "dependencies": {
+        "@comyata/run": "*",
+        "yaml": "^2.2.1"
+    },
+    "publishConfig": {
+        "access": "public"
+    }
+}

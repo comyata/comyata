@@ -1,0 +1,21 @@
+{
+    "extends": "../../tsconfig.packages.json",
+    "include": [
+        "src"
+    ],
+    "compilerOptions": {
+        "module": "NodeNext",
+        "target": "ES2022",
+        "moduleResolution": "NodeNext",
+        "esModuleInterop": true,
+        "outDir": "dist"
+    },
+    "ts-node": {
+        "transpileOnly": true,
+        "compilerOptions": {
+            "module": "NodeNext",
+            "esModuleInterop": true
+        },
+        "esm": true
+    }
+}

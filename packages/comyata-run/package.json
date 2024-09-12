@@ -1,0 +1,23 @@
+{
+    "name": "@comyata/run",
+    "version": "0.0.1",
+    "description": "Comyata Runtime",
+    "author": {
+        "name": "Michael Becker",
+        "url": "https://i-am-digital.eu"
+    },
+    "license": "MIT",
+    "type": "module",
+    "exports": {
+        "./*": "./*.js"
+    },
+    "peerDependencies": {
+    },
+    "dependencies": {
+        "jsonata": "^2.0.0",
+        "json-pointer": "^0.6.2"
+    },
+    "publishConfig": {
+        "access": "public"
+    }
+}

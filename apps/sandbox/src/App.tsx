@@ -18,7 +18,7 @@ export default function App() {
         >
             <Box px={2} py={1} sx={{display: 'flex', alignItems: 'center', columnGap: 1, textAlign: 'left'}}>
                 <MuiNavLink
-                    href={'/'}
+                    href={'/'} exact
                 >home</MuiNavLink>
                 <MuiNavLink
                     href={'/streaming'}

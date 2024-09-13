@@ -126,10 +126,26 @@ const runner = runtime(
         // wire engine tags and their compute function
         [DataNodeJSONata.engine]: jsonataCompute,
     },
+    {
+        // once a node starts to compute
+        onCompute: (dataNode) => undefined,
+        // once a node successfully computed
+        onComputed: (dataNode, result, meta) => undefined,
+        // enable access to computed fields within other computed fields
+        __unsafeAllowCrossResolving: true,
+        // disable node result validation, by default checks that a computed nodes result is not a `Error` or `Promise`
+        __unsafeDisableResultValidation: true,
+    },
 )
 
-// get the output
-const output = await runner.output()
+// initial output, which contains all static values, and `Promise` placeholders in computed nodes
+const initial = runner.output()
+
+// run compute and get the complete output
+const output = await runner.compute()
+
+// or get the complete output from the runner
+const output1 = runner.output()
 ```
 
 This results in the following output data:
@@ -213,7 +229,7 @@ The library and syntax is inspired by [stated-js](https://github.com/cisco-open/
 - extendable `$import/$load` to support more file formats, add authentication for API calls or even use databases for `$import`
 - support for any engine to produce dynamic data
     - in stated: limited to JSONata
-- very small in just <200kB (strict ESM, no separate client/server bundles)
+- very small, in just <100kB (strict ESM, no separate client/server bundles)
     - stated is >5MB (mostly due to included bundles for client, server, commonjs and ESM support)
 
 ## License

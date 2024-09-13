@@ -155,13 +155,11 @@ loadApiFiles()
 </html>`)
 })
 
-const fileEngineRoutes = setupFileEngine({
+app.use(setupFileEngine({
     onHalt,
     dataFolder: opts.dataFolder,
     publicPath: opts.publicPath,
-})
-
-app.use(fileEngineRoutes)
+}))
 
 const server = app.listen(opts.port, () => {
     console.log('server: listening on port ' + opts.port)

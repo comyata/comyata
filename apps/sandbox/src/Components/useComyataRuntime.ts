@@ -5,6 +5,27 @@ import { ComputeStats, runtime } from '@comyata/run/Runtime'
 import { useCallback, useEffect, useRef, useState } from 'react'
 import { jsonataCompute } from './ComputeBindings/jsonataCompute'
 
+export type IProgressEvent =
+    {
+        type: 'start'
+    } |
+    {
+        type: 'done'
+        output: unknown
+        error?: Error
+    } |
+    {
+        type: 'node_start'
+        nodePath: DataNode['path']
+    } |
+    {
+        type: 'node_done'
+        nodePath: DataNode['path']
+        // contains only the result of the node
+        output: unknown
+        error?: Error
+    }
+
 export const useComyataRuntime = (
     parser: Parser<typeof DataNode | typeof DataNodeJSONata>,
     comyataTemplate: unknown,
@@ -13,10 +34,12 @@ export const useComyataRuntime = (
         autoprocessing = true,
         delay = 30,
         delayParsing = 275,
+        onProgress,
     }: {
         autoprocessing?: boolean
         delay?: number
         delayParsing?: number
+        onProgress?: (progress: IProgressEvent) => void
     } = {},
 ) => {
     const mountedRef = useRef(false)
@@ -79,11 +102,30 @@ export const useComyataRuntime = (
                 {
                     __unsafeAllowCrossResolving: true,
                     // use these callbacks to get data once a DataNode starts and is done,
-                    // allowing to "stream" data in UIs which support it (the demo uses plain JSON, thus doesn't make much sense)
-                    // onCompute: () => undefined,
-                    // onComputed: () => undefined,
+                    // allowing to "stream" data in UIs which support it
+                    onCompute: (dataNode) => {
+                        onProgress?.({
+                            type: 'node_start',
+                            nodePath: dataNode.path,
+                        })
+                    },
+                    onComputed: (dataNode, result/*, meta*/) => {
+                        onProgress?.({
+                            type: 'node_done',
+                            nodePath: dataNode.path,
+                            output: result,
+                        })
+                    },
                 },
             )
+
+            onProgress?.({
+                type: 'start',
+                // note: the `.output` of one compute cycle has the same reference,
+                //       this allows to manually apply updates to the initial state or use e.g. immer
+                //       but this `.output` data will be the same as at the `done` event, once `done` is reached
+                // output: result.output(),
+            })
 
             setEvalOut({
                 // the initial `.output` contains `Promise` placeholders for all DataNodes,
@@ -102,11 +144,22 @@ export const useComyataRuntime = (
                         stats: result.stats,
                         output: result.output(),
                     } : resultContainer)
+
+                    onProgress?.({
+                        type: 'done',
+                        output: result.output(),
+                    })
                 })
                 .catch((e) => {
                     if(evalRef.current !== pid) return
                     setProcessing('error')
                     console.debug('Comyata processor failed', e)
+
+                    onProgress?.({
+                        type: 'done',
+                        output: result.output(),
+                        error: e,
+                    })
                     setEvalOut(resultContainer => resultContainer && 'output' in resultContainer ? {
                         ...resultContainer,
                         stats: result.stats,
@@ -115,7 +168,7 @@ export const useComyataRuntime = (
                     setEvalOutError(e instanceof Error ? e : {error: e})
                 })
         }
-    }, [data, dataNode])
+    }, [data, dataNode, onProgress])
 
     useEffect(() => {
         if(!autoprocessing) return

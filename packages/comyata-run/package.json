@@ -1,6 +1,6 @@
 {
     "name": "@comyata/run",
-    "version": "0.0.1",
+    "version": "0.0.2",
     "description": "Comyata Runtime",
     "author": {
         "name": "Michael Becker",
@@ -8,6 +8,11 @@
     },
     "license": "MIT",
     "type": "module",
+    "repository": {
+        "type": "git",
+        "url": "https://github.com/comyata/comyata.git",
+        "directory": "packages/comyata-run"
+    },
     "exports": {
         "./*": "./*.js"
     },

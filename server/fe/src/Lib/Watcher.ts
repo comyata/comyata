@@ -67,7 +67,7 @@ export const Watcher = ({debug}: { debug?: boolean } = {}) => {
             }
         },
         close: async() => {
-            await watcher.close().then(() => {
+            await watcher.close()?.then(() => {
                 if(debug) console.debug(`watcher closed`)
             })
         },

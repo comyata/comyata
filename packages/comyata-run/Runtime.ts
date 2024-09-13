@@ -223,7 +223,9 @@ export const runtime = <TNode extends IDataNode, D = unknown, C = unknown, TBagg
                 }) || val
             })
             .catch(e => {
-                // const error = e
+                // todo: TBD: abort everything or call `onComputed` with the error?
+                //       atm. when one node throws, the whole `.compute` throws, but other nodes will progress further on
+
                 const error = new NodeComputeError(
                     computedNode,
                     `Compute failure` +

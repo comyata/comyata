@@ -18,9 +18,9 @@
         "clean": "rimraf build"
     },
     "dependencies": {
-        "@comyata/fe": "0.0.1",
-        "@comyata/run": "0.0.1",
-        "chokidar": "^3.6.0",
+        "@comyata/fe": "*",
+        "@comyata/run": "*",
+        "chokidar": "^4.0.0",
         "csv-parse": "^5.5.6",
         "express": "^4.21.0",
         "liquidjs": "^10.16.7",

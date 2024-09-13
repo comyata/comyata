@@ -5,13 +5,14 @@ Model data with dynamic parts easily, write data structures including queries an
 Run it in the browser or on a server, save the templates in files or a database, and do whatever you want.
 
 - [Deep Dive](#deep-dive)
+- [Syntax](#syntax)
 - [Setup Runtime](#setup-runtime)
 - [Setup File Engine](#setup-file-engine)
 - [Development](#development)
 - [Inspiration](#inspiration)
 - [License](#license)
 
-🕹️ [codesandbox](https://codesandbox.io/p/devbox/github/comyata/comyata/tree/main/apps/sandbox?file=%2Fsrc%2FPages%2FPageHome.tsx) | [stackblitz](https://stackblitz.com/github/comyata/comyata/tree/main/apps/sandbox) | [source in apps/sandbox](./apps/sandbox)
+🕹️ [codesandbox](https://codesandbox.io/p/devbox/github/comyata/comyata/tree/main/apps/sandbox?file=%2Fsrc%2FPages%2FPageHome.tsx) | [stackblitz](https://stackblitz.com/github/comyata/comyata/tree/main/apps/sandbox?file=src%2FPages%2FPageHome.tsx) | [source in apps/sandbox](./apps/sandbox)
 
 - @comyata/run [![MIT license](https://img.shields.io/npm/l/@comyata/run?style=flat-square)](https://github.com/comyata/comyata/blob/main/LICENSE) [![npm (scoped)](https://img.shields.io/npm/v/@comyata/run?style=flat-square)](https://www.npmjs.com/package/@comyata/run) [![JS compatibility](https://img.shields.io/badge/ESM--f7e018?style=flat-square&logo=javascript)](https://gist.github.com/sindresorhus/a39789f98801d908bbc7ff3ecc99d99c)
 - @comyata/fe [![MIT license](https://img.shields.io/npm/l/@comyata/fe?style=flat-square)](https://github.com/comyata/comyata/blob/main/LICENSE) [![npm (scoped)](https://img.shields.io/npm/v/@comyata/fe?style=flat-square)](https://www.npmjs.com/package/@comyata/fe) [![JS compatibility](https://img.shields.io/badge/ESM--f7e018?style=flat-square&logo=javascript)](https://gist.github.com/sindresorhus/a39789f98801d908bbc7ff3ecc99d99c)
@@ -39,6 +40,30 @@ customers_in_london: ${ $import('./customers.json')[city = 'London'] }
 
 # add custom functions as adapter:
 hits_count_from_london: ${ $sql('SELECT count(*) FROM hits where city = "London"') }
+```
+
+## Syntax
+
+Comyata is JSON compatible and can be written and stored in different formats, YAML is recommended for easy writing and reading by humans.
+
+Any `string` value can be made computable by starting it with an engine-tag and wrapping it into `{` `}` brackets. Tags define the engine needed to compute the expression.
+
+For JSONata, the default engine, the engine tag is `$`. To use JSONata, write it like `${ 10 + 5 }`.
+
+In this example the `calc` property uses JSONata, while `static` is just plain data and not dynamic:
+
+```yaml
+calc: ${ 10 + 5 }
+static: Lorem Ipsum
+```
+
+The same in JSON looks like:
+
+```json
+{
+    "calc": "${ 10 + 5 }",
+    "static": "Lorem Ipsum"
+}
 ```
 
 ## Setup Runtime
@@ -164,6 +189,8 @@ cd apps/sandbox && npm i --package-lock-only --workspaces false
 
 The library and syntax is inspired by [stated-js](https://github.com/cisco-open/stated), but with different core philosophies:
 
+- immutable output generation with no side effects between multiple compute cycles
+    - in stated: contains a full fledged state-machine, which allows mutating the output with field based patches, which in itself is really great, but it mutates the `.output` directly without transparently propagating what fields have changed
 - `$import` is resolved at runtime, returning compatible values for chaining and direct access
     - in stated: not possible to access object results with `$import('file').prop_a`
     - in stated: not possible to use the result in other functions like `$merge([$import('fileA'), $import('fileB')])`
@@ -171,7 +198,7 @@ The library and syntax is inspired by [stated-js](https://github.com/cisco-open/
     - in stated: relative selectors are possible, not using JSONata but jsonpointer around the JSONata expression
         - using additional parsers and DAG building to get the dependencies resolved in the needed order
         - adding parent values to nested evaluations to inject all relative data
-            - thought: most likely the reason why they use the `$` prefix for added variables, as then not in conflict with runtime variables
+            - thought: most likely the reason why they use the `$` prefix for added variables, as then not in conflict with variables of the template
         - while destroying the option to use JSONata on the result; all the benefits of having the results directly available for queries are lost
     - in comyata: optionally enable (the dangerous) cross-resolving to use computed fields within other computed fields, be aware this allows creating deadlocks, which in stated should be solved by the DAG
     - in comyata: multiple times importing the same file will only compute it one time within one computation-cycle, allowing access to the same result without the need to access other computed fields or create temporary variables for sharing the result
@@ -184,8 +211,10 @@ The library and syntax is inspired by [stated-js](https://github.com/cisco-open/
 - optional functionality based on property names
     - in stated: by default properties with some suffix/prefix will be used by the lib to perform side-effects or set variables, thus usage with existing data may not work as intended
 - extendable `$import/$load` to support more file formats, add authentication for API calls or even use databases for `$import`
-- any engine for dynamic data
+- support for any engine to produce dynamic data
     - in stated: limited to JSONata
+- very small in just <200kB (strict ESM, no separate client/server bundles)
+    - stated is >5MB (mostly due to included bundles for client, server, commonjs and ESM support)
 
 ## License
 

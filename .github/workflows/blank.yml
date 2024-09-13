@@ -66,6 +66,8 @@ jobs:
                 run: |
                     cp LICENSE dist/comyata-fe
                     cp LICENSE dist/comyata-run
+                    rimraf dist/comyata-fe/tests
+                    rimraf dist/comyata-run/tests
 
             -   name: Publish to NPM
                 if: github.ref == 'refs/heads/main'

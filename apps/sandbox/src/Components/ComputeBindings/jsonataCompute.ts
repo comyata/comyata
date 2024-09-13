@@ -89,7 +89,10 @@ export const jsonataCompute: (...args: [...Parameters<ComputeFn<DataNodeJSONata>
                 return delay || 0
             },
             load: load,
-            import: load,
+            // the runtime does not support importing templates,
+            // this could be activated as a fallback to load-only,
+            // to support $import you need to use @comyata/fe instead
+            // import: load,
             ...bindings,
         },
     )

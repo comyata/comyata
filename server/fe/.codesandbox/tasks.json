@@ -1,0 +1,25 @@
+{
+    "setupTasks": [
+        {
+            "name": "Install Dependencies",
+            "command": "npm install"
+        }
+    ],
+    "tasks": {
+        "start-dev": {
+            "name": "start-dev",
+            "command": "npm run start-dev",
+            "runAtStart": true,
+            "preview": {
+                "port": 3000
+            }
+        },
+        "watch-server": {
+            "name": "watch-server",
+            "command": "npm run watch-server",
+            "preview": {
+                "port": 8081
+            }
+        }
+    }
+}

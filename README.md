@@ -8,11 +8,17 @@ Run it in the browser or on a server, save the templates in files or a database,
 - [Syntax](#syntax)
 - [Setup Runtime](#setup-runtime)
 - [Setup File Engine](#setup-file-engine)
+- [Runtime vs. FileEngine](#runtime-vs-fileengine)
 - [Development](#development)
 - [Inspiration](#inspiration)
 - [License](#license)
 
-🕹️ [codesandbox](https://codesandbox.io/p/devbox/github/comyata/comyata/tree/main/apps/sandbox?file=%2Fsrc%2FPages%2FPageHome.tsx) | [stackblitz](https://stackblitz.com/github/comyata/comyata/tree/main/apps/sandbox?file=src%2FPages%2FPageHome.tsx) | [source in apps/sandbox](./apps/sandbox)
+**🕹️ Examples:**
+
+- Runtime with React hooks: [codesandbox](https://codesandbox.io/p/devbox/github/comyata/comyata/tree/main/apps/sandbox?file=%2Fsrc%2FPages%2FPageHome.tsx) | [stackblitz](https://stackblitz.com/github/comyata/comyata/tree/main/apps/sandbox?file=src%2FPages%2FPageHome.tsx) | [source in apps/sandbox](./apps/sandbox)
+- FileEngine as API Server: [codesandbox](https://codesandbox.io/p/devbox/github/comyata/comyata/tree/main/server/fe) | [stackblitz](https://stackblitz.com/github/comyata/comyata/tree/main/server/fe) | [source in server/fe](./server/fe)
+
+**📦 Packages:**
 
 - @comyata/run [![MIT license](https://img.shields.io/npm/l/@comyata/run?style=flat-square)](https://github.com/comyata/comyata/blob/main/LICENSE) [![npm (scoped)](https://img.shields.io/npm/v/@comyata/run?style=flat-square)](https://www.npmjs.com/package/@comyata/run) [![JS compatibility](https://img.shields.io/badge/ESM--f7e018?style=flat-square&logo=javascript)](https://gist.github.com/sindresorhus/a39789f98801d908bbc7ff3ecc99d99c)
 - @comyata/fe [![MIT license](https://img.shields.io/npm/l/@comyata/fe?style=flat-square)](https://github.com/comyata/comyata/blob/main/LICENSE) [![npm (scoped)](https://img.shields.io/npm/v/@comyata/fe?style=flat-square)](https://www.npmjs.com/package/@comyata/fe) [![JS compatibility](https://img.shields.io/badge/ESM--f7e018?style=flat-square&logo=javascript)](https://gist.github.com/sindresorhus/a39789f98801d908bbc7ff3ecc99d99c)
@@ -131,14 +137,18 @@ const runner = runtime(
         onCompute: (dataNode) => undefined,
         // once a node successfully computed
         onComputed: (dataNode, result, meta) => undefined,
+
         // enable access to computed fields within other computed fields
         __unsafeAllowCrossResolving: true,
-        // disable node result validation, by default checks that a computed nodes result is not a `Error` or `Promise`
-        __unsafeDisableResultValidation: true,
+
+        // set to true to disable validation
+        // checks that results are not `Error`/`Promise`
+        __unsafeDisableResultValidation: false,
     },
 )
 
-// initial output, which contains all static values, and `Promise` placeholders in computed nodes
+// initial output, which contains all static values
+// and `Promise` placeholders in computed nodes
 const initial = runner.output()
 
 // run compute and get the complete output
@@ -168,6 +178,24 @@ npm i -S @comyata/run @comyata/fe
 ```
 
 > Check the [server example](./server/fe) to learn more.
+
+## Runtime vs. FileEngine
+
+The runtime supports evaluating a single template at a time and does not handle importing other templates. From the runtime's perspective, each template is independent of any others.
+
+The file engine builds on the runtime by adding a layer that manages importing, caching, and loading templates.
+
+It supports adapters to import templates from any source. Included are the `remoteImporter` for HTTP (handling `http://` and `https://` URLs) and the `fileImporter` for local files (using `file://` URLs).
+
+You can add custom importers to its trie-based matcher, which selects the appropriate importer for an `$import(address)` based on how the `address` begins. This functionality is not limited to URLs.
+
+Use the [included importers](./packages/comyata-fe/Importer) as a foundation to create your own.
+
+For the file engine, everything is treated as a "file", whether it's imported from the filesystem, the web, or a database. Each file is uniquely identified by its `fileId`, which is the same as its `$import` address.
+
+The included importers offer a `converter` option to easily extend support for different file formats. By default, YAML and JSON are supported. To enable support for other formats like CSV, see the [server example](./server/fe/src/FileEngine/setupFileEngine.ts).
+
+> Currently, importers are also used for `$load`, which only retrieves the data without evaluating the file as a template.
 
 ## Development
 

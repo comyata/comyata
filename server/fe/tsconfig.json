@@ -1,5 +1,4 @@
 {
-    "extends": "../../tsconfig.packages.json",
     "include": [
         "src"
     ],
@@ -7,7 +6,10 @@
         "module": "NodeNext",
         "target": "ES2022",
         "moduleResolution": "NodeNext",
+        "skipLibCheck": true,
         "esModuleInterop": true,
+        "strict": true,
+        "noImplicitAny": false,
         "outDir": "dist"
     },
     "ts-node": {

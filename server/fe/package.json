@@ -4,12 +4,9 @@
     "type": "module",
     "license": "MIT",
     "scripts": {
-        "cp-packages-json": "cp package.json build && cp package-lock.json build",
-        "start-dev": "concurrently --kill-others \"npm:watch-server\"",
-        "start": "node --no-deprecation --unhandled-rejections=strict server.js",
-        "predev": "npm run clean && npm run dev-build-init",
-        "watch-server": "cross-env PORT=8081 NODE_ENV=development NODE_OPTIONS=\"--experimental-vm-modules --unhandled-rejections=strict --import ./ts-node.register.mjs\" nodemon -w ./src ./src/server.ts",
-        "lint": "cross-env NODE_ENV=test NODE_OPTIONS=\"--experimental-vm-modules --unhandled-rejections=strict\" eslint -c=.eslintrc 'src/**/*.ts'",
+        "start-dev": "node --unhandled-rejections=strict --import ./ts-node.register.mjs --watch ./src/server.js",
+        "watch-server": "cross-env PORT=8081 NODE_ENV=development NODE_OPTIONS=\"--unhandled-rejections=strict --import ./ts-node.register.mjs\" nodemon -w ./src ./src/server.ts",
+        "lint": "cross-env NODE_ENV=test NODE_OPTIONS=\"--experimental-vm-modules --unhandled-rejections=strict\" eslint -c=.eslintrc --max-warnings=0 'src/**/*.ts'",
         "tsc": "tsc --project tsconfig.json --noEmit",
         "prebuild": "npm run lint",
         "build": "tsc --project tsconfig.json",
@@ -18,12 +15,13 @@
         "clean": "rimraf build"
     },
     "dependencies": {
-        "@comyata/fe": "*",
-        "@comyata/run": "*",
+        "@comyata/fe": "~0.0.2",
+        "@comyata/run": "~0.0.2",
         "chokidar": "^4.0.0",
         "csv-parse": "^5.5.6",
         "express": "^4.21.0",
         "liquidjs": "^10.16.7",
+        "nanoid": "^4.0.0",
         "redis": "^4.7.0",
         "yaml": "^2.5.1",
         "yargs": "^17.7.2"
@@ -34,6 +32,7 @@
         "cross-env": "^7.0.3",
         "nodemon": "^3.1.4",
         "rimraf": "^6.0.1",
+        "typescript": "~5.3.3",
         "ts-node": "^10.9.2"
     },
     "nodemonConfig": {

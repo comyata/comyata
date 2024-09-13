@@ -4,7 +4,7 @@
     "private": true,
     "license": "MIT",
     "scripts": {
-        "server:fe:start": "cd server/fe && npm run start-dev",
+        "server:fe:start": "cd server/fe && npm run watch-server",
         "server:fe:build": "cd server/fe && npm run build",
         "clean": "rimraf dist && rimraf coverage && rimraf apps/sandbox/dist && rimraf server/fe/dist",
         "predev": "npm run clean",

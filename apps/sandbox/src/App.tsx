@@ -14,6 +14,7 @@ export default function App() {
                 flexDirection: 'column',
                 overflow: 'auto',
                 maxHeight: '100%',
+                flexGrow: 1,
             }}
         >
             <Box px={2} py={1} sx={{display: 'flex', alignItems: 'center', columnGap: 1, textAlign: 'left'}}>
@@ -33,7 +34,7 @@ export default function App() {
                 </Link>
             </Box>
             <Box
-                style={{display: 'flex', flexDirection: 'column', overflow: 'auto'}}
+                style={{display: 'flex', flexDirection: 'column', overflow: 'auto', flexGrow: 1}}
             >
                 <Routes>
                     <Route path={''} element={<PageHome/>}/>

@@ -26,6 +26,8 @@ export type IProgressEvent =
         error?: Error
     }
 
+export type Progress = null | 'processing' | 'finished' | 'error' | 'outdated'
+
 export const useComyataRuntime = (
     parser: Parser<typeof DataNode | typeof DataNodeJSONata>,
     comyataTemplate: unknown,
@@ -43,9 +45,9 @@ export const useComyataRuntime = (
     } = {},
 ) => {
     const mountedRef = useRef(false)
-    const evalRef = useRef(0)
+    const evalRef = useRef<AbortController | null>(null)
     const timerRef = useRef<undefined | number>(undefined)
-    const [processing, setProcessing] = useState<null | 'processing' | 'finished' | 'error' | 'outdated'>(null)
+    const [processing, setProcessing] = useState<Progress>(null)
     const [evalOut, setEvalOut] = useState<{ stats: ComputeStats[], output: unknown } | null>(null)
     const [evalOutError, setEvalOutError] = useState<null | Error | { error: any }>(null)
 
@@ -79,12 +81,17 @@ export const useComyataRuntime = (
                 }
             }
         }, mountedRef.current ? delayParsing : 0)
-        return () => window.clearTimeout(timer)
+        return () => {
+            window.clearTimeout(timer)
+            window.clearTimeout(timerRef.current)
+            evalRef.current?.abort()
+        }
     }, [comyataTemplate, delayParsing, parser])
 
     const doProcessing = useCallback(() => {
         window.clearTimeout(timerRef.current)
-        const pid = evalRef.current += 1
+        evalRef.current?.abort()
+        const abort = evalRef.current = new AbortController()
         if(!dataNode || data instanceof Error) {
             setProcessing(null)
             return null
@@ -104,18 +111,24 @@ export const useComyataRuntime = (
                     // use these callbacks to get data once a DataNode starts and is done,
                     // allowing to "stream" data in UIs which support it
                     onCompute: (dataNode) => {
+                        if(abort.signal.aborted) return
                         onProgress?.({
                             type: 'node_start',
                             nodePath: dataNode.path,
                         })
                     },
                     onComputed: (dataNode, result/*, meta*/) => {
+                        if(abort.signal.aborted) return
                         onProgress?.({
                             type: 'node_done',
                             nodePath: dataNode.path,
                             output: result,
                         })
                     },
+                },
+                {
+                    nodesChain: new Set(),
+                    abort: abort.signal,
                 },
             )
 
@@ -137,7 +150,7 @@ export const useComyataRuntime = (
 
             result.compute()
                 .then(() => {
-                    if(evalRef.current !== pid) return
+                    if(abort.signal.aborted) return
                     setProcessing('finished')
                     setEvalOut(resultContainer => resultContainer && 'output' in resultContainer ? {
                         ...resultContainer,
@@ -151,7 +164,7 @@ export const useComyataRuntime = (
                     })
                 })
                 .catch((e) => {
-                    if(evalRef.current !== pid) return
+                    if(abort.signal.aborted) return
                     setProcessing('error')
                     console.debug('Comyata processor failed', e)
 

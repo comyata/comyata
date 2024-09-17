@@ -1,10 +1,18 @@
 import { Transaction } from '@codemirror/state'
-import { Alert, AlertTitle, Paper, Typography } from '@mui/material'
+import Alert from '@mui/material/Alert'
+import AlertTitle from '@mui/material/AlertTitle'
+import ButtonBase from '@mui/material/ButtonBase'
+import Collapse from '@mui/material/Collapse'
+import Paper from '@mui/material/Paper'
+import Tooltip from '@mui/material/Tooltip'
+import Typography from '@mui/material/Typography'
 import Box from '@mui/material/Box'
 import { CodeMirrorOnChange } from '@ui-schema/kit-codemirror'
 import { useCallback, useMemo, useState } from 'react'
 import yaml from 'yaml'
+import { ComyataStats } from '../Components/ComyataStats'
 import { CustomCodeMirror } from '../Components/CustomCodeMirror'
+import { ProgressInfo } from '../Components/ProgressInfo'
 import { useComyataParser } from '../Components/useComyata'
 import { useComyataRuntime } from '../Components/useComyataRuntime'
 
@@ -19,6 +27,8 @@ export const PageHome = () => {
         templateRaw: yaml.stringify(exampleTemplate).trimEnd(),
         template: exampleTemplate,
     }))
+
+    const [showStats, setShowStats] = useState(false)
 
     const onInputChange: CodeMirrorOnChange = useCallback((view, nextValue, prevValue) => {
         if(!view.docChanged || typeof nextValue !== 'string' || prevValue === nextValue) return
@@ -50,7 +60,7 @@ export const PageHome = () => {
             display: 'flex', gap: 1, flexWrap: {xs: 'wrap', md: 'nowrap'},
             overflow: {md: 'auto'},
             // maxHeight: '100%',
-            flexGrow: 0,
+            flexGrow: 1,
         }}>
             <Paper sx={{display: 'flex', flexDirection: 'column', width: {xs: '100%', md: '50%'}, px: 1, pb: 1, overflow: {md: 'auto'}}}>
                 <Box px={1} py={0.5}>
@@ -65,24 +75,23 @@ export const PageHome = () => {
                 {state.templateError ?
                     <Alert severity={'error'}>
                         <AlertTitle>{'Invalid Input'}</AlertTitle>
-                        <Typography>{state.templateError.message}</Typography>
+                        <Typography whiteSpace={'pre-line'}>{state.templateError.message}</Typography>
                     </Alert> : null}
-                {parserError ?
+                {!state.templateError && parserError ?
                     <Alert severity={'error'}>
                         <AlertTitle>{'Parser Error'}</AlertTitle>
-                        <Typography>{parserError.message}</Typography>
+                        <Typography whiteSpace={'pre-line'}>{parserError.message}</Typography>
                     </Alert> : null}
             </Paper>
             <Paper sx={{display: 'flex', flexDirection: 'column', width: {xs: '100%', md: '50%'}, px: 1, pb: 1, overflow: {md: 'auto'}}}>
-                <Box px={1} py={0.5} sx={{display: 'flex'}}>
+                <Box px={1} py={0.5} sx={{display: 'flex', alignItems: 'center'}}>
                     <Typography variant={'caption'} color={'secondary'}>{'Output'}</Typography>
-                    <Typography variant={'caption'} color={'textSecondary'} ml={'auto'}>{processing}</Typography>
-                    <Typography variant={'caption'} color={'textSecondary'} ml={0.5}>{evalOut?.stats?.reduce((t, s) => t + (s.dur || 0), 0) || 0}ms</Typography>
+                    <Box ml={'auto'}><ProgressInfo progress={processing}/></Box>
                 </Box>
                 {evalOutError ?
                     <Alert severity={'error'}>
                         <AlertTitle>{'Eval Error'}</AlertTitle>
-                        <Typography>{evalOutError instanceof Error ? evalOutError.message : JSON.stringify(evalOutError.error)}</Typography>
+                        <Typography whiteSpace={'pre-line'}>{evalOutError instanceof Error ? evalOutError.message : JSON.stringify(evalOutError.error)}</Typography>
                     </Alert> : null}
                 {evalOutError ? null :
                     <CustomCodeMirror
@@ -90,6 +99,29 @@ export const PageHome = () => {
                         lang={'json'}
                         style={{flexGrow: 1, display: 'flex'}}
                     />}
+
+                <Box ml={'auto'}>
+                    <Tooltip title={`${showStats ? 'hide' : 'show'} stats`} disableInteractive>
+                        <ButtonBase
+                            sx={{
+                                borderRadius: 1,
+                                color: 'textSecondary',
+                                typography: 'caption',
+                                px: 0.5, py: 0.25,
+                            }}
+                            onClick={() => setShowStats(s => !s)}
+                        >
+                            {evalOut?.stats?.reduce((t, s) => t + (s.dur || 0), 0) || 0}{'ms'}
+                        </ButtonBase>
+                    </Tooltip>
+                </Box>
+
+                <Collapse in={showStats} sx={{flexShrink: 0}}>
+                    {evalOut?.stats ?
+                        <ComyataStats
+                            stats={evalOut?.stats}
+                        /> : '-'}
+                </Collapse>
             </Paper>
         </Box>
     )

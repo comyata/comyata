@@ -1,4 +1,4 @@
-# Comyata - computing y data
+# Comyata - computing data
 
 Model data with dynamic parts easily, write data structures including queries and transformations.
 
@@ -33,18 +33,27 @@ Any `string` value can be made computable by starting it with an engine-tag and 
 
 For JSONata, the default engine, the engine tag is `$`. To use JSONata, write it like `${ 10 + 5 }`.
 
-In this example the `calc` property uses JSONata, while `static` is just plain data and not dynamic:
+In this YAML example, the `calc` property uses JSONata, while `static` is just plain data and is not dynamic:
 
 ```yaml
 calc: ${ 10 + 5 }
 static: Lorem Ipsum
 ```
 
-The same in JSON looks like:
+The equivalent JSON looks like:
 
 ```json
 {
     "calc": "${ 10 + 5 }",
+    "static": "Lorem Ipsum"
+}
+```
+
+Both produce the following JSON output:
+
+```json
+{
+    "calc": 15,
     "static": "Lorem Ipsum"
 }
 ```

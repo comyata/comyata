@@ -176,7 +176,11 @@ export const setupFileEngine = (
                         }
                     })
 
-                res.status(200).send(result)
+                res
+                    .status(200)
+                    .setHeader('Content-Type', 'application/json')
+                    // Beautified JSON output for better DX, such as in CodeSandbox examples.
+                    .send(JSON.stringify(result, undefined, 4))
             } catch(e) {
                 if(e instanceof Error && e.message.startsWith('ENOENT:')) {
                     res.status(404).send({

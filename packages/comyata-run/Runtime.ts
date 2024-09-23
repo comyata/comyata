@@ -131,6 +131,8 @@ export const runtime = <TNode extends IDataNode, D = unknown, C = unknown, TBagg
         const groupData = groupDataChain[0]
         groupChildren.forEach((childNode, childKey) => {
             groupData[childKey] = childNode.hydrate?.()
+            // todo: for usage in react, where the initial output is used and not the fully computed output,
+            //       the data should not be mutated, as a it violates react rules for state mutation
             nodesContexts.set(childNode, [(v) => groupData[childKey] = v, () => groupData[childKey], groupDataChain])
             if(childNode.hooks) {
                 hooks.push(...childNode.hooks as IComputeTimeHooks<TNode>)

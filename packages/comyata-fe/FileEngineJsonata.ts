@@ -16,15 +16,16 @@ export const fileEngineJsonata: (
     globalBindings,
 ) => (
     dataNode, context, parentData,
-    {
+    runtimeBaggage,
+) => {
+    const {
         dataFile, filesChain,
         fileEngine, nodesChain,
         computeStats,
         stats: nodeComputeStats,
         runtimeContext: runtime,
         ...baggage
-    },
-) => {
+    } = runtimeBaggage
     const addUsage = (df: DataFile, dn: IDataNode) => {
         // todo: separate usages from stats, that's global runtime resulting state!
         //       but not globally, so not on DataNode, while fileLoaders should even be global! that's where the classes can be split
@@ -58,7 +59,7 @@ export const fileEngineJsonata: (
     }
 
     const bindings = {
-        ...globalBindings || {},
+        ...globalBindings?.(dataNode, context, parentData, runtimeBaggage) || {},
         // todo: move the DataNode generic out?
         self: () => parentData[0],
         parent: () => parentData.slice(1),

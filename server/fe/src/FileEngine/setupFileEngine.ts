@@ -76,7 +76,11 @@ export const setupFileEngine = (
     const fileEngine = new FileEngine({
         nodes: [DataNodeJSONata, DataNodeJSONataEscaped],
         compute: {
-            [DataNodeJSONata.engine]: fileEngineJsonata(() => ({})),
+            [DataNodeJSONata.engine]: fileEngineJsonata(() => ({
+                // specify custom functions for JSONata,
+                // e.g. use like: ${ $hello() }
+                hello: () => 'world',
+            })),
         },
         importer: new Importers()
             .use(fileImporter({

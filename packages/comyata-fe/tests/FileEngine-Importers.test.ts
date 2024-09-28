@@ -9,8 +9,8 @@ import { DataNodeJSONata } from '@comyata/run/DataNodeJSONata'
 import path from 'node:path'
 import url from 'url'
 
-// npm run tdd -- --selectProjects=test-comyata-fe
-// npm run tdd -- --selectProjects=test-comyata-fe --testPathPattern=FileEngine-Importers
+// npm run tdd -- --selectProjects=test-@comyata/fe
+// npm run tdd -- --selectProjects=test-@comyata/fe --testPathPattern=FileEngine-Importers
 
 const mocksDir = path.resolve('./packages/comyata-fe/tests/mocks')
 describe('FileEngine', () => {

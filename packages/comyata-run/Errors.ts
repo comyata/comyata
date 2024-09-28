@@ -46,3 +46,23 @@ export class CircularNodeDependencyError extends ComputableError {
         this.target = target
     }
 }
+
+export class ResultError extends ComputableError {
+    dataNode: IDataNode
+    valueError?: any
+
+    constructor(message: string, dataNode: IDataNode, valueError?: any) {
+        super(message)
+        this.dataNode = dataNode
+        this.valueError = valueError
+    }
+}
+
+export class MissingEngineError extends ComputableError {
+    dataNode: IDataNode
+
+    constructor(message: string, dataNode: IDataNode) {
+        super(message)
+        this.dataNode = dataNode
+    }
+}

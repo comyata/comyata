@@ -4,8 +4,16 @@ import { NodeParserError } from '@comyata/run/Errors'
 import { Parser } from '@comyata/run/Parser'
 import { DataNode } from '@comyata/run/DataNode'
 
-// npm run tdd -- --selectProjects=test-comyata-run
-// npm run tdd -- --selectProjects=test-comyata-run --testPathPattern=Parser
+// npm run tdd -- --selectProjects=test-@comyata/run
+// npm run tdd -- --selectProjects=test-@comyata/run --testPathPattern=Parser.test
+
+const expressionAst = {
+    type: 'binary',
+    value: '+',
+    position: 4,
+    lhs: {value: 10, type: 'number', position: 2},
+    rhs: {value: 5, type: 'number', position: 6},
+}
 
 describe('Parser', () => {
     it('Parser Data Only', async() => {
@@ -50,16 +58,35 @@ describe('Parser', () => {
         expect(dataNode.children?.get('exclusive')?.hydrate?.()).toBe(true)
     })
 
-    it('Parser Only Expression', async() => {
-        const dataNode = new Parser([DataNodeJSONata])
-            .parse('${ "Surfboard " & variant.name_short }')
+    it.each([
+        [
+            'Standard',
+            '${ 10 + 5 }',
+            {},
+        ],
+        [
+            'Custom Paren',
+            '$" 10 + 5 "',
+            {paren: ['"', '"']},
+        ],
+    ] satisfies [name: string, template: string, options: Partial<Parser<typeof DataNode>['options']>][])(
+        'Parser Only Expression %p',
+        (_name, template, options) => {
+            const dataNode = new Parser([DataNodeJSONata], options)
+                .parse(template)
 
-        expect(typeof dataNode.children).toBe('undefined')
-        expect(dataNode.engine).toBe('$')
-        expect(dataNode.value).toBe('${ "Surfboard " & variant.name_short }')
-        expect(dataNode.hooks?.length).toBe(1)
-        expect(dataNode.hooks?.[0] === dataNode).toBe(true)
-    })
+            expect(typeof dataNode.children).toBe('undefined')
+            expect(dataNode.engine).toBe('$')
+            expect(dataNode.value).toBe(template)
+            expect(dataNode.hooks?.length).toBe(1)
+            expect(dataNode.hooks?.[0] === dataNode).toBe(true)
+            expect(dataNode?.hydrate?.()).toStrictEqual(new UnresolvedJSONataExpression('Unresolved JSONata expression'))
+            expect('expr' in dataNode).toBe(true)
+            if('expr' in dataNode) {
+                expect(dataNode.expr.ast()).toStrictEqual(expressionAst)
+            }
+        },
+    )
 
     it('Parser Object With Expression', async() => {
         const dataNode = new Parser([DataNodeJSONata]).parse({
@@ -78,16 +105,8 @@ describe('Parser', () => {
         expect(dataNode.children?.get('name')?.hydrate?.()).toStrictEqual(new UnresolvedJSONataExpression('Unresolved JSONata expression'))
     })
 
-    it('Parser Object only Expression', async() => {
-        const parser = new Parser([DataNodeJSONata]).parse('${ "Surfboard " & variant.name_short }')
-
-        expect(parser).toBeTruthy()
-        expect(parser.children).toBe(undefined)
-        expect(parser?.hydrate?.()).toStrictEqual(new UnresolvedJSONataExpression('Unresolved JSONata expression'))
-    })
-
     it('Parser nested array objects', async() => {
-        const parser = new Parser([DataNodeJSONata]).parse({
+        const dataNode = new Parser([DataNodeJSONata]).parse({
             'Account Name': 'SurfboardDemoShop',
             'Order': [
                 {
@@ -158,7 +177,7 @@ describe('Parser', () => {
                 },
             ],
         })
-        expect(parser).toBeTruthy()
+        expect(dataNode).toBeTruthy()
     })
 
     it('Parser empty expression', async() => {

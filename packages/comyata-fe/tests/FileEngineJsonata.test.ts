@@ -3,15 +3,38 @@ import { FileEngine, FileComputeStats, RuntimeContext } from '@comyata/fe/FileEn
 import { fileEngineJsonata } from '@comyata/fe/FileEngineJsonata'
 import { Importers } from '@comyata/fe/Importers'
 import { DataNodeJSONata } from '@comyata/run/DataNodeJSONata'
-import path from 'node:path'
-import url from 'url'
 
 // npm run tdd -- --selectProjects=test-@comyata/fe
 // npm run tdd -- --selectProjects=test-@comyata/fe --testPathPattern=FileEngineJsonata
 
-const mocksDir = path.resolve('./packages/comyata-fe/tests/mocks/')
 describe('FileEngineJsonata', () => {
-    it('fileEngineJsonata Custom Function', async() => {
+    it('fileEngineJsonata Global Context Variable', async() => {
+        const fileEngine = new FileEngine({
+            nodes: [DataNodeJSONata],
+            compute: {
+                [DataNodeJSONata.engine]: fileEngineJsonata(() => ({
+                    text: 'value',
+                    list: [1, 2, 3],
+                    fields: {
+                        field1: 'a',
+                    },
+                })),
+            },
+            importer: new Importers(),
+        })
+        const dataFile = fileEngine.register('document', {
+            text: '${ $text }',
+            arraySelect: '${ $list[1] }',
+            objectSelect: '${ $fields.field1 }',
+        }, {})
+        const [r] = await fileEngine.run(dataFile, {}) as [any, FileComputeStats, RuntimeContext]
+
+        expect(r.text).toBe('value')
+        expect(r.arraySelect).toBe(2)
+        expect(r.objectSelect).toBe('a')
+    })
+
+    it('fileEngineJsonata Global Context Function', async() => {
         const fileEngine = new FileEngine({
             nodes: [DataNodeJSONata],
             compute: {
@@ -23,7 +46,7 @@ describe('FileEngineJsonata', () => {
         })
         const dataFile = fileEngine.register('document', {
             helloResult: '${ $hello() }',
-        }, {resolveRelative: (relPath: string) => url.pathToFileURL(path.join(mocksDir, 'project', relPath)).href})
+        }, {})
         const [r] = await fileEngine.run(dataFile, {}) as [any, FileComputeStats, RuntimeContext]
 
         expect(r.helloResult).toBe('world')

@@ -10,7 +10,7 @@
         "predev": "npm run clean",
         "lint": "cross-env NODE_ENV=test NODE_OPTIONS=\"--max-old-space-size=8192 --no-deprecation --experimental-vm-modules --unhandled-rejections=strict\" eslint -c=.eslintrc --ext=.tsx,.ts --max-warnings=0 'apps/sandbox/src' 'packages'",
         "test": "cross-env NODE_ENV=development NODE_OPTIONS=\"--max-old-space-size=8192 --no-warnings --no-deprecation --experimental-vm-modules --unhandled-rejections=strict\" jest -c=\"jest.config.ts\" --passWithNoTests",
-        "tdd": "cross-env NODE_ENV=development npm test -- --watch --coverage=false",
+        "tdd": "cross-env NODE_ENV=development npm run clean && npm test -- --watch --coverage=false",
         "dev": "concurrently --kill-others \"npm run start -w comyata-app\" \"npm run server:fe:start\"",
         "prebuild": "npm run clean && npm run lint && npm run test && npm run tsc",
         "tsc": "tsc --project tsconfig.json --noEmit",
@@ -21,7 +21,8 @@
         "build-packages": "npm run tsgen && npm run babel-packages",
         "babel-packages": "cross-env NODE_ENV=node babel packages -d dist --extensions \".ts,.js,.jsx,.tsx\" --copy-files",
         "licenses-all": "license-checker --json --out licenses.json && node view-licenses.js",
-        "licenses": "npm run licenses-all -- --production"
+        "licenses": "license-checker --production --json --out licenses.json && node view-licenses.js",
+        "licenses-app": "license-checker --start apps/sandbox --production --json --out licenses.json && node view-licenses.js"
     },
     "type": "module",
     "dependencies": {

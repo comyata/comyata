@@ -3,8 +3,8 @@ import { DataNodeJSONata, UnresolvedJSONataExpression } from '@comyata/run/DataN
 import { Parser } from '@comyata/run/Parser'
 import { ComputeFn, runtime } from '@comyata/run/Runtime'
 
-// npm run tdd -- --selectProjects=test-comyata-run
-// npm run tdd -- --selectProjects=test-comyata-run --testPathPattern=Runtime
+// npm run tdd -- --selectProjects=test-@comyata/run
+// npm run tdd -- --selectProjects=test-@comyata/run --testPathPattern=Runtime.test
 
 describe('Runtime', () => {
     const jsonataCompute: ComputeFn<DataNodeJSONata> = (computedNode, context, parentData) => {
@@ -49,15 +49,33 @@ describe('Runtime', () => {
     })
 
     it('Runtime Only Expression', async() => {
-        // const dataNode = new Parser([DataNodeJSONata]).parse('${ "Surfboard " & variant.name_short }')
+        const dataNode = new DataNodeJSONata(undefined, [], '', '${ "Surfboard " & variant.name_short }')
         const runner = runtime(
-            new DataNodeJSONata(undefined, [], '', '${ "Surfboard " & variant.name_short }'),
+            dataNode,
             {variant: {name_short: 'Blue'}},
             {[DataNodeJSONata.engine]: jsonataCompute},
         )
         expect(runner.output()).toStrictEqual(new UnresolvedJSONataExpression())
         expect(await runner.compute()).toBe('Surfboard Blue')
+        expect(runner.getValue(dataNode)).toBe('Surfboard Blue')
         expect(runner.output()).toBe('Surfboard Blue')
+    })
+
+    it('Runtime Only Expression Double Await', async() => {
+        const dataNode = new DataNodeJSONata(undefined, [], '', '${ "Surfboard " & variant.name_short }')
+        const runner = runtime(
+            dataNode,
+            {variant: {name_short: 'Blue'}},
+            {[DataNodeJSONata.engine]: jsonataCompute},
+        )
+        expect(runner.output()).toStrictEqual(new UnresolvedJSONataExpression())
+        expect(await Promise.all([
+            runner.compute(),
+            runner.compute(),
+        ])).toStrictEqual([
+            'Surfboard Blue',
+            'Surfboard Blue',
+        ])
     })
 
     it('Runtime Object With Expression', async() => {

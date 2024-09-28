@@ -1,4 +1,4 @@
-import { NodeComputeError } from '@comyata/run/Errors'
+import { MissingEngineError, NodeComputeError, ResultError } from '@comyata/run/Errors'
 import { timer } from '@comyata/run/Helpers/Timer'
 import { IComputeTimeHooks, IDataNode, IDataNodeChildren } from '@comyata/run/DataNode'
 import jsonpointer from 'json-pointer'
@@ -133,6 +133,7 @@ export const runtime = <TNode extends IDataNode, D = unknown, C = unknown, TBagg
             groupData[childKey] = childNode.hydrate?.()
             // todo: for usage in react, where the initial output is used and not the fully computed output,
             //       the data should not be mutated, as a it violates react rules for state mutation
+            // todo: or set all only after all are done if cross resolving is off, to never have different results based on order of dispatching?
             nodesContexts.set(childNode, [(v) => groupData[childKey] = v, () => groupData[childKey], groupDataChain])
             if(childNode.hooks) {
                 hooks.push(...childNode.hooks as IComputeTimeHooks<TNode>)
@@ -175,7 +176,10 @@ export const runtime = <TNode extends IDataNode, D = unknown, C = unknown, TBagg
 
         const start = timer.start()
         const computeFn = computeEngines[engineId]
-        if(!computeFn) throw new Error(`Missing compute for "${engineId}" at ${JSON.stringify(computedNode.path)}`)
+        if(!computeFn) throw new MissingEngineError(
+            `Missing compute engine for "${engineId}" at ${JSON.stringify(computedNode.path)}`,
+            computedNode,
+        )
 
         onCompute?.(computedNode)
         return computeFn(
@@ -197,18 +201,17 @@ export const runtime = <TNode extends IDataNode, D = unknown, C = unknown, TBagg
                 if(!__unsafeDisableResultValidation) {
                     const realValue = getter()
                     if(realValue instanceof Error) {
-                        return Promise.reject(new class ResultError extends Error {
-                            message = `Computed value resulted in an error`
-                            dataNode = computedNode
-                            valueError = realValue
-                        })
+                        return Promise.reject(new ResultError(
+                            `Computed value resulted in an error`,
+                            computedNode,
+                            realValue,
+                        ))
                     }
                     if(realValue instanceof Promise) {
-                        return Promise.reject(new class ResultError extends Error {
-                            message = `Computed value resulted in an promise`
-                            dataNode = computedNode
-                            valueError = realValue
-                        })
+                        return Promise.reject(new ResultError(
+                            `Computed value resulted in an promise`,
+                            computedNode,
+                        ))
                     }
                 }
 

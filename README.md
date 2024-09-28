@@ -1,8 +1,23 @@
 # Comyata - computing data
 
+[![Github actions Build](https://github.com/comyata/comyata/actions/workflows/blank.yml/badge.svg)](https://github.com/comyata/comyata/actions)
+[![Coverage Status](https://img.shields.io/codecov/c/github/comyata/comyata/main.svg?style=flat-square)](https://codecov.io/gh/comyata/comyata/branch/main)
+
 Model data with dynamic parts easily, write data structures including queries and transformations.
 
 Run it in the browser or on a server, save the templates in files or a database, and do whatever you want.
+
+**🕹️ Examples:**
+
+- Runtime with React hooks: [codesandbox](https://codesandbox.io/p/devbox/github/comyata/comyata/tree/main/apps/sandbox?file=%2Fsrc%2FPages%2FPageHome.tsx) | [stackblitz](https://stackblitz.com/github/comyata/comyata/tree/main/apps/sandbox?file=src%2FPages%2FPageHome.tsx) | [source in apps/sandbox](./apps/sandbox)
+- FileEngine as API Server: [codesandbox](https://codesandbox.io/p/devbox/github/comyata/comyata/tree/main/server/fe) | [stackblitz](https://stackblitz.com/github/comyata/comyata/tree/main/server/fe) | [source in server/fe](./server/fe)
+
+**📦 Packages:**
+
+- @comyata/run [![MIT license](https://img.shields.io/npm/l/@comyata/run?style=flat-square)](https://github.com/comyata/comyata/blob/main/LICENSE) [![npm (scoped)](https://img.shields.io/npm/v/@comyata/run?style=flat-square)](https://www.npmjs.com/package/@comyata/run) [![JS compatibility](https://img.shields.io/badge/ESM--f7e018?style=flat-square&logo=javascript)](https://gist.github.com/sindresorhus/a39789f98801d908bbc7ff3ecc99d99c)
+- @comyata/fe [![MIT license](https://img.shields.io/npm/l/@comyata/fe?style=flat-square)](https://github.com/comyata/comyata/blob/main/LICENSE) [![npm (scoped)](https://img.shields.io/npm/v/@comyata/fe?style=flat-square)](https://www.npmjs.com/package/@comyata/fe) [![JS compatibility](https://img.shields.io/badge/ESM--f7e018?style=flat-square&logo=javascript)](https://gist.github.com/sindresorhus/a39789f98801d908bbc7ff3ecc99d99c)
+
+**📖 Contents:**
 
 - [Syntax](#syntax)
 - [Setup Runtime](#setup-runtime)
@@ -14,16 +29,6 @@ Run it in the browser or on a server, save the templates in files or a database,
 - [Inspiration](#inspiration)
 - [Development](#development)
 - [License](#license)
-
-**🕹️ Examples:**
-
-- Runtime with React hooks: [codesandbox](https://codesandbox.io/p/devbox/github/comyata/comyata/tree/main/apps/sandbox?file=%2Fsrc%2FPages%2FPageHome.tsx) | [stackblitz](https://stackblitz.com/github/comyata/comyata/tree/main/apps/sandbox?file=src%2FPages%2FPageHome.tsx) | [source in apps/sandbox](./apps/sandbox)
-- FileEngine as API Server: [codesandbox](https://codesandbox.io/p/devbox/github/comyata/comyata/tree/main/server/fe) | [stackblitz](https://stackblitz.com/github/comyata/comyata/tree/main/server/fe) | [source in server/fe](./server/fe)
-
-**📦 Packages:**
-
-- @comyata/run [![MIT license](https://img.shields.io/npm/l/@comyata/run?style=flat-square)](https://github.com/comyata/comyata/blob/main/LICENSE) [![npm (scoped)](https://img.shields.io/npm/v/@comyata/run?style=flat-square)](https://www.npmjs.com/package/@comyata/run) [![JS compatibility](https://img.shields.io/badge/ESM--f7e018?style=flat-square&logo=javascript)](https://gist.github.com/sindresorhus/a39789f98801d908bbc7ff3ecc99d99c)
-- @comyata/fe [![MIT license](https://img.shields.io/npm/l/@comyata/fe?style=flat-square)](https://github.com/comyata/comyata/blob/main/LICENSE) [![npm (scoped)](https://img.shields.io/npm/v/@comyata/fe?style=flat-square)](https://www.npmjs.com/package/@comyata/fe) [![JS compatibility](https://img.shields.io/badge/ESM--f7e018?style=flat-square&logo=javascript)](https://gist.github.com/sindresorhus/a39789f98801d908bbc7ff3ecc99d99c)
 
 ## Syntax
 

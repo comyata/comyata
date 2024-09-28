@@ -144,6 +144,9 @@ export class Parser<TNode extends typeof DataNode> {
         }
     }
 
+    /**
+     * @deprecated create an instance and use it instead
+     */
     static parse(objOrEval: any) {
         return new Parser([]).parse(objOrEval)
     }

@@ -12,6 +12,8 @@ export interface IDataNode {
     hooks?: IComputeTimeHooks
 }
 
+export type ExtractExprFn = (value: string) => string
+
 export type IDataNodeChildren<TNode extends IDataNode = IDataNode> = Map<string | number, TNode>
 
 export class DataNode implements IDataNode {
@@ -28,15 +30,19 @@ export class DataNode implements IDataNode {
     hooks?: IDataNode['hooks']
     hydrate?: IDataNode['hydrate']
 
+    protected readonly extractExpr?: ExtractExprFn
+
     constructor(
         parent: DataNodeObject | undefined,
         path: IDataNode['path'],
         valueType: IDataNode['valueType'],
         value: IDataNode['value'],
+        extractExpr?: ExtractExprFn,
     ) {
         this.path = path
         this.valueType = valueType
         this.value = value
+        this.extractExpr = extractExpr
         if(parent) {
             this.parent = () => parent
         }

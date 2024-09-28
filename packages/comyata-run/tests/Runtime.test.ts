@@ -49,7 +49,7 @@ describe('Runtime', () => {
     })
 
     it('Runtime Only Expression', async() => {
-        const dataNode = new DataNodeJSONata(undefined, [], '', '${ "Surfboard " & variant.name_short }')
+        const dataNode = new DataNodeJSONata(undefined, [], '', '${ "Surfboard " & variant.name_short }', v => v.slice(2, -1))
         const runner = runtime(
             dataNode,
             {variant: {name_short: 'Blue'}},
@@ -62,7 +62,7 @@ describe('Runtime', () => {
     })
 
     it('Runtime Only Expression Double Await', async() => {
-        const dataNode = new DataNodeJSONata(undefined, [], '', '${ "Surfboard " & variant.name_short }')
+        const dataNode = new DataNodeJSONata(undefined, [], '', '${ "Surfboard " & variant.name_short }', v => v.slice(2, -1))
         const runner = runtime(
             dataNode,
             {variant: {name_short: 'Blue'}},

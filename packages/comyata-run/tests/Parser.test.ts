@@ -27,7 +27,7 @@ describe('Parser', () => {
             fastShipping: null,
             exclusive: true,
         }
-        const dataNode = new Parser([]).parse(orgValue)
+        const dataNode = new Parser().parse(orgValue)
 
         expect(dataNode).toBeTruthy()
         expect(dataNode.value).toStrictEqual(orgValue)
@@ -69,6 +69,21 @@ describe('Parser', () => {
             '$" 10 + 5 "',
             {paren: ['"', '"']},
         ],
+        [
+            'Custom Paren Two Char',
+            '${{ 10 + 5 }}',
+            {paren: ['{{', '}}']},
+        ],
+        [
+            'Custom Paren Empty Strings',
+            '$ 10 + 5',
+            {paren: ['', '']},
+        ],
+        [
+            'Custom Paren Empty End Strings',
+            '$: 10 + 5',
+            {paren: [':', '']},
+        ],
     ] satisfies [name: string, template: string, options: Partial<Parser<typeof DataNode>['options']>][])(
         'Parser Only Expression %p',
         (_name, template, options) => {
@@ -87,6 +102,17 @@ describe('Parser', () => {
             }
         },
     )
+
+    it('Parser Incomplete Expression Paren', async() => {
+        const dataNode = new Parser([DataNodeJSONata])
+            .parse('${ 10 + 5')
+
+        expect(typeof dataNode.children).toBe('undefined')
+        expect(dataNode).toBeInstanceOf(DataNode)
+        expect(dataNode.value).toBe('${ 10 + 5')
+        expect(dataNode.hooks?.length).toBe(undefined)
+        expect(dataNode?.hydrate?.()).toBe('${ 10 + 5')
+    })
 
     it('Parser Object With Expression', async() => {
         const dataNode = new Parser([DataNodeJSONata]).parse({

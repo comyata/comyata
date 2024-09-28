@@ -1,4 +1,4 @@
-import { DataNode, DataNodeObject, IDataNode } from '@comyata/run/DataNode'
+import { DataNode, DataNodeObject, ExtractExprFn, IDataNode } from '@comyata/run/DataNode'
 import { NodeParserError } from '@comyata/run/Errors'
 import jsonpointer from 'json-pointer'
 import jsonata from 'jsonata'
@@ -29,8 +29,11 @@ export class DataNodeJSONata extends DataNode {
         path: IDataNode['path'],
         valueType: IDataNode['valueType'],
         value: IDataNode['value'],
+        extractExpr: ExtractExprFn,
     ) {
-        const exprText = value.slice(2, -1).trim()
+        super(parent, path, valueType || 'computed', value, extractExpr)
+
+        const exprText = extractExpr(value).trim()
 
         if(exprText === '') {
             throw new NodeParserError(
@@ -38,8 +41,8 @@ export class DataNodeJSONata extends DataNode {
                 `Empty expression at ${JSON.stringify(jsonpointer.compile(path as string[]))}`,
             )
         }
-        super(parent, path, valueType || 'computed', value)
 
+        // todo: support custom toExpr
         this.expr = toExpr(exprText)
 
         // todo: setting the hydrate reject when something attaches and disabling the promise-set for computes

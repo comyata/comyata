@@ -1,4 +1,4 @@
-import { DataNode, DataNodeObject } from '@comyata/run/DataNode'
+import { DataNode, DataNodeObject, ExtractExprFn } from '@comyata/run/DataNode'
 import { NodeParserError } from '@comyata/run/Errors'
 import jsonpointer from 'json-pointer'
 
@@ -8,7 +8,7 @@ function escapeRegex(string: string) {
 
 export class Parser<TNode extends typeof DataNode> {
     readonly nodes: TNode[]
-    private readonly matchNode: (text: string) => TNode | undefined
+    private readonly matchNode: (text: string) => [TNode, ExtractExprFn] | undefined
     public readonly options: {
         /**
          * If comments are enabled
@@ -29,20 +29,42 @@ export class Parser<TNode extends typeof DataNode> {
             ...options,
             paren: options.paren || ['{', '}'],
         }
+
+        // todo refactor matcher and extract-expr for a better usage outside of runtime,
+        //      maybe add a `comyata-utils` for these universal field utils?
+
         const tagPattern = new RegExp(
             `^(?<engine>${nodesTypes.map(tag => escapeRegex(tag.engine as string)).join('|')})${escapeRegex(this.options.paren[0])}`,
         )
-        const nodesMap = this.nodes.reduce<Map<string, TNode>>(
-            (nodesMap, nodeType) =>
-                nodeType.engine ?
-                    nodesMap.set(nodeType.engine, nodeType) :
-                    nodesMap,
+
+        const offsetParenStart = this.options.paren[0].length
+        const offsetParenEnd = this.options.paren[1].length
+
+        const getTagExpExtract =
+            offsetParenEnd
+                ? (tag: string) => {
+                    const offsetStart = tag.length + offsetParenStart
+                    return (value: string) => {
+                        return value.slice(offsetStart, -offsetParenEnd)
+                    }
+                }
+                : (tag: string) => {
+                    const offsetStart = tag.length + offsetParenStart
+                    return (value: string) => {
+                        return value.slice(offsetStart)
+                    }
+                }
+
+        const nodesMap = this.nodes.reduce<Map<string, [TNode, ExtractExprFn]>>(
+            (nodesMap, nodeType) => {
+                if(nodeType.engine) {
+                    nodesMap.set(nodeType.engine, [nodeType, getTagExpExtract(nodeType.engine)])
+                }
+                return nodesMap
+            },
             new Map(),
         )
-        /**
-         * @todo refactor for a better usage outside of runtime,
-         *       maybe add a `comyata-utils` for these universal field utils?
-         */
+
         const matchText = (text: string) => {
             const match = text.match(tagPattern)
             if(match?.groups?.engine) {
@@ -53,6 +75,7 @@ export class Parser<TNode extends typeof DataNode> {
             }
             return undefined
         }
+
         if(this.options.paren[1] === '') {
             this.matchNode = matchText
         } else {
@@ -63,7 +86,13 @@ export class Parser<TNode extends typeof DataNode> {
         }
     }
 
-    private dataNodeParsers: { [k: string]: (currentValue: any, currentPath: (string | number)[], parent: DataNodeObject | undefined) => [InstanceType<TNode> | DataNode, undefined?] | [DataNodeObject, (any[] | object)] } = {
+    private dataNodeParsers: {
+        [k: string]: (
+            currentValue: any,
+            currentPath: (string | number)[],
+            parent: DataNodeObject | undefined,
+        ) => [InstanceType<TNode> | DataNode, undefined?] | [DataNodeObject, (any[] | object)]
+    } = {
         null: (currentValue: null, currentPath, parent) => {
             return [new DataNode(parent, currentPath, 'null', currentValue)
                 .withHydrate(() => currentValue)]
@@ -93,7 +122,7 @@ export class Parser<TNode extends typeof DataNode> {
         parent: DataNodeObject | undefined,
     ): [InstanceType<TNode> | DataNode, undefined?] | [DataNodeObject, (any[] | object)] => {
         let parseType: string
-        let nodeTag: TNode | undefined
+        let nodeTag: [TNode, ExtractExprFn] | undefined
 
         if(typeof currentValue === 'object') {
             if(currentValue === null) {
@@ -122,10 +151,11 @@ export class Parser<TNode extends typeof DataNode> {
 
         try {
             if(nodeTag) {
-                return [new nodeTag(
+                return [new nodeTag[0](
                     parent, currentPath,
                     '',
                     currentValue,
+                    nodeTag[1],
                 )]
             }
 
@@ -137,7 +167,11 @@ export class Parser<TNode extends typeof DataNode> {
                 currentPath, parent,
                 `Parse error` +
                 ` at ${JSON.stringify(jsonpointer.compile(currentPath as string[]))}` +
-                ` as ${JSON.stringify(parseType)}${nodeTag?.engine ? ' with ' + JSON.stringify(nodeTag.engine) : ''}.` +
+                (
+                    nodeTag
+                        ? ` as ${JSON.stringify(parseType)}${' with ' + JSON.stringify(nodeTag[0].engine)}.`
+                        : ` as ${JSON.stringify(parseType)}.`
+                ) +
                 `${e instanceof Error ? '\n' + e.message : typeof e === 'object' && e && 'message' in e ? '\n' + e.message : ''}`,
                 e,
             )

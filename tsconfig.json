@@ -19,21 +19,22 @@
         "resolveJsonModule": true,
         "isolatedModules": true,
         "noEmit": true,
-        "jsx": "react-jsx"
-    },
-    "paths": {
-        "@comyata/run": [
-            "packages/comyata-run"
-        ],
-        "@comyata/run/*": [
-            "packages/comyata-run/*"
-        ],
-        "@comyata/fe": [
-            "packages/comyata-fe"
-        ],
-        "@comyata/fe/*": [
-            "packages/comyata-fe/*"
-        ]
+        "jsx": "react-jsx",
+        "baseUrl": ".",
+        "paths": {
+            "@comyata/run": [
+                "packages/comyata-run"
+            ],
+            "@comyata/run/*": [
+                "packages/comyata-run/*"
+            ],
+            "@comyata/fe": [
+                "packages/comyata-fe"
+            ],
+            "@comyata/fe/*": [
+                "packages/comyata-fe/*"
+            ]
+        }
     },
     "include": [
         "jest.config.ts",

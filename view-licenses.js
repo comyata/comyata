@@ -1,5 +1,5 @@
-import fs from 'fs'
-import util from 'util'
+import fs from 'node:fs'
+import util from 'node:util'
 
 const ignoreDetails = ['Apache-2.0', 'MIT', 'ISC', 'BSD-2-Clause', 'BSD-3-Clause'];
 

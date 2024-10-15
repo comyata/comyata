@@ -1,9 +1,9 @@
 import { convert, GenericConvert, GenericConverter } from '@comyata/fe/Converter'
 import { Resolver } from '@comyata/fe/FileEngine'
-import fs from 'fs'
+import fs from 'node:fs'
 import path from 'node:path'
 import util from 'node:util'
-import url from 'url'
+import url from 'node:url'
 import yaml from 'yaml'
 
 const readFile = util.promisify(fs.readFile)

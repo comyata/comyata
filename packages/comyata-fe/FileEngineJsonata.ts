@@ -5,7 +5,7 @@ import { CircularNodeDependencyError } from '@comyata/run/Errors'
 import { isRelative } from '@comyata/fe/Helpers/isRelative'
 import { IDataNode } from '@comyata/run/DataNode'
 import { DataNodeJSONata } from '@comyata/run/DataNodeJSONata'
-import url from 'url'
+import url from 'node:url'
 import yaml from 'yaml'
 
 export const fileEngineJsonata: (

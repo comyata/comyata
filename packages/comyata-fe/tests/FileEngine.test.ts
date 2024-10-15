@@ -5,12 +5,14 @@ import { fileImporter } from '@comyata/fe/Importer/FileImporter'
 import { Importers } from '@comyata/fe/Importers'
 import { DataNodeJSONata } from '@comyata/run/DataNodeJSONata'
 import path from 'node:path'
-import url from 'url'
+import url from 'node:url'
 
 // npm run tdd -- --selectProjects=test-@comyata/fe
 // npm run tdd -- --selectProjects=test-@comyata/fe --testPathPattern=FileEngine.test
 
-const mocksDir = path.resolve('./packages/comyata-fe/tests/mocks/')
+const __dirname = path.dirname(url.fileURLToPath(import.meta.url))
+const mocksDir = path.join(__dirname, 'mocks')
+
 describe('FileEngine', () => {
 
     it('FileEngine', async() => {

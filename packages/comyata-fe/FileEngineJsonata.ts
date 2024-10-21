@@ -89,8 +89,9 @@ export const fileEngineJsonata: (
             // todo: these fileRef must work on the once-cached runtime-context first
             // const fileRef = fileEngine.fileRef(file, dataFile.importContext)
             const fileRef = runtime.registry.fileRef(file, dataFile.importContext)
-            if(fileRef === dataFile) console.debug(`circular LOAD: file loads itself ${JSON.stringify(fileRef.fileId)}`)
-            if(filesChain.has(fileRef)) console.debug(`circular LOAD: files load each other ${JSON.stringify(fileRef.fileId)}`)
+            // todo: enable verbose/warnings for this kind of loads
+            // if(fileRef === dataFile) console.debug(`circular LOAD: file loads itself ${JSON.stringify(fileRef.fileId)}`)
+            // if(filesChain.has(fileRef)) console.debug(`circular LOAD: files load each other ${JSON.stringify(fileRef.fileId)}`)
             // if(parentNodes.has(dataNode)) console.debug(`circular LOAD: data-node already in processing chain ${JSON.stringify(fileRef.fileId)} ${jsonpointer.compile(dataNode.path as string[])}`)
             addUsage(fileRef, dataNode)
             addStatsUsage(fileRef, dataNode)

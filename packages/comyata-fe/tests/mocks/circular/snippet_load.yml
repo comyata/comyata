@@ -1,0 +1,2 @@
+# circular load works, as the other file is not processed and already in-memory
+${ $load('./main.yml') }

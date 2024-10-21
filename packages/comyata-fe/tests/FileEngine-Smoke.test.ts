@@ -13,9 +13,10 @@ import url from 'node:url'
 const __dirname = path.dirname(url.fileURLToPath(import.meta.url))
 const mocksDir = path.join(__dirname, 'mocks')
 
-describe('FileEngine', () => {
+// a general smoke test
+describe('FileEngine Smoke', () => {
 
-    it('FileEngine', async() => {
+    it('FileEngine Smoke', async() => {
         const fileEngine = new FileEngine({
             nodes: [DataNodeJSONata],
             compute: {[DataNodeJSONata.engine]: fileEngineJsonata()},
@@ -25,7 +26,7 @@ describe('FileEngine', () => {
                 })),
         })
         const dataFile = fileEngine.register('document', {
-            project: '${ $import("./project.yml").id }',
+            project: '${ $import("./project.yml").name }',
             home: {
                 title: '${ "Page of " & $import("./project.yml").name }',
             },
@@ -40,29 +41,10 @@ describe('FileEngine', () => {
         }, {resolveRelative: (relPath: string) => url.pathToFileURL(path.join(mocksDir, 'project', relPath)).href})
         const [r] = await fileEngine.run(dataFile, {}) as [any, FileComputeStats, RuntimeContext]
 
-        expect(r.project).toBe('comyata')
-        expect(r.home).toStrictEqual({title: 'Page of Comyata-JS'})
+        expect(r.project).toBe('Comyata')
+        expect(r.home).toStrictEqual({title: 'Page of Comyata'})
         expect(r.someImports?.[0]).toBe('en')
         expect(r.someImports?.[1]).toBe('Sample Page')
-        expect(r.someImports?.[2]?.title).toBe('Quest')
-        // expect(r).toStrictEqual({
-        //     project: 'comyata',
-        //     home: {title: 'Comyata-JS'},
-        //     someImports: [
-        //         'en',
-        //         'Sample Page',
-        //         {
-        //             title: 'Quest',
-        //             body: 'Advanced data querying **made easy with data loaders**.\n' +
-        //                 '\n' +
-        //                 'Interoperable data formats with safe to use expressions.\n',
-        //             link: 'https://example.org',
-        //             quote_of_day: 2,
-        //             dir: mocksDir + path.sep,
-        //         },
-        //         'Adipisci et alum',
-        //     ],
-        // })
-        // expect(fileEngine.node.value).toStrictEqual(orgValue)
+        expect(r.someImports?.[2]?.title).toBe('Example Project')
     })
 })

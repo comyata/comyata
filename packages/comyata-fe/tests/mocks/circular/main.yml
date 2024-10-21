@@ -1,0 +1,3 @@
+title: Circular Load
+
+loaded: ${$import('./snippet_load.yml')}

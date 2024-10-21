@@ -1,0 +1,3 @@
+title: Circular Import
+
+imported: ${$import('./snippet_import.yml')}

@@ -1,9 +1,5 @@
-title: "Quest"
+title: "Example Project"
 
 link: https://example.org
-
-quote_of_day: ${ $import('./quote_2.yml').id }
-
-#import_self_loop: ${ $import('./project.yml').title }
 
 #dir: ${ $p.fromUrl($p.resolve('../')) }

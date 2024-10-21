@@ -14,6 +14,7 @@ export const remoteImporter = (
         noRelativeResolve?: boolean
     } = {},
 ): Resolver => {
+    const importerId = 'remote'
     const convertDefault = converterDefault ||= yaml.parse
 
     const resolveContextWithRelative: Resolver['resolveDirectory'] = (baseUrl: string) => {
@@ -23,13 +24,17 @@ export const remoteImporter = (
         //     base.pathname :
         //     base.pathname + '/')
         return {
+            importer: importerId,
             resolveRelative: (relPath) => {
                 return new URL(relPath, baseNormalized).href
             },
         }
     }
 
-    const resolveContext: Resolver['resolveDirectory'] = noRelativeResolve ? () => ({}) : resolveContextWithRelative
+    const resolveContext: Resolver['resolveDirectory'] =
+        noRelativeResolve
+            ? () => ({importer: importerId})
+            : resolveContextWithRelative
 
     const resolveFileContext: Resolver['resolveFile'] = (fileUrl) => {
         return {
@@ -54,7 +59,7 @@ export const remoteImporter = (
     }
 
     return {
-        id: 'remote',
+        id: importerId,
         scopes: ['http://', 'https://'],
         resolveDirectory: resolveContext,
         resolveFile: resolveFileContext,

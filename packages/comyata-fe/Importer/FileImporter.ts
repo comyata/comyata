@@ -17,6 +17,7 @@ export const fileImporter = (
         converterDefault?: GenericConvert
     },
 ): Resolver => {
+    const importerId = 'file'
     const convertDefault = converterDefault ||= yaml.parse
 
     const resolveContext: Resolver['resolveDirectory'] = (dir: string) => {
@@ -26,6 +27,7 @@ export const fileImporter = (
             throw new Error(`File import ${JSON.stringify(dir)} not relative to ${JSON.stringify(basePath)}`)
         }
         return {
+            importer: importerId,
             resolveRelative: (relPath: string) => url.pathToFileURL(path.join(absPath, relPath)).href,
         }
     }
@@ -53,7 +55,7 @@ export const fileImporter = (
         }
     }
     return {
-        id: 'file',
+        id: importerId,
         scopes: ['file://'],
         resolveDirectory: resolveContext,
         resolveFile: resolveFileContext,

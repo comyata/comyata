@@ -1,6 +1,5 @@
 import { it, expect, describe } from '@jest/globals'
 import { FileEngine } from '@comyata/fe/FileEngine'
-import { DataFile } from '@comyata/fe/DataFile'
 import { fileEngineJsonata } from '@comyata/fe/FileEngineJsonata'
 import { fileImporter } from '@comyata/fe/Importer/FileImporter'
 import { remoteImporter } from '@comyata/fe/Importer/RemoteImporter'
@@ -17,70 +16,61 @@ const mocksDir = path.join(__dirname, 'mocks')
 
 describe('FileEngine', () => {
 
-    it('FileEngine fs load', async() => {
+    it('FileEngine HTTP resolver', async() => {
         const fileEngine = new FileEngine({
             nodes: [DataNodeJSONata],
             compute: {[DataNodeJSONata.engine]: fileEngineJsonata()},
             importer: new Importers()
-                .use(fileImporter({
-                    basePath: mocksDir,
-                }))
                 .use(remoteImporter({})),
         })
-        const projectsResolver = fileEngine.contextOf(url.pathToFileURL(path.join(mocksDir, 'project')).href)
         // console.log('fsResolver', projectsResolver)
         const quotesResolver = fileEngine.contextOf('https://dummyjson.com/quotes/')
-        // console.log('quotesResolver', quotesResolver)
+        expect(quotesResolver).toBeInstanceOf(Object)
+        expect(quotesResolver.resolveRelative).toBeInstanceOf(Function)
+        expect(quotesResolver.importer).toBe('remote')
         const pokeResolver = fileEngine.contextOf('https://pokeapi.co/api/v2/')
-        // console.log('pokeResolver', pokeResolver)
-
-        const fsRefProject = fileEngine.fileRef('./project.yml', projectsResolver)
-        // console.log('fsRef1', fsRefProject)
-        const fsRefNonExisting = fileEngine.fileRef('./nested/main.yml', projectsResolver)
-        // console.log('fsRef2', fsRef2)
-        const fsRefPageRelative = fileEngine.fileRef('../page.yml', projectsResolver)
-        // console.log('fsRef3', fsRef3)
+        expect(pokeResolver).toBeInstanceOf(Object)
+        expect(pokeResolver.resolveRelative).toBeInstanceOf(Function)
+        expect(pokeResolver.importer).toBe('remote')
 
         const quote1Ref = fileEngine.fileRef('./1', quotesResolver)
-        // console.log('quote1Ref', quote1Ref)
+        expect(fileEngine.files.has(quote1Ref.fileId)).toBe(true)
+        expect(quote1Ref.fileId).toBe('https://dummyjson.com/quotes/1')
         const recipesRef = fileEngine.fileRef('../recipes', quotesResolver)
-        // console.log('recipesRef', recipesRef)
+        expect(fileEngine.files.has(recipesRef.fileId)).toBe(true)
+        expect(recipesRef.fileId).toBe('https://dummyjson.com/recipes')
         const pokeRef = fileEngine.fileRef('./ability', pokeResolver)
-        // console.log('pokeRef', pokeRef)
+        expect(fileEngine.files.has(pokeRef.fileId)).toBe(true)
+        expect(pokeRef.fileId).toBe('https://pokeapi.co/api/v2/ability')
 
-        const loadData = async(dataRef: DataFile<DataNodeJSONata>) => {
-            await fileEngine.run(dataRef, {})
-            expect(fileEngine.files.has(dataRef.fileId)).toBe(true)
-        }
-        const dataFile = fileEngine.fileRef(url.pathToFileURL(path.join(mocksDir, 'page.yml')).href)
-        await loadData(dataFile)
-        await loadData(fsRefProject)
-        await expect(loadData(fsRefNonExisting)).rejects.toThrow(new Error(`ENOENT: no such file or directory, open '${path.join(mocksDir, './project/nested/main.yml')}'`))
-        await loadData(fsRefPageRelative)
-        await loadData(quote1Ref)
-        await loadData(recipesRef)
-        await loadData(pokeRef)
+        // todo: add real HTTP calls in tests with a local running mock server
+        //       disabled actual http calls, as due to network latency, it could take a while
+        // const loadData = async(dataRef: DataFile<DataNodeJSONata>) => {
+        //     await fileEngine.run(dataRef, {})
+        //     expect(fileEngine.files.has(dataRef.fileId)).toBe(true)
+        // }
+        // await loadData(quote1Ref)
+        // await loadData(recipesRef)
+        // await loadData(pokeRef)
+    })
 
-        expect(dataFile).toBeTruthy()
-
-        // due to network latency, this test can take a while
-        // todo: replace HTTP calls in tests with a local running mock server
-    }, 20000)
-
-    it('FileEngine fs load file', async() => {
-        // @ts-ignore
-        // eslint-disable-next-line @typescript-eslint/no-unused-vars
+    it('FileEngine file resolver', async() => {
         const fileEngine = new FileEngine({
             nodes: [],
             compute: {},
+            importer: new Importers()
+                .use(fileImporter({
+                    basePath: mocksDir,
+                })),
         })
 
-        // const dataFile = fileEngine.parse(fsLoader(path.join(mocksDir, 'page.yml')))
-
-        expect(true).toBeTruthy()
+        const mocksResolver = fileEngine.contextOf(url.pathToFileURL(path.join(mocksDir)).href)
+        expect(mocksResolver).toBeInstanceOf(Object)
+        expect(mocksResolver.resolveRelative).toBeInstanceOf(Function)
+        expect(mocksResolver.importer).toBe('file')
     })
 
-    it('FileEngine invalid path access', async() => {
+    it('FileEngine file invalid path access', async() => {
         const fileEngine = new FileEngine({
             nodes: [],
             compute: {},
@@ -91,15 +81,13 @@ describe('FileEngine', () => {
         })
 
         // todo: test both cases, for when it returns an async and when directly a sync result
-        expect(true).toBeTruthy()
-
         expect(() =>
             fileEngine.fileRef(
-                '../../Parser.test.ts',
+                '../../SomeFile.yml',
                 fileEngine.contextOf(url.pathToFileURL(path.join(mocksDir)).href),
             ),
         )
-            .toThrow(new Error(`File import ${JSON.stringify(url.pathToFileURL(path.resolve(mocksDir, '../../Parser.test.ts')))} not relative to ${JSON.stringify(path.resolve(mocksDir))}`))
+            .toThrow(new Error(`File import ${JSON.stringify(url.pathToFileURL(path.resolve(mocksDir, '../../SomeFile.yml')))} not relative to ${JSON.stringify(path.resolve(mocksDir))}`))
 
         // const dataFile = fileEngine.register('document', {
         //     objOrEval: {

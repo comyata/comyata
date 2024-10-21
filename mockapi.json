@@ -1,0 +1,142 @@
+{
+  "uuid": "37407c10-083d-4f78-b575-e309dc6ebb98",
+  "lastMigration": 27,
+  "name": "Mockapi",
+  "endpointPrefix": "",
+  "latency": 0,
+  "port": 7481,
+  "hostname": "",
+  "folders": [],
+  "routes": [
+    {
+      "uuid": "66faa467-8f5b-4ab6-bf28-d4ce36a6466d",
+      "type": "http",
+      "documentation": "",
+      "method": "get",
+      "endpoint": "",
+      "responses": [
+        {
+          "uuid": "b459dacd-e509-4a82-929d-157ca89dc1dc",
+          "body": "{}",
+          "latency": 0,
+          "statusCode": 200,
+          "label": "",
+          "headers": [],
+          "bodyType": "INLINE",
+          "filePath": "",
+          "databucketID": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false,
+          "default": true
+        }
+      ],
+      "enabled": true,
+      "responseMode": null
+    },
+    {
+      "uuid": "b281f282-236c-4325-836d-5f7b040c4d41",
+      "type": "http",
+      "documentation": "",
+      "method": "get",
+      "endpoint": "static-result",
+      "responses": [
+        {
+          "uuid": "398a335c-6377-4f58-b93c-9487cb8e9d33",
+          "body": "{\n  \"title\": \"Static Result\",\n  \"views\": 123,\n  \"content\": \"Lorem Ipsum\"\n}",
+          "latency": 0,
+          "statusCode": 200,
+          "label": "",
+          "headers": [],
+          "bodyType": "INLINE",
+          "filePath": "",
+          "databucketID": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false,
+          "default": true
+        }
+      ],
+      "enabled": true,
+      "responseMode": null
+    },
+    {
+      "uuid": "c53dab97-6057-401b-a4b3-00aa93ce3043",
+      "type": "http",
+      "documentation": "",
+      "method": "get",
+      "endpoint": "templated",
+      "responses": [
+        {
+          "uuid": "33a5b7de-900b-4f54-b9f0-0fc9f0809371",
+          "body": "{\n  \"title\": \"Remote Template\",\n  \"stats\": \"${$import('./static-result').views}\",\n}",
+          "latency": 0,
+          "statusCode": 200,
+          "label": "",
+          "headers": [],
+          "bodyType": "INLINE",
+          "filePath": "",
+          "databucketID": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false,
+          "default": true
+        }
+      ],
+      "enabled": true,
+      "responseMode": null
+    }
+  ],
+  "rootChildren": [
+    {
+      "type": "route",
+      "uuid": "66faa467-8f5b-4ab6-bf28-d4ce36a6466d"
+    },
+    {
+      "type": "route",
+      "uuid": "b281f282-236c-4325-836d-5f7b040c4d41"
+    },
+    {
+      "type": "route",
+      "uuid": "c53dab97-6057-401b-a4b3-00aa93ce3043"
+    }
+  ],
+  "proxyMode": false,
+  "proxyHost": "",
+  "proxyRemovePrefix": false,
+  "tlsOptions": {
+    "enabled": false,
+    "type": "CERT",
+    "pfxPath": "",
+    "certPath": "",
+    "keyPath": "",
+    "caPath": "",
+    "passphrase": ""
+  },
+  "cors": true,
+  "headers": [
+    {
+      "key": "Content-Type",
+      "value": "application/json"
+    }
+  ],
+  "proxyReqHeaders": [
+    {
+      "key": "",
+      "value": ""
+    }
+  ],
+  "proxyResHeaders": [
+    {
+      "key": "",
+      "value": ""
+    }
+  ],
+  "data": []
+}

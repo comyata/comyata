@@ -262,7 +262,7 @@ export class FileEngine<TNode extends typeof DataNode> {
             } else {
                 // todo: here it would be helpful to get the parentId,
                 //       which could be undefined for in-memory register without parents that exist in registers
-                throw new ComputableError(`Relative file not supported for: ${fileUrl}`)
+                throw new ComputableError(`Relative file not supported for: ${JSON.stringify(fileUrl)}`)
             }
         }
         const sourceRefExisting = this.files.get(fileUrl)

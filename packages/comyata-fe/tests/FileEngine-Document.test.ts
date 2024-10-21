@@ -89,7 +89,7 @@ describe('FileEngine-Document', () => {
         // based on comment: https://github.com/jestjs/jest/issues/8698#issuecomment-705093586
         // note: the class instance checks allows any base type of the actual thrown error, it also passes with `Error`
         await expect(run).rejects.toThrow(NodeComputeError)
-        await expect(run).rejects.toThrow('Compute failure at "/project" with "$".\nRelative file not supported for: ./project.yml')
+        await expect(run).rejects.toThrow('Compute failure at "/project" with "$".\nRelative file not supported for: "./project.yml"')
         await expect(run).rejects.toThrow(expect.objectContaining({target: dataFile.node?.children?.get('project')}))
     })
 })

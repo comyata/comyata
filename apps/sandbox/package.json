@@ -26,7 +26,7 @@
         "@mui/icons-material": "^5.10",
         "@mui/lab": "^5.0.0-alpha.80",
         "@mui/material": "^5.1",
-        "@ui-schema/kit-codemirror": "~0.1.0-alpha.1",
+        "@ui-schema/kit-codemirror": "~0.1.1",
         "cross-env": "^7.0.3",
         "json-pointer": "^0.6.2",
         "liquidjs": "^10.16.7",

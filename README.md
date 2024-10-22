@@ -307,12 +307,6 @@ Start test driven:
 npm run tdd
 ```
 
-Start mock API, not used anywhere atm.:
-
-```shell
-npm run mockapi
-```
-
 Create new lock-file for sandbox/server requires setting `workspaces` to false.
 
 ```shell

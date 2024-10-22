@@ -12,6 +12,7 @@
         "lint": "cross-env NODE_ENV=test NODE_OPTIONS=\"--max-old-space-size=8192 --no-deprecation --experimental-vm-modules --unhandled-rejections=strict\" eslint -c=.eslintrc --ext=.tsx,.ts --max-warnings=0 'apps/sandbox/src' 'packages'",
         "test": "cross-env NODE_ENV=development NODE_OPTIONS=\"--max-old-space-size=8192 --no-warnings --no-deprecation --experimental-vm-modules --unhandled-rejections=strict\" jest -c=\"jest.config.ts\"",
         "tdd": "cross-env NODE_ENV=development npm run clean && npm test -- --watch --coverage=false",
+        "mockapi": "mockoon-cli start --data ./mockapi.json --port 8082",
         "dev": "concurrently --kill-others \"npm run start -w comyata-app\" \"npm run server:fe:start\"",
         "prebuild": "npm run clean && npm run lint && npm run test && npm run tsc",
         "tsc": "tsc --project tsconfig.json --noEmit",

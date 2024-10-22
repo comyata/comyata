@@ -1,0 +1,3 @@
+title: Circular Self Import
+
+self_loop: ${ $import('./broken_self.yml').title }

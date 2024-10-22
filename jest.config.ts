@@ -36,22 +36,35 @@ const base: Config.InitialProjectOptions = {
         'json',
         'node',
     ],
+    extensionsToTreatAsEsm: ['.ts', '.tsx'],
     coveragePathIgnorePatterns: [
         '(tests/.*.mock).(jsx?|tsx?|ts?|js?)$',
+        '<rootDir>/apps/sandbox',
+        '<rootDir>/server/fe',
     ],
-    extensionsToTreatAsEsm: ['.ts', '.tsx'],
+    testPathIgnorePatterns: [
+        '<rootDir>/dist',
+    ],
+    watchPathIgnorePatterns: [
+        '<rootDir>/dist',
+        '<rootDir>/apps/sandbox/dist',
+        '<rootDir>/server/fe/dist',
+    ],
+    modulePathIgnorePatterns: [
+        '<rootDir>/dist',
+        '<rootDir>/apps/sandbox/dist',
+        '<rootDir>/server/fe/dist',
+    ],
 }
 
 const config: Config.InitialOptions = {
     ...base,
     collectCoverage: true,
     verbose: true,
-    testPathIgnorePatterns: ['<rootDir>/build', '<rootDir>/dist'],
-    modulePathIgnorePatterns: ['<rootDir>/build', '<rootDir>/dist', '<rootDir>/**/_docker'],
     coverageDirectory: '<rootDir>/coverage',
     projects: [
         {
-            displayName: 'test-apps-demo',
+            displayName: 'test-apps-sandbox',
             ...base,
             moduleDirectories: ['node_modules', '<rootDir>/apps/sandbox/node_modules'],
             testMatch: [

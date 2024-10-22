@@ -126,9 +126,11 @@ describe('Parser', () => {
         })
 
         expect(dataNode).toBeTruthy()
+        expect(dataNode.parent).toBe(undefined)
         expect(dataNode.children?.size).toBe(4)
 
         expect(dataNode.children?.get('name')?.hydrate?.()).toStrictEqual(new UnresolvedJSONataExpression('Unresolved JSONata expression'))
+        expect(dataNode.children?.get('name')?.parent?.()).toStrictEqual(dataNode)
     })
 
     it('Parser nested array objects', async() => {
@@ -207,6 +209,10 @@ describe('Parser', () => {
     })
 
     it('Parser empty expression', async() => {
+        // todo: improve toThrow, in all tests, as it only asserts the message, not even the Error instance type
+        //       https://github.com/jestjs/jest/issues/8698
+        //       https://github.com/jest-community/eslint-plugin-jest/issues/295#issuecomment-509974545
+        //       see workaround with bulky and not fully strict asserts in `FileEngine-Document.test.ts` (only works for async)
         expect(() => {
             new Parser([DataNodeJSONata]).parse({
                 invalidExpr: '${ }',

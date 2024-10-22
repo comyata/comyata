@@ -28,6 +28,11 @@ export interface Resolver {
 }
 
 export interface ResolveContext {
+    /**
+     * @todo maybe support a Symbol based id, to distinguish importers with same ID
+     * @todo make import context required? would make the in-memory files complexer - or depending on their actual importer
+     */
+    importer?: string
     resolveRelative?: ((relPath: string) => string)
 }
 
@@ -221,9 +226,12 @@ export class FileEngine<TNode extends typeof DataNode> {
 
         const source = this.files.get(contextBaseUrl)
         if(source) {
-            const resolveRelative = source?.importContext?.resolveRelative
-            if(resolveRelative) {
-                return {resolveRelative: resolveRelative}
+            if(source.importContext) {
+                const resolveRelative = source.importContext.resolveRelative
+                if(resolveRelative) {
+                    return {resolveRelative: resolveRelative, importer: source.importContext.importer}
+                }
+                throw new ComputableError(`Source has no importContext for ${contextBaseUrl}`)
             }
             throw new ComputableError(`No source registered for ${contextBaseUrl}`)
         }
@@ -254,7 +262,7 @@ export class FileEngine<TNode extends typeof DataNode> {
             } else {
                 // todo: here it would be helpful to get the parentId,
                 //       which could be undefined for in-memory register without parents that exist in registers
-                throw new ComputableError(`Relative file not supported for: ${fileUrl}`)
+                throw new ComputableError(`Relative file not supported for: ${JSON.stringify(fileUrl)}`)
             }
         }
         const sourceRefExisting = this.files.get(fileUrl)

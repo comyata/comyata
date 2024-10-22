@@ -1,2 +1,2 @@
-id: comyata
-name: Comyata-JS
+name: Comyata
+intro: ${$load('./intro.yml')}

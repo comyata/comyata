@@ -76,12 +76,14 @@ export const PageStreaming = () => {
 
     return (
         <Box sx={{
-            display: 'flex', gap: 1, flexWrap: {xs: 'wrap', md: 'nowrap'},
+            display: 'flex', gap: 1,
+            flexWrap: {xs: 'wrap', md: 'nowrap'},
+            alignContent: 'stretch',
             overflow: {md: 'auto'},
             // maxHeight: '100%',
             flexGrow: 1,
         }}>
-            <Paper sx={{display: 'flex', flexDirection: 'column', width: {xs: '100%', md: '50%'}, px: 1, pb: 1, overflow: {md: 'auto'}}}>
+            <Paper sx={{display: 'flex', flexDirection: 'column', width: {xs: '100%', md: '50%'}, mb: {xs: 'auto', md: 0}, px: 1, pb: 1, overflow: {md: 'auto'}}}>
                 <Box px={1} py={0.5}>
                     <Typography variant={'caption'} color={'secondary'}>{'Template'}</Typography>
                 </Box>

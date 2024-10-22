@@ -295,10 +295,16 @@ npm run dev
 
 Now open the [app at `localhost:8080`](http://localhost:8080) or the [server at `localhost:8081`](http://localhost:8081).
 
-Lint, build typings + JS:
+Lint, test, build types + JS:
 
 ```shell
 npm run build
+```
+
+Start test driven:
+
+```shell
+npm run tdd
 ```
 
 Create new lock-file for sandbox/server requires setting `workspaces` to false.

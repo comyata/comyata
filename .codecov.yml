@@ -1,0 +1,41 @@
+# validate file:
+# curl -X POST --data-binary @.codecov.yml https://api.codecov.io/validate
+
+# comment: no # do not comment PR with the result
+comment:
+    layout: "header, diff, components"  # show component info in the PR comment
+
+coverage:
+    status:
+        project: on
+        #project:
+        #    run:
+        #        paths:
+        #            - packages/comyata-run/**
+        #    fe:
+        #        paths:
+        #            - packages/comyata-fe/**
+        #project:
+        #    default: # default is the status check's name, not default settings
+        #        target: auto
+        #        threshold: 5%
+        #        #base: auto
+        #        #only_pulls: false
+
+        patch: off
+        changes: off
+
+component_management:
+    #default_rules: # default rules that will be inherited by all components
+    #    statuses:
+    #        -   type: project # in this case every component that doesn't have a status defined will have a project type one
+    #            target: auto
+    individual_components:
+        -   component_id: comyata_run
+            name: run
+            paths:
+                - packages/comyata-run/**
+        -   component_id: comyata_fe
+            name: fe
+            paths:
+                - packages/comyata-fe/**

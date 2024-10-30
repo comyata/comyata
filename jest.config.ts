@@ -46,6 +46,10 @@ const base: Config.InitialProjectOptions = {
         '<rootDir>/dist',
     ],
     watchPathIgnorePatterns: [
+        '<rootDir>/.idea',
+        '<rootDir>/.git',
+        '<rootDir>/node_modules',
+        '<rootDir>/.+/.+/node_modules',
         '<rootDir>/dist',
         '<rootDir>/apps/sandbox/dist',
         '<rootDir>/server/fe/dist',

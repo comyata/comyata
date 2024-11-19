@@ -196,7 +196,7 @@ export class Parser<TNode extends typeof DataNode> {
         const openParser: [DataNodeObject, object | unknown[]][] = nextObject ? [[rootNode, nextObject]] : []
 
         while(openParser.length) {
-            const [dataNode, currentObject] = openParser.shift()!
+            const [dataNode, currentObject] = openParser.pop()!
 
             if(Array.isArray(currentObject)) {
                 for(const [key, val] of currentObject.entries()) {

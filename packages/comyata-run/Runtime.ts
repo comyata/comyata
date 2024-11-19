@@ -127,7 +127,7 @@ export const runtime = <TNode extends IDataNode, D = unknown, C = unknown, TBagg
     const hooks: IComputeTimeHooks<TNode extends IDataNodeComputed ? TNode : never> = [...dataNode.hooks as IComputeTimeHooks<TNode extends IDataNodeComputed ? TNode : never> || []]
 
     while(groups.length) {
-        const [groupChildren, groupDataChain] = groups.shift()!
+        const [groupChildren, groupDataChain] = groups.pop()!
         const groupData = groupDataChain[0]
         groupChildren.forEach((childNode, childKey) => {
             groupData[childKey] = childNode.hydrate?.()

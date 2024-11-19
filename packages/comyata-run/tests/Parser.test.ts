@@ -15,22 +15,23 @@ const expressionAst = {
     rhs: {value: 5, type: 'number', position: 6},
 }
 
+const mockData = {
+    name: 'Surfboard',
+    tags: ['sports', 'surfing'],
+    selection: {
+        amount: 1,
+        price: 70.25,
+    },
+    fastShipping: null,
+    exclusive: true,
+}
+
 describe('Parser', () => {
     it('Parser Data Only', async() => {
-        const orgValue = {
-            name: 'Surfboard',
-            tags: ['sports', 'surfing'],
-            selection: {
-                amount: 1,
-                price: 70.25,
-            },
-            fastShipping: null,
-            exclusive: true,
-        }
-        const dataNode = new Parser().parse(orgValue)
+        const dataNode = new Parser().parse(mockData)
 
         expect(dataNode).toBeTruthy()
-        expect(dataNode.value).toStrictEqual(orgValue)
+        expect(dataNode.value).toStrictEqual(mockData)
         expect(dataNode.path).toStrictEqual([])
         expect(dataNode.children?.size).toBe(5)
 
@@ -56,6 +57,24 @@ describe('Parser', () => {
 
         expect(dataNode.children?.get('exclusive')?.valueType).toBe('boolean')
         expect(dataNode.children?.get('exclusive')?.hydrate?.()).toBe(true)
+    })
+
+    it('Parser Data Only - ordered output', async() => {
+        const dataNode = new Parser().parse(mockData)
+
+        const orgFieldsOrder = Object.keys(mockData)
+        let i = 0
+        for(const key in dataNode.children?.keys()) {
+            expect(orgFieldsOrder.indexOf(key)).toBe(i)
+            i++
+        }
+
+        const orgSelectionFieldsOrder = Object.keys(mockData.selection)
+        let iSelection = 0
+        for(const key in dataNode.children?.get('selection')?.children?.keys()) {
+            expect(orgSelectionFieldsOrder.indexOf(key)).toBe(iSelection)
+            iSelection++
+        }
     })
 
     it.each([

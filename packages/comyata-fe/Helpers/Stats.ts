@@ -23,8 +23,7 @@ export const usagesToDependencies = (
     }
     const statsList = fileComputeStats.stats.slice(0)
     while(statsList.length) {
-        const statsEntry = statsList.shift()
-        if(!statsEntry) continue
+        const statsEntry = statsList.shift()!
         if(statsEntry.step === 'computeFile') {
             collectedUsages = usagesToDependencies(statsEntry as any, collectedUsages)
         } else if('stats' in statsEntry) {

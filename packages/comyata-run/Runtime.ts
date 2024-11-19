@@ -1,6 +1,6 @@
 import { MissingEngineError, NodeComputeError, ResultError } from '@comyata/run/Errors'
 import { timer } from '@comyata/run/Helpers/Timer'
-import { IComputeTimeHooks, IDataNode, IDataNodeChildren } from '@comyata/run/DataNode'
+import { IComputeTimeHooks, IDataNode, IDataNodeChildren, IDataNodeComputed } from '@comyata/run/DataNode'
 import jsonpointer from 'json-pointer'
 
 export interface IComputeStatsBase {
@@ -40,10 +40,10 @@ export type ComputeFn<
 export type ComputeStats = IComputeStatsBase | NodeComputeStats
 
 type NodeContext = [
-    setter: (value: any) => void,
+    setter: (value: unknown) => void,
     // todo: maybe add nodesChain to getter call, to check circular nodes internally at this level
     getter: () => unknown,
-    dataChain: any[]
+    dataChain: unknown[]
 ]
 
 type ResultState<TOutput = unknown, TNode extends IDataNode = IDataNode> = {
@@ -73,7 +73,8 @@ export const runtime = <TNode extends IDataNode, D = unknown, C = unknown, TBagg
     }: {
         onCompute?: (dataNode: TNode) => void
         onComputed?: (
-            dataNode: TNode, result: any,
+            dataNode: TNode,
+            result: unknown,
             meta: {
                 statsNode: NodeComputeStats
                 statsRun: IComputeStatsBase
@@ -123,11 +124,10 @@ export const runtime = <TNode extends IDataNode, D = unknown, C = unknown, TBagg
     ] : []
     // todo: these hooks can be cached per processor
     //       to reduce loops they can be only collected and materialized in first hydrate loop
-    const hooks: IComputeTimeHooks<TNode> = [...dataNode.hooks as IComputeTimeHooks<TNode> || []]
+    const hooks: IComputeTimeHooks<TNode extends IDataNodeComputed ? TNode : never> = [...dataNode.hooks as IComputeTimeHooks<TNode extends IDataNodeComputed ? TNode : never> || []]
 
-    let group = groups.shift()
-    while(group) {
-        const [groupChildren, groupDataChain] = group
+    while(groups.length) {
+        const [groupChildren, groupDataChain] = groups.shift()!
         const groupData = groupDataChain[0]
         groupChildren.forEach((childNode, childKey) => {
             groupData[childKey] = childNode.hydrate?.()
@@ -136,13 +136,12 @@ export const runtime = <TNode extends IDataNode, D = unknown, C = unknown, TBagg
             // todo: or set all only after all are done if cross resolving is off, to never have different results based on order of dispatching?
             nodesContexts.set(childNode, [(v) => groupData[childKey] = v, () => groupData[childKey], groupDataChain])
             if(childNode.hooks) {
-                hooks.push(...childNode.hooks as IComputeTimeHooks<TNode>)
+                hooks.push(...childNode.hooks as IComputeTimeHooks<TNode extends IDataNodeComputed ? TNode : never>)
             }
             if(childNode.children) {
                 groups.push([childNode.children as IDataNodeChildren<TNode>, [groupData[childKey], ...groupDataChain]])
             }
         })
-        group = groups.shift()
     }
 
     processorStatsHydrate.dur = timer.end(startHydrate)
@@ -159,7 +158,7 @@ export const runtime = <TNode extends IDataNode, D = unknown, C = unknown, TBagg
     const dispatchNodeCompute = (
         engineId: NonNullable<TNode['engine']>,
         computedNode: TNode,
-        onDone: (nodeResult, err?) => void,
+        onDone: (nodeResult: unknown, err?: Error) => void,
         computeStatsTotal: IComputeStatsBase,
     ) => {
         const [setter, getter, dataChain] = getNodeContext(computedNode)
@@ -256,11 +255,8 @@ export const runtime = <TNode extends IDataNode, D = unknown, C = unknown, TBagg
         stats.push(computeStatsTotal)
         const start = timer.start()
 
-        const computationPromises: Promise<any>[] = []
+        const computationPromises: Promise<unknown>[] = []
         for(const computedNode of computeHooks) {
-            if(!computedNode.engine) continue
-            const engineId = computedNode.engine
-
             // todo: setting all computed placeholders to their promise allows directly using their results across any other usage in the same document!
             //       but this will never update usages, as this isn't known, thus a full reload is needed to redo all computed fields
             let listenerPromise: ForkPromise<unknown> | undefined
@@ -269,8 +265,8 @@ export const runtime = <TNode extends IDataNode, D = unknown, C = unknown, TBagg
                 nodesContexts.get(computedNode)?.[0]?.(listenerPromise)
             }
             computationPromises.push(dispatchNodeCompute(
-                engineId,
-                computedNode as TNode,
+                computedNode.engine,
+                computedNode,
                 (nodeResult, err) => {
                     // todo: optimize progression information on global stats/log/state
                     //       could lead to simplifications in file-engine
@@ -291,7 +287,7 @@ export const runtime = <TNode extends IDataNode, D = unknown, C = unknown, TBagg
     }
 
     let isRunning: boolean = false
-    const onDone: ((result, err) => void)[] = []
+    const onDoneRun: ((result: unknown, err: unknown | undefined) => void)[] = []
     return {
         data: () => resultData as D,
         output: () => resultData as D,
@@ -302,8 +298,8 @@ export const runtime = <TNode extends IDataNode, D = unknown, C = unknown, TBagg
         },
         compute: async() => {
             if(isRunning) {
-                return new Promise((resolve, reject) => {
-                    onDone.push((result, err) => err ? reject(err) : resolve(result))
+                return new Promise<unknown>((resolve, reject) => {
+                    onDoneRun.push((result, err) => err ? reject(err) : resolve(result))
                 })
             }
 
@@ -311,9 +307,9 @@ export const runtime = <TNode extends IDataNode, D = unknown, C = unknown, TBagg
 
             try {
                 await runCompute()
-                onDone.splice(0).forEach(on => on(resultData, undefined))
+                onDoneRun.splice(0).forEach(on => on(resultData, undefined))
             } catch(e) {
-                onDone.splice(0).forEach(on => on(resultData, e))
+                onDoneRun.splice(0).forEach(on => on(resultData, e))
                 throw e
             } finally {
                 isRunning = false

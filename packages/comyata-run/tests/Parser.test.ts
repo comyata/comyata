@@ -2,7 +2,7 @@ import { it, expect, describe } from '@jest/globals'
 import { DataNodeJSONata, DataNodeJSONataEscaped, UnresolvedJSONataExpression } from '@comyata/run/DataNodeJSONata'
 import { NodeParserError } from '@comyata/run/Errors'
 import { Parser } from '@comyata/run/Parser'
-import { DataNode } from '@comyata/run/DataNode'
+import { DataNode, DataNodeObject, ExtractExprFn, IDataNode } from '@comyata/run/DataNode'
 
 // npm run tdd -- --selectProjects=test-@comyata/run
 // npm run tdd -- --selectProjects=test-@comyata/run --testPathPattern=Parser.test
@@ -39,10 +39,17 @@ describe('Parser', () => {
         expect(dataNode.children?.get('name')?.hydrate?.()).toBe('Surfboard')
 
         expect(dataNode.children?.get('tags')?.valueType).toBe('array')
-        expect(dataNode.children?.get('tags')?.hydrate?.()).toStrictEqual(new Array(2))
-        expect(dataNode.children?.get('tags')?.hydrate?.()).not.toStrictEqual([])
-        expect(dataNode.children?.get('tags')?.children?.get(0)?.hydrate?.()).toStrictEqual('sports')
-        expect(dataNode.children?.get('tags')?.children?.get(1)?.hydrate?.()).toStrictEqual('surfing')
+
+        // validate that array has `[ <2 empty items> ]`
+        const tagsHydrated = dataNode.children?.get('tags')?.hydrate?.()
+        // eslint-disable-next-line no-prototype-builtins
+        expect(tagsHydrated.hasOwnProperty(0)).toBe(false)
+        // eslint-disable-next-line no-prototype-builtins
+        expect(tagsHydrated.hasOwnProperty(1)).toBe(false)
+        expect(tagsHydrated.length).toBe(2)
+
+        expect(dataNode.children?.get('tags')?.children?.get(0)?.hydrate?.()).toBe('sports')
+        expect(dataNode.children?.get('tags')?.children?.get(1)?.hydrate?.()).toBe('surfing')
 
         expect(dataNode.children?.get('selection')?.valueType).toBe('object')
         expect(dataNode.children?.get('selection')?.hydrate?.()).toStrictEqual({})
@@ -57,6 +64,16 @@ describe('Parser', () => {
 
         expect(dataNode.children?.get('exclusive')?.valueType).toBe('boolean')
         expect(dataNode.children?.get('exclusive')?.hydrate?.()).toBe(true)
+    })
+
+    it('Parser Data Only - undefined', async() => {
+        const dataNode = new Parser().parse(undefined)
+
+        expect(dataNode).toBeTruthy()
+        expect(dataNode.value).toBe(undefined)
+        expect(dataNode.valueType).toBe('undefined')
+        expect(dataNode.path).toStrictEqual([])
+        expect(dataNode.hydrate?.()).toBe(undefined)
     })
 
     it('Parser Data Only - ordered output', async() => {
@@ -131,6 +148,28 @@ describe('Parser', () => {
         expect(dataNode.value).toBe('${ 10 + 5')
         expect(dataNode.hooks?.length).toBe(undefined)
         expect(dataNode?.hydrate?.()).toBe('${ 10 + 5')
+    })
+
+    it('Parser Not Existing Engine - default paren', async() => {
+        const dataNode = new Parser([DataNodeJSONata])
+            .parse('liq{ 10 + 5 }')
+
+        expect(typeof dataNode.children).toBe('undefined')
+        expect(dataNode).toBeInstanceOf(DataNode)
+        expect(dataNode.value).toBe('liq{ 10 + 5 }')
+        expect(dataNode.hooks?.length).toBe(undefined)
+        expect(dataNode?.hydrate?.()).toBe('liq{ 10 + 5 }')
+    })
+
+    it('Parser Not Existing Engine - empty end paren', async() => {
+        const dataNode = new Parser([DataNodeJSONata], {paren: [':', '']})
+            .parse('liq: 10 + 5')
+
+        expect(typeof dataNode.children).toBe('undefined')
+        expect(dataNode).toBeInstanceOf(DataNode)
+        expect(dataNode.value).toBe('liq: 10 + 5')
+        expect(dataNode.hooks?.length).toBe(undefined)
+        expect(dataNode?.hydrate?.()).toBe('liq: 10 + 5')
     })
 
     it('Parser Object With Expression', async() => {
@@ -224,7 +263,11 @@ describe('Parser', () => {
                 },
             ],
         })
-        expect(dataNode).toBeTruthy()
+
+        expect(dataNode.children?.get('Order')?.children?.get(0)?.hydrate?.()).toStrictEqual({})
+        expect(dataNode.children?.get('Order')?.children?.get(1)?.hydrate?.()).toStrictEqual({})
+        expect(dataNode.children?.get('Order')?.children?.get(0)?.children?.get('OrderID')?.hydrate?.()).toBe('order001')
+        expect(dataNode.children?.get('Order')?.children?.get(1)?.children?.get('OrderID')?.hydrate?.()).toBe('order002')
     })
 
     it('Parser empty expression', async() => {
@@ -237,6 +280,72 @@ describe('Parser', () => {
                 invalidExpr: '${ }',
             })
         }).toThrow(new NodeParserError(['invalidExpr'], undefined, `Empty expression at "/invalidExpr"`))
+    })
+
+    it('Parser generic parser error', async() => {
+        expect(() => {
+            new Parser([class extends DataNode {
+                static readonly engine = 'mock'
+                readonly engine = 'mock'
+
+                constructor(
+                    parent: DataNodeObject | undefined,
+                    path: IDataNode['path'],
+                    valueType: IDataNode['valueType'],
+                    value: IDataNode['value'],
+                    extractExpr: ExtractExprFn,
+                ) {
+                    super(parent, path, valueType || 'computed', value, extractExpr)
+                    throw new Error(`Generic Error`)
+                }
+            }]).parse({
+                invalidExpr: 'mock{ }',
+            })
+        }).toThrow('Parse error at "/invalidExpr" with "mock".\nGeneric Error')
+    })
+
+    it('Parser generic parser error - simple object', async() => {
+        expect(() => {
+            new Parser([class extends DataNode {
+                static readonly engine = 'mock'
+                readonly engine = 'mock'
+
+                constructor(
+                    parent: DataNodeObject | undefined,
+                    path: IDataNode['path'],
+                    valueType: IDataNode['valueType'],
+                    value: IDataNode['value'],
+                    extractExpr: ExtractExprFn,
+                ) {
+                    super(parent, path, valueType || 'computed', value, extractExpr)
+                    throw {message: `Generic Error`}
+                }
+            }]).parse({
+                invalidExpr: 'mock{ }',
+            })
+        }).toThrow('Parse error at "/invalidExpr" with "mock".\nGeneric Error')
+    })
+
+    it('Parser generic parser error - simple object, no message', async() => {
+        expect(() => {
+            new Parser([class extends DataNode {
+                static readonly engine = 'mock'
+                readonly engine = 'mock'
+
+                constructor(
+                    parent: DataNodeObject | undefined,
+                    path: IDataNode['path'],
+                    valueType: IDataNode['valueType'],
+                    value: IDataNode['value'],
+                    extractExpr: ExtractExprFn,
+                ) {
+                    super(parent, path, valueType || 'computed', value, extractExpr)
+                    throw {code: `err`}
+                }
+            }]).parse({
+                invalidExpr: 'mock{ }',
+            })
+        }).toThrow('Parse error at "/invalidExpr" with "mock".')
     })
 
     it('Parser escaped expressions', async() => {
@@ -287,7 +396,11 @@ describe('Parser', () => {
             new Parser([]).parse({
                 someFn: () => null,
             })
-        }).toThrow(new Error(`Functions not supported in data template`))
+        }).toThrow(new Error(
+            `Parse error` +
+            ` at ${JSON.stringify('/someFn')}` +
+            ` unsupported value in data, no supported parser for type ${JSON.stringify('function')}.`,
+        ))
     })
 
     it('Parser no hydrate overwrite function', async() => {

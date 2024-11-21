@@ -86,12 +86,15 @@ export class Parser<TNode extends typeof DataNode> {
         }
     }
 
+    /**
+     * @todo refactor parsers for stricter types, requires refactor of parseData to use respective type guards
+     */
     private dataNodeParsers: {
         [k: string]: (
             currentValue: any,
             currentPath: (string | number)[],
             parent: DataNodeObject | undefined,
-        ) => [InstanceType<TNode> | DataNode, undefined?] | [DataNodeObject, (any[] | object)]
+        ) => [InstanceType<TNode> | DataNode, undefined?] | [DataNodeObject, (unknown[] | object)]
     } = {
         null: (currentValue: null, currentPath, parent) => {
             return [new DataNode(parent, currentPath, 'null', currentValue)
@@ -117,10 +120,10 @@ export class Parser<TNode extends typeof DataNode> {
     }
 
     private parseData = (
-        currentValue: any,
+        currentValue: unknown,
         currentPath: (string | number)[],
         parent: DataNodeObject | undefined,
-    ): [InstanceType<TNode> | DataNode, undefined?] | [DataNodeObject, (any[] | object)] => {
+    ): [InstanceType<TNode> | DataNode, undefined?] | [DataNodeObject, (unknown[] | object)] => {
         let parseType: string
         let nodeTag: [TNode, ExtractExprFn] | undefined
 
@@ -181,20 +184,19 @@ export class Parser<TNode extends typeof DataNode> {
     /**
      * @deprecated create an instance and use it instead
      */
-    static parse(objOrEval: any) {
+    static parse(objOrEval: unknown) {
         return new Parser([]).parse(objOrEval)
     }
 
-    parse(objOrEval: any) {
+    parse(objOrEval: unknown) {
         const [rootNode, nextObject] = this.parseData(
             objOrEval, [], undefined,
         )
 
-        const openParser: [DataNodeObject, object | any[]][] = nextObject ? [[rootNode, nextObject]] : []
-        let currentParent = openParser.shift()
+        const openParser: [DataNodeObject, object | unknown[]][] = nextObject ? [[rootNode, nextObject]] : []
 
-        while(currentParent) {
-            const [dataNode, currentObject] = currentParent
+        while(openParser.length) {
+            const [dataNode, currentObject] = openParser.pop()!
 
             if(Array.isArray(currentObject)) {
                 for(const [key, val] of currentObject.entries()) {
@@ -232,8 +234,6 @@ export class Parser<TNode extends typeof DataNode> {
                     }
                 }
             }
-
-            currentParent = openParser.shift()
         }
 
         return rootNode

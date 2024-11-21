@@ -7,6 +7,17 @@ import { ComputeFn, IComputeStatsBase, NodeComputeStats, runtime } from '@comyat
 // npm run tdd -- --selectProjects=test-@comyata/run
 // npm run tdd -- --selectProjects=test-@comyata/run --testPathPattern=Runtime.test
 
+const mockData = {
+    name: 'Surfboard',
+    tags: ['sports', 'surfing'],
+    selection: {
+        amount: 1,
+        price: 70.25,
+    },
+    fastShipping: null,
+    exclusive: true,
+}
+
 describe('Runtime', () => {
     const jsonataCompute: ComputeFn<DataNodeJSONata> = (computedNode, context, parentData) => {
         return computedNode.expr.evaluate(
@@ -20,33 +31,48 @@ describe('Runtime', () => {
     }
 
     it('Runtime Data Only', async() => {
-        const orgValue = {
-            name: 'Surfboard',
-            tags: ['sports', 'surfing'],
-            selection: {
-                amount: 1,
-                price: 70.25,
-            },
-            fastShipping: null,
-            exclusive: true,
-        }
-        const dataNode = new Parser([]).parse(orgValue)
+        const dataNode = new Parser([]).parse(mockData)
         const runner = runtime(
             dataNode,
             {variant: {name_short: 'Blue'}},
             {},
         )
         const dataA = runner.output()
-        expect(dataA).toStrictEqual(orgValue)
-        expect(dataA === orgValue).toBe(false)
+        expect(dataA).toStrictEqual(mockData)
+        expect(dataA === mockData).toBe(false)
 
         const dataC = await runner.compute()
-        expect(dataC).toStrictEqual(orgValue)
+        expect(dataC).toStrictEqual(mockData)
         expect(dataC === dataA).toBe(true)
 
         const dataB = runner.output()
-        expect(dataB).toStrictEqual(orgValue)
+        expect(dataB).toStrictEqual(mockData)
         expect(dataB === dataC).toBe(true)
+    })
+
+    it('Runtime Data Only - ordered output', async() => {
+        const dataNode = new Parser([]).parse(mockData)
+        const runner = runtime(
+            dataNode,
+            {variant: {name_short: 'Blue'}},
+            {},
+        )
+
+        const output = await runner.compute() as typeof mockData
+
+        const orgFieldsOrder = Object.keys(mockData)
+        let i = 0
+        for(const key in output) {
+            expect(orgFieldsOrder.indexOf(key)).toBe(i)
+            i++
+        }
+
+        const orgSelectionFieldsOrder = Object.keys(mockData.selection)
+        let iSelection = 0
+        for(const key in output.selection) {
+            expect(orgSelectionFieldsOrder.indexOf(key)).toBe(iSelection)
+            iSelection++
+        }
     })
 
     it('Runtime Only Expression', async() => {
@@ -126,6 +152,32 @@ describe('Runtime', () => {
         expect(runner.getValue(dataNode.children?.get('name') as IDataNode)).toBe('Surfboard Blue')
         expect(runner.getValue(dataNode)).toStrictEqual(expectedOutput)
         expect(() => runner.getValue(new DataNode(undefined, ['price'], 'number', 70.25))).toThrow('Missing Data Context')
+    })
+
+    it('Runtime Object With Expression - ordered output', async() => {
+        const dataNode = new Parser([DataNodeJSONata]).parse(objectTemplate)
+
+        const runner = runtime(
+            dataNode,
+            {variant: {name_short: 'Blue', color: 'blue'}},
+            {[DataNodeJSONata.engine]: jsonataCompute},
+        )
+
+        const output = await runner.compute() as typeof expectedOutput
+
+        const orgFieldsOrder = Object.keys(expectedOutput)
+        let i = 0
+        for(const key in output) {
+            expect(orgFieldsOrder.indexOf(key)).toBe(i)
+            i++
+        }
+
+        const orgCheckoutFieldsOrder = Object.keys(expectedOutput.checkout)
+        let iCheckout = 0
+        for(const key in output.checkout) {
+            expect(orgCheckoutFieldsOrder.indexOf(key)).toBe(iCheckout)
+            iCheckout++
+        }
     })
 
     it('Runtime Object With Hooks', async() => {

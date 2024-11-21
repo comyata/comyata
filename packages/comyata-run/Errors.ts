@@ -49,9 +49,9 @@ export class CircularNodeDependencyError extends ComputableError {
 
 export class ResultError extends ComputableError {
     dataNode: IDataNode
-    valueError?: any
+    valueError?: unknown
 
-    constructor(message: string, dataNode: IDataNode, valueError?: any) {
+    constructor(message: string, dataNode: IDataNode, valueError?: unknown) {
         super(message)
         this.dataNode = dataNode
         this.valueError = valueError

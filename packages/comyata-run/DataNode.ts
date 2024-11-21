@@ -12,6 +12,10 @@ export interface IDataNode {
     hooks?: IComputeTimeHooks
 }
 
+export interface IDataNodeComputed extends IDataNode {
+    readonly engine: string
+}
+
 export type ExtractExprFn = (value: string) => string
 
 export type IDataNodeChildren<TNode extends IDataNode = IDataNode> = Map<string | number, TNode>
@@ -74,4 +78,4 @@ export class DataNodeObject extends DataNode {
     }
 }
 
-export type IComputeTimeHooks<TNode extends IDataNode = IDataNode> = TNode[]
+export type IComputeTimeHooks<TNode extends IDataNodeComputed = IDataNodeComputed> = TNode[]

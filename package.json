@@ -9,7 +9,7 @@
         "clean": "rimraf dist && rimraf coverage && rimraf apps/sandbox/dist && rimraf server/fe/dist",
         "clean-npm": "rimraf --glob **/*/node_modules",
         "predev": "npm run clean",
-        "lint": "cross-env NODE_ENV=test NODE_OPTIONS=\"--max-old-space-size=8192 --no-deprecation --experimental-vm-modules --unhandled-rejections=strict\" eslint -c=.eslintrc --ext=.tsx,.ts --max-warnings=0 'apps/sandbox/src' 'packages'",
+        "lint": "cross-env NODE_ENV=test NODE_OPTIONS=\"--max-old-space-size=8192 --no-deprecation --experimental-vm-modules --unhandled-rejections=strict\" eslint -c=.eslintrc --ext=.tsx,.ts --max-warnings=0 'apps' 'packages'",
         "test": "cross-env NODE_ENV=development NODE_OPTIONS=\"--max-old-space-size=8192 --no-warnings --no-deprecation --experimental-vm-modules --unhandled-rejections=strict\" jest -c=\"jest.config.ts\"",
         "tdd": "cross-env NODE_ENV=development npm run clean && npm test -- --watch --coverage=false",
         "mockapi": "mockoon-cli start --data ./mockapi.json --port 8082",
@@ -61,7 +61,7 @@
         "@typescript-eslint/eslint-plugin": "^8.8.1",
         "@typescript-eslint/parser": "^8.8.1",
         "babel-jest": "^29.5.0",
-        "concurrently": "^8.2.2",
+        "concurrently": "^9.1.0",
         "cross-env": "^7.0.3",
         "dotenv": "^16.3.1",
         "eslint": "^8.45.0",
@@ -79,6 +79,7 @@
     },
     "workspaces": {
         "packages": [
+            "./apps/minimal-runtime",
             "./apps/sandbox",
             "./packages/*",
             "./server/fe"

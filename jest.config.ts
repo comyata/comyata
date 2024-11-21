@@ -39,7 +39,7 @@ const base: Config.InitialProjectOptions = {
     extensionsToTreatAsEsm: ['.ts', '.tsx'],
     coveragePathIgnorePatterns: [
         '(tests/.*.mock).(jsx?|tsx?|ts?|js?)$',
-        '<rootDir>/apps/sandbox',
+        '<rootDir>/apps',
         '<rootDir>/server/fe',
     ],
     testPathIgnorePatterns: [

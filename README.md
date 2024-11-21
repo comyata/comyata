@@ -10,6 +10,7 @@ Run it in the browser or on a server, save the templates in files or a database,
 **🕹️ Examples:**
 
 - Runtime with React hooks: [codesandbox](https://codesandbox.io/p/devbox/github/comyata/comyata/tree/main/apps/sandbox?file=%2Fsrc%2FPages%2FPageHome.tsx) | [stackblitz](https://stackblitz.com/github/comyata/comyata/tree/main/apps/sandbox?file=src%2FPages%2FPageHome.tsx) | [source in apps/sandbox](./apps/sandbox)
+- Runtime with minimal setup: [codesandbox](https://codesandbox.io/p/devbox/github/comyata/comyata/tree/main/apps/minimal-runtime?file=%2Fsrc%2Findex.ts) | [stackblitz](https://stackblitz.com/github/comyata/comyata/tree/main/apps/minimal-runtime?file=src%2Findex.ts) | [source in apps/minimal-runtime](./apps/minimal-runtime)
 - FileEngine as API Server: [codesandbox](https://codesandbox.io/p/devbox/github/comyata/comyata/tree/main/server/fe) | [stackblitz](https://stackblitz.com/github/comyata/comyata/tree/main/server/fe) | [source in server/fe](./server/fe)
 
 **📦 Packages:**
@@ -36,7 +37,7 @@ Comyata is JSON compatible and can be written and stored in different formats, Y
 
 Any `string` value can be made computable by starting it with an engine-tag and wrapping it into `{` `}` brackets. Tags define the engine needed to compute the expression.
 
-For JSONata, the default engine, the engine tag is `$`. To use JSONata, write it like `${ 10 + 5 }`.
+For [JSONata](https://jsonata.org/), the default engine, the engine tag is `$`. To use JSONata, write it like `${ 10 + 5 }`.
 
 In this YAML example, the `calc` property uses JSONata, while `static` is just plain data and is not dynamic:
 
@@ -54,7 +55,7 @@ The equivalent JSON looks like:
 }
 ```
 
-Both produce the following JSON output:
+Both produce the following data output:
 
 ```json
 {
@@ -71,94 +72,7 @@ Runtime, for any environment:
 npm i -S @comyata/run
 ```
 
-```ts
-import { DataNodeJSONata } from '@comyata/run/DataNodeJSONata'
-import { Parser } from '@comyata/run/Parser'
-import { ComputeFn, ComputeStats, runtime } from '@comyata/run/Runtime'
-
-// 1. Setup Parser with engines nodes
-
-const nodeTypes = [
-    DataNodeJSONata,
-]
-
-const parser = new Parser(nodeTypes)
-
-// 2. Configure Engines
-
-const jsonataCompute: ComputeFn<DataNodeJSONata> = (computedNode, context, parentData) => {
-    return computedNode.expr.evaluate(
-        context,
-        {
-            // allow access to raw data via relative access:
-            self: () => parentData[0],
-            parent: () => parentData.slice(1),
-            root: () => parentData[parentData.length - 1],
-            // ... add any custom function here ...
-        },
-    )
-}
-
-// 3. Define a template and run a computation with a context
-
-const template = {
-    name: '${ "Surfboard " & variant.shortName }',
-    price: 70.25,
-    discount: 10,
-    discountedPrice: '${ $self().price * (100 - $self().discount) / 100 }',
-}
-
-// parse the template into a DataNode
-const dataNode = parser.parse(template)
-
-const context = {
-    variant: {shortName: 'Blue'},
-}
-
-// pass all to the runtime
-const runner = runtime(
-    dataNode,
-    context,
-    {
-        // engines and their compute functions
-        [DataNodeJSONata.engine]: jsonataCompute,
-    },
-    {
-        // once a node starts to compute
-        onCompute: (dataNode) => undefined,
-        // once a node successfully computed
-        onComputed: (dataNode, result, meta) => undefined,
-
-        // enable access to computed fields within other computed fields
-        __unsafeAllowCrossResolving: true,
-
-        // set to true to disable validation
-        // checks that results are not `Error`/`Promise`
-        __unsafeDisableResultValidation: false,
-    },
-)
-
-// initial output, which contains all static values
-// and `Promise` placeholders in computed nodes
-const initial = runner.output()
-
-// run compute and get the complete output
-const output = await runner.compute()
-
-// or get the complete output from the runner
-const output1 = runner.output()
-```
-
-This results in the following output data:
-
-```json
-{
-    "name": "Surfboard Blue",
-    "price": 70.25,
-    "discount": 10,
-    "discountedPrice": 63.225
-}
-```
+👉 Check out the [minimal runtime example](./apps/minimal-runtime/src/index.ts) for a simple code demonstration.
 
 ## Setup File Engine
 
@@ -168,7 +82,7 @@ File Engine, especially for server environments:
 npm i -S @comyata/run @comyata/fe
 ```
 
-> Check the [server example](./server/fe) to learn more.
+👉 Check out the [server example](./server/fe) to learn more.
 
 ## Runtime vs. FileEngine
 
@@ -307,12 +221,10 @@ Start test driven:
 npm run tdd
 ```
 
-Create new lock-file for sandbox/server requires setting `workspaces` to false.
+Run the [minimal-runtime](./apps/minimal-runtime) example:
 
 ```shell
-# updating lock file requires already published packages
-# first release, then update lock, then push again
-cd apps/sandbox && npm i --package-lock-only --workspaces false
+npm run -w comyata-minimal-runtime start
 ```
 
 ## License

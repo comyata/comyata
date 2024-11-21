@@ -1,8 +1,8 @@
 import React from 'react'
 import { EditorView } from '@codemirror/view'
 import { Extension } from '@codemirror/state'
-import useTheme from '@mui/material/styles/useTheme'
-import { TextFieldProps } from '@mui/material'
+import { useTheme } from '@mui/material/styles'
+import { TextFieldProps } from '@mui/material/TextField'
 
 export interface EditorThemeCustomStyles {
     // for all standard texts

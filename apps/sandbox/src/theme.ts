@@ -1,5 +1,4 @@
-import { getContrastRatio, createTheme, Theme } from '@mui/material/styles'
-import { ThemeOptions } from '@mui/material/styles/createTheme'
+import { getContrastRatio, createTheme, Theme, ThemeOptions } from '@mui/material/styles'
 
 export const fontHeading =
     '"Roboto Slab", "Playfair Display", Didot, Georgia, "Times New Roman", Times, serif'

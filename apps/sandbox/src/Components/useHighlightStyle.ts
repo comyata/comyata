@@ -1,7 +1,7 @@
 import React from 'react'
 import { tags } from '@lezer/highlight'
 import { HighlightStyle } from '@codemirror/language'
-import useTheme from '@mui/material/styles/useTheme'
+import { useTheme } from '@mui/material/styles'
 
 export const useHighlightStyle = (): HighlightStyle => {
     const {palette} = useTheme()

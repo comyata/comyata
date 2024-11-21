@@ -186,12 +186,12 @@ export const setupFileEngine = (
                     // Beautified JSON output for better DX, such as in CodeSandbox examples.
                     .send(JSON.stringify(result, undefined, 4))
             } catch(e) {
-                if(e instanceof Error && e.message.startsWith('ENOENT:')) {
+                if(e instanceof Error && 'code' in e && e.code === 'ENOENT') {
                     res.status(404).send({
                         error: 'File not found',
                     })
                 } else {
-                    res.status(501).send({
+                    res.status(500).send({
                         error: 'Fatal Error in compute.',
                         details: e instanceof Error ? e.message : e,
                     })

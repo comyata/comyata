@@ -1,4 +1,4 @@
-import { Typography } from '@mui/material'
+import Typography from '@mui/material/Typography'
 import Box from '@mui/material/Box'
 import CircularProgress from '@mui/material/CircularProgress'
 import IcError from '@mui/icons-material/Error'

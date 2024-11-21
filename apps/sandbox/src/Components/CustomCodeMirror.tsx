@@ -1,5 +1,5 @@
 import Box from '@mui/material/Box'
-import useTheme from '@mui/material/styles/useTheme'
+import { useTheme } from '@mui/material/styles'
 import React from 'react'
 import {
     lineNumbers,
@@ -51,13 +51,6 @@ import { EditorThemeCustomStyles, useEditorTheme } from './useEditorTheme'
 import { useHighlightStyle } from './useHighlightStyle'
 import { json } from '@codemirror/lang-json'
 import { javascript } from '@codemirror/lang-javascript'
-import { html } from '@codemirror/lang-html'
-import { css } from '@codemirror/lang-css'
-import { python } from '@codemirror/lang-python'
-import { wast } from '@codemirror/lang-wast'
-import { rust } from '@codemirror/lang-rust'
-import { xml } from '@codemirror/lang-xml'
-import { php } from '@codemirror/lang-php'
 import {
     MariaSQL,
     Cassandra,
@@ -70,11 +63,6 @@ import {
 import { markdown, markdownLanguage } from '@codemirror/lang-markdown'
 import { languages } from '@codemirror/language-data'
 import { lezer } from '@codemirror/lang-lezer'
-import { sCSS } from '@codemirror/legacy-modes/mode/css'
-import { shell } from '@codemirror/legacy-modes/mode/shell'
-import { csharp } from '@codemirror/legacy-modes/mode/clike'
-import { powerShell } from '@codemirror/legacy-modes/mode/powershell'
-import { http } from '@codemirror/legacy-modes/mode/http'
 import { yaml } from '@codemirror/legacy-modes/mode/yaml'
 import {
     useCodeMirror,
@@ -158,45 +146,9 @@ export const getHighlight = (
                 jsx: true,
                 typescript: true,
             })
-        case 'twig':
-        case 'html':
-            return html()
-        case 'rss':
-        case 'wsl':
-        case 'xsd':
-        case 'xml':
-            return xml()
-        case 'bash':
-        case 'sh':
-        case 'zsh':
-        case 'ksh':
-        case 'shell':
-            return StreamLanguage.define(shell)
-        case 'powershell':
-            return StreamLanguage.define(powerShell)
-        case 'c#':
-        case 'cs':
-        case 'csharp':
-            return StreamLanguage.define(csharp)
-        case 'scss':
-        case 'sass':
-            return StreamLanguage.define(sCSS)
-        case 'http':
-            return StreamLanguage.define(http)
         case 'yml':
         case 'yaml':
             return StreamLanguage.define(yaml)
-        case 'css':
-            return css()
-        case 'python':
-            return python()
-        case 'wast':
-            return wast()
-        case 'rust':
-            return rust()
-        case 'injectablephp':
-        case 'php':
-            return php()
         case 'mysql':
             return sql({dialect: MySQL})
         case 'ms sql':

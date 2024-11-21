@@ -1,6 +1,6 @@
 {
     "name": "@comyata/fe",
-    "version": "0.0.3",
+    "version": "0.0.4",
     "description": "Comyata FileEngine",
     "author": {
         "name": "Michael Becker",
@@ -17,9 +17,12 @@
         "./*": "./*.js"
     },
     "peerDependencies": {
+        "@comyata/run": "~0.0.1"
+    },
+    "devDependencies": {
+        "@comyata/run": "~0.0.4"
     },
     "dependencies": {
-        "@comyata/run": "~0.0.1",
         "yaml": "^2.2.1"
     },
     "publishConfig": {

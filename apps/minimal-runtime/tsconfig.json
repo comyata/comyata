@@ -3,27 +3,22 @@
         "target": "ESNext",
         "useDefineForClassFields": true,
         "lib": [
-            "ESNext",
-            "DOM",
-            "DOM.Iterable"
+            "ESNext"
         ],
-        "module": "ESNext",
-        "moduleResolution": "Node",
-        "jsx": "react-jsx",
-        "isolatedModules": true,
+        "module": "Node16",
+        "moduleResolution": "Node16",
         "noEmit": true,
         "strict": true,
-        "noImplicitAny": false,
+        "noImplicitAny": true,
         "skipLibCheck": true,
         "resolveJsonModule": true,
         "esModuleInterop": false,
-        "allowSyntheticDefaultImports": true,
+        "allowSyntheticDefaultImports": false,
         "noUnusedLocals": true,
         "noUnusedParameters": true,
         "noFallthroughCasesInSwitch": true
     },
     "include": [
-        "src",
-        "vite.config.ts"
+        "src"
     ]
 }

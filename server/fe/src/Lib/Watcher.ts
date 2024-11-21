@@ -62,9 +62,7 @@ export const Watcher = ({debug}: { debug?: boolean } = {}) => {
         watch: (
             listener: (changes: WatchChange) => Promise<void> | void,
         ) => {
-            if(listener) {
-                listeners.push({handler: listener})
-            }
+            listeners.push({handler: listener})
         },
         close: async() => {
             await watcher.close()?.then(() => {

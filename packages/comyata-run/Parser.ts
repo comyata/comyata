@@ -6,6 +6,26 @@ function escapeRegex(string: string) {
     return string.replace(/[/\-\\^$*+?.()|[\]{}]/g, '\\$&')
 }
 
+type DataParser<TNode extends typeof DataNode, TValue = unknown> = (
+    currentValue: TValue,
+    currentPath: (string | number)[],
+    parent: DataNodeObject | undefined,
+) => [InstanceType<TNode> | DataNode, undefined?] | [DataNodeObject, (unknown[] | object)]
+
+type DataParserTypes = {
+    null: null
+    string: string
+    number: number
+    boolean: boolean
+    undefined: undefined
+    array: unknown[]
+    object: object
+}
+
+type DataParsers<TNode extends typeof DataNode> = {
+    [Type in keyof DataParserTypes]: DataParser<TNode, DataParserTypes[Type]>
+}
+
 export class Parser<TNode extends typeof DataNode> {
     readonly nodes: TNode[]
     private readonly matchNode: (text: string) => [TNode, ExtractExprFn] | undefined
@@ -34,7 +54,7 @@ export class Parser<TNode extends typeof DataNode> {
         //      maybe add a `comyata-utils` for these universal field utils?
 
         const tagPattern = new RegExp(
-            `^(?<engine>${nodesTypes.map(tag => escapeRegex(tag.engine as string)).join('|')})${escapeRegex(this.options.paren[0])}`,
+            `^(?<engine>${this.nodes.filter(tag => tag.engine).map(tag => escapeRegex(tag.engine as string)).join('|')})${escapeRegex(this.options.paren[0])}`,
         )
 
         const offsetParenStart = this.options.paren[0].length
@@ -69,9 +89,7 @@ export class Parser<TNode extends typeof DataNode> {
             const match = text.match(tagPattern)
             if(match?.groups?.engine) {
                 const tagName = match.groups.engine
-                const engine = nodesMap.get(tagName)
-                if(!engine) throw new Error(`Missing DataNodeType for "${tagName}" at ${JSON.stringify(text)}`)
-                return engine
+                return nodesMap.get(tagName)!
             }
             return undefined
         }
@@ -86,16 +104,7 @@ export class Parser<TNode extends typeof DataNode> {
         }
     }
 
-    /**
-     * @todo refactor parsers for stricter types, requires refactor of parseData to use respective type guards
-     */
-    private dataNodeParsers: {
-        [k: string]: (
-            currentValue: any,
-            currentPath: (string | number)[],
-            parent: DataNodeObject | undefined,
-        ) => [InstanceType<TNode> | DataNode, undefined?] | [DataNodeObject, (unknown[] | object)]
-    } = {
+    private static dataNodeParsers: DataParsers<typeof DataNode> = {
         null: (currentValue: null, currentPath, parent) => {
             return [new DataNode(parent, currentPath, 'null', currentValue)
                 .withHydrate(() => currentValue)]
@@ -103,7 +112,6 @@ export class Parser<TNode extends typeof DataNode> {
         array: (currentValue: unknown[], currentPath, parent) => {
             const valueLength = currentValue.length
             const dataNode = new DataNodeObject(parent, currentPath, 'array', currentValue)
-                // todo: for cacheable DataNode, the hydrate itself must be serializable, including the array length
                 .withHydrate(() => new Array(valueLength))
             return [dataNode, currentValue]
         },
@@ -112,10 +120,21 @@ export class Parser<TNode extends typeof DataNode> {
                 .withHydrate(() => ({}))
             return [dataNode, currentValue]
         },
-        generic: (currentValue, currentPath, parent) => {
-            return [new DataNode(parent, currentPath, typeof currentValue, currentValue)
-                // todo: for cacheable DataNode, the hydrate itself must be serializable, including `undefined` values!
+        number: (currentValue, currentPath, parent) => {
+            return [new DataNode(parent, currentPath, 'number', currentValue)
                 .withHydrate(() => currentValue)]
+        },
+        string: (currentValue, currentPath, parent) => {
+            return [new DataNode(parent, currentPath, 'string', currentValue)
+                .withHydrate(() => currentValue)]
+        },
+        boolean: (currentValue, currentPath, parent) => {
+            return [new DataNode(parent, currentPath, 'boolean', currentValue)
+                .withHydrate(() => currentValue)]
+        },
+        undefined: (_currentValue, currentPath, parent) => {
+            return [new DataNode(parent, currentPath, 'undefined', undefined)
+                .withHydrate(() => undefined)]
         },
     }
 
@@ -124,71 +143,66 @@ export class Parser<TNode extends typeof DataNode> {
         currentPath: (string | number)[],
         parent: DataNodeObject | undefined,
     ): [InstanceType<TNode> | DataNode, undefined?] | [DataNodeObject, (unknown[] | object)] => {
-        let parseType: string
-        let nodeTag: [TNode, ExtractExprFn] | undefined
+        if(typeof currentValue === 'string') {
+            const nodeTag = this.matchNode(currentValue)
 
-        if(typeof currentValue === 'object') {
+            if(nodeTag) {
+                try {
+                    return [new nodeTag[0](
+                        parent, currentPath,
+                        '',
+                        currentValue,
+                        nodeTag[1],
+                    )]
+                } catch(e) {
+                    if(e instanceof NodeParserError) throw e
+                    throw new NodeParserError(
+                        currentPath, parent,
+                        `Parse error` +
+                        ` at ${JSON.stringify(jsonpointer.compile(currentPath as string[]))}` +
+                        ` with ${JSON.stringify(nodeTag[0].engine)}.` +
+                        `${e instanceof Error ? '\n' + e.message : typeof e === 'object' && e && 'message' in e ? '\n' + e.message : ''}`,
+                        e,
+                    )
+                }
+            }
+
+            return Parser.dataNodeParsers.string(currentValue, currentPath, parent)
+        } else if(typeof currentValue === 'object') {
             if(currentValue === null) {
-                parseType = 'null'
+                return Parser.dataNodeParsers.null(currentValue, currentPath, parent)
             } else if(Array.isArray(currentValue)) {
-                parseType = 'array'
-            } else {
-                parseType = 'object'
-            }
-        } else if(typeof currentValue === 'string') {
-            nodeTag = this.matchNode(currentValue)
-            if(nodeTag) {
-                parseType = 'computed'
-            } else {
-                // parseType = 'string'
-                parseType = 'generic'
-            }
-        } else if(typeof currentValue === 'function') {
-            // todo: should be loaded before evaluation?!
-            //       is the target for such things would be that the function returns is parsed or that the function is called with the context and run jit?
-            throw new Error(`Functions not supported in data template`)
-        } else {
-            // parseType = typeof currentValue
-            parseType = 'generic'
-        }
-
-        try {
-            if(nodeTag) {
-                return [new nodeTag[0](
-                    parent, currentPath,
-                    '',
-                    currentValue,
-                    nodeTag[1],
-                )]
+                return Parser.dataNodeParsers.array(currentValue, currentPath, parent)
             }
 
-            const parser = this.dataNodeParsers[parseType]
-            return parser(currentValue, currentPath, parent)
-        } catch(e) {
-            if(e instanceof NodeParserError) throw e
-            throw new NodeParserError(
-                currentPath, parent,
-                `Parse error` +
-                ` at ${JSON.stringify(jsonpointer.compile(currentPath as string[]))}` +
-                (
-                    nodeTag
-                        ? ` as ${JSON.stringify(parseType)}${' with ' + JSON.stringify(nodeTag[0].engine)}.`
-                        : ` as ${JSON.stringify(parseType)}.`
-                ) +
-                `${e instanceof Error ? '\n' + e.message : typeof e === 'object' && e && 'message' in e ? '\n' + e.message : ''}`,
-                e,
-            )
+            return Parser.dataNodeParsers.object(currentValue, currentPath, parent)
         }
+
+        const type = typeof currentValue
+        if(type in Parser.dataNodeParsers) {
+            return Parser.dataNodeParsers[type](currentValue, currentPath, parent)
+        }
+
+        throw new NodeParserError(
+            currentPath, parent,
+            `Parse error` +
+            ` at ${JSON.stringify(jsonpointer.compile(currentPath as string[]))}` +
+            ` unsupported value in data, no supported parser for type ${JSON.stringify(type)}.`,
+        )
     }
 
     /**
      * @deprecated create an instance and use it instead
      */
+
+    /* istanbul ignore next */
     static parse(objOrEval: unknown) {
         return new Parser([]).parse(objOrEval)
     }
 
     parse(objOrEval: unknown) {
+        const parseComments = this.options.comments
+
         const [rootNode, nextObject] = this.parseData(
             objOrEval, [], undefined,
         )
@@ -204,31 +218,22 @@ export class Parser<TNode extends typeof DataNode> {
                         val, [...dataNode.path, key],
                         dataNode,
                     )
+
                     dataNode.append(key, nextDataNode)
-                    // only adding them to the current parent, thus still needs traversing or calling all parents for each registration
-                    // it is only possible to collect all globally here, which aids most computations but doesn't help reducing re-collecting at partial computations
-                    // if(nextDataNode.hooks) {
-                    //     dataNode.hooks.push(...nextDataNode.hooks)
-                    // }
                     if(nextObject) {
                         openParser.push([nextDataNode, nextObject])
                     }
                 }
             } else {
-                for(const key in currentObject) {
-                    if(this.options.comments && key.endsWith('!')) continue
+                for(const [key, val] of Object.entries(currentObject)) {
+                    if(parseComments && key.endsWith('!')) continue
 
                     const [nextDataNode, nextObject] = this.parseData(
-                        currentObject[key], [...dataNode.path, key],
+                        val, [...dataNode.path, key],
                         dataNode,
                     )
 
                     dataNode.append(key, nextDataNode)
-                    // only adding them to the current parent, thus still needs traversing or calling all parents for each registration
-                    // it is only possible to collect all globally here, which aids most computations but doesn't help reducing re-collecting at partial computations
-                    // if(nextDataNode.hooks) { // the alternative to pre-collect all in parser and not runtime
-                    //     dataNode.hooks.push(...nextDataNode.hooks)
-                    // }
                     if(nextObject) {
                         openParser.push([nextDataNode, nextObject])
                     }

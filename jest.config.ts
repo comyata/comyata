@@ -63,9 +63,7 @@ const base: Config.InitialProjectOptions = {
 
 const config: Config.InitialOptions = {
     ...base,
-    collectCoverage: true,
     verbose: true,
-    coverageDirectory: '<rootDir>/coverage',
     projects: [
         {
             displayName: 'test-apps-sandbox',
@@ -88,6 +86,9 @@ const config: Config.InitialOptions = {
             ],
         })),
     ],
+    collectCoverage: true,
+    coverageReporters: ['clover', 'json', 'lcov', 'text', 'html-spa'],
+    coverageDirectory: '<rootDir>/coverage',
 }
 
 export default config

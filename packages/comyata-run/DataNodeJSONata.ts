@@ -23,6 +23,7 @@ export class DataNodeJSONata extends DataNode {
     static readonly engine = '$'
     readonly engine = '$'
     expr: jsonata.Expression
+    readonly computed = true
 
     constructor(
         parent: DataNodeObject | undefined,
@@ -52,8 +53,6 @@ export class DataNodeJSONata extends DataNode {
         //       - may require that the actual setters are postponed until one file is parsed, to never access randomly the rejects or the results
         this.withHydrate(() => new UnresolvedJSONataExpression())
         // this.withHydrate(() => Promise.reject(new Error('Unresolved JSONata expression'))) // this always throws
-
-        this.hooks = [this]
     }
 }
 

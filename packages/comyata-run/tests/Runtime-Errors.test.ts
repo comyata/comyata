@@ -11,6 +11,7 @@ import { MissingEngineError, NodeComputeError, ResultError } from '../Errors'
 class DataNodeError extends DataNode {
     static readonly engine = 'e'
     readonly engine = 'e'
+    readonly computed = true
 
     constructor(
         parent: DataNodeObject | undefined,
@@ -20,13 +21,13 @@ class DataNodeError extends DataNode {
     ) {
         super(parent, path, valueType || 'string', value)
         this.withHydrate(() => new Error('Some Error'))
-        this.hooks = [this]
     }
 }
 
 class DataNodeErrorNoClass extends DataNode {
     static readonly engine = 'e'
     readonly engine = 'e'
+    readonly computed = true
 
     constructor(
         parent: DataNodeObject | undefined,
@@ -36,7 +37,6 @@ class DataNodeErrorNoClass extends DataNode {
     ) {
         super(parent, path, valueType || 'string', value)
         this.withHydrate(() => ({message: 'Some Error'}))
-        this.hooks = [this]
     }
 }
 

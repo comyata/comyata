@@ -24,6 +24,22 @@ class DataNodeError extends DataNode {
     }
 }
 
+class DataNodeErrorNoClass extends DataNode {
+    static readonly engine = 'e'
+    readonly engine = 'e'
+
+    constructor(
+        parent: DataNodeObject | undefined,
+        path: IDataNode['path'],
+        valueType: IDataNode['valueType'],
+        value: IDataNode['value'],
+    ) {
+        super(parent, path, valueType || 'string', value)
+        this.withHydrate(() => ({message: 'Some Error'}))
+        this.hooks = [this]
+    }
+}
+
 describe('Runtime Errors', () => {
     it('Runtime Missing Engine', async() => {
         const dataNode = new Parser([DataNodeJSONata]).parse({
@@ -44,6 +60,72 @@ describe('Runtime Errors', () => {
         ))
     })
 
+    it('Runtime Failure - Error class', async() => {
+        const dataNode = new Parser([DataNodeError]).parse({
+            name: 'e{}',
+        })
+
+        const runner = runtime(
+            dataNode,
+            {},
+            {[DataNodeError.engine]: async(computedNode) => Promise.reject(computedNode.hydrate?.())},
+        )
+
+        const dataNodeName = dataNode.children?.get('name')
+        expect(dataNodeName).toBeInstanceOf(DataNodeError)
+        await expect(runner.compute()).rejects.toThrow(
+            new NodeComputeError(
+                dataNodeName as IDataNode,
+                `Compute failure at "/name" with "e".\nSome Error`,
+                new Error('Some Error'),
+            ),
+        )
+    })
+
+    it('Runtime Failure - no Error class', async() => {
+        const dataNode = new Parser([DataNodeErrorNoClass]).parse({
+            name: 'e{}',
+        })
+
+        const runner = runtime(
+            dataNode,
+            {},
+            {[DataNodeError.engine]: async(computedNode) => Promise.reject(computedNode.hydrate?.())},
+        )
+
+        const dataNodeName = dataNode.children?.get('name')
+        expect(dataNodeName).toBeInstanceOf(DataNodeErrorNoClass)
+        await expect(runner.compute()).rejects.toThrow(
+            new NodeComputeError(
+                dataNodeName as IDataNode,
+                `Compute failure at "/name" with "e".\nSome Error`,
+                {message: 'Some Error'},
+            ),
+        )
+    })
+
+    it('Runtime Failure - no object', async() => {
+        const dataNode = new Parser([DataNodeErrorNoClass]).parse({
+            name: 'e{}',
+        })
+
+        const runner = runtime(
+            dataNode,
+            {},
+            {[DataNodeError.engine]: async() => Promise.reject('Some Error')},
+        )
+
+        const dataNodeName = dataNode.children?.get('name')
+        expect(dataNodeName).toBeInstanceOf(DataNodeErrorNoClass)
+        await expect(runner.compute()).rejects.toThrow(
+            new NodeComputeError(
+                dataNodeName as IDataNode,
+                `Compute failure at "/name" with "e".`,
+                'Some Error',
+            ),
+        )
+    })
+
     it('Runtime Invalid Result Error', async() => {
         const dataNode = new Parser([DataNodeError]).parse({
             name: 'e{}',
@@ -58,14 +140,10 @@ describe('Runtime Errors', () => {
         const dataNodeName = dataNode.children?.get('name')
         expect(dataNodeName).toBeInstanceOf(DataNodeError)
         await expect(runner.compute()).rejects.toThrow(
-            new NodeComputeError(
+            new ResultError(
+                `Computed value resulted in an error at "/name".`,
                 dataNodeName as IDataNode,
-                'Compute failure at "/name" with "e".\nComputed value resulted in an error',
-                new ResultError(
-                    `Computed value resulted in an error`,
-                    dataNodeName as IDataNode,
-                    new Error('Some Error'),
-                ),
+                new Error('Some Error'),
             ),
         )
     })

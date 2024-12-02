@@ -1,4 +1,5 @@
 import { DataNode, IDataNode } from '@comyata/run/DataNode'
+import { NodeComputeError } from '@comyata/run/Errors'
 import { it, expect, describe } from '@jest/globals'
 import { DataNodeJSONata, UnresolvedJSONataExpression } from '@comyata/run/DataNodeJSONata'
 import { Parser } from '@comyata/run/Parser'
@@ -19,13 +20,14 @@ const mockData = {
 }
 
 describe('Runtime', () => {
-    const jsonataCompute: ComputeFn<DataNodeJSONata> = (computedNode, context, parentData) => {
+    const jsonataCompute: ComputeFn<DataNodeJSONata> = (computedNode, context, parentData, runtimeBaggage) => {
         return computedNode.expr.evaluate(
             context,
             {
                 self: () => parentData[0],
                 parent: () => parentData.slice(1),
                 root: () => parentData[parentData.length - 1],
+                aborted: () => runtimeBaggage.abort?.aborted,
             },
         )
     }
@@ -240,5 +242,102 @@ describe('Runtime', () => {
         expect(runner.output()).toStrictEqual(expectedOutput)
         expect(onComputeHistory.length).toBe(3)
         expect(onComputedHistory.length).toBe(3)
+    })
+
+    it('Runtime Object With Hooks - onComputedError', async() => {
+        const dataNode = new Parser([DataNodeJSONata]).parse({
+            ...objectTemplate,
+            failing: '${$error("custom error")}',
+        })
+
+        const onComputeHistory: IDataNode[] = []
+        const onComputedHistory: [
+            dataNode: IDataNode,
+            resultOrError: any,
+            meta: {
+                statsNode: NodeComputeStats
+                statsRun: IComputeStatsBase
+            },
+        ][] = []
+
+        const runner = runtime(
+            dataNode,
+            {variant: {name_short: 'Blue', color: 'blue'}},
+            {[DataNodeJSONata.engine]: jsonataCompute},
+            {
+                onCompute: (dataNode) => onComputeHistory.push(dataNode),
+                onComputed: (dataNode, result, meta) => {
+                    onComputedHistory.push([dataNode, result, meta])
+                },
+                onComputedError: (dataNode, error, meta) => {
+                    onComputedHistory.push([dataNode, error, meta])
+                },
+            },
+        )
+
+        try {
+            await runner.compute()
+        } catch(e) {
+            // noop
+        }
+
+        expect(onComputeHistory.length).toBe(4)
+        expect(onComputedHistory.length).toBe(4)
+
+        const dataNodeName = dataNode.children?.get('name')
+        expect(onComputedHistory.find(history => history[0] === dataNodeName)?.[1]).toBe('Surfboard Blue')
+
+        const dataNodeCheckoutOriginal = dataNode.children?.get('checkout')?.children?.get('priceOriginal')
+        expect(onComputedHistory.find(history => history[0] === dataNodeCheckoutOriginal)?.[1]).toBe(210.75)
+
+        const dataNodeTag = dataNode.children?.get('tags')
+        expect(onComputedHistory.find(history => history[0] === dataNodeTag)?.[1]).toStrictEqual([
+            'sports',
+            'surfing',
+            'color_blue',
+        ])
+
+        const dataNodeFailing = dataNode.children?.get('failing')
+        expect(onComputedHistory.find(history => history[0] === dataNodeFailing)?.[1]).toBeInstanceOf(NodeComputeError)
+        expect(onComputedHistory.find(history => history[0] === dataNodeFailing)?.[1].message).toBe('Compute failure at "/failing" with "$".\ncustom error')
+        expect(onComputedHistory.find(history => history[0] === dataNodeFailing)?.[1].originalError).toMatchObject({
+            message: 'custom error',
+            token: 'error',
+        })
+    })
+
+    it('Runtime Baggage w/ AbortSignal - aborted', async() => {
+        const dataNode = new Parser([DataNodeJSONata]).parse('${$aborted()}')
+        const abortController = new AbortController()
+        const runner = runtime(
+            dataNode,
+            {},
+            {[DataNodeJSONata.engine]: jsonataCompute},
+            {},
+            {
+                abort: abortController.signal,
+                nodesChain: new Set(),
+            },
+        )
+        abortController.abort()
+        await runner.compute()
+        expect(runner.output()).toBe(true)
+    })
+
+    it('Runtime Baggage w/ AbortSignal - not aborted', async() => {
+        const dataNode = new Parser([DataNodeJSONata]).parse('${$aborted()}')
+        const abortController = new AbortController()
+        const runner = runtime(
+            dataNode,
+            {},
+            {[DataNodeJSONata.engine]: jsonataCompute},
+            {},
+            {
+                abort: abortController.signal,
+                nodesChain: new Set(),
+            },
+        )
+        await runner.compute()
+        expect(runner.output()).toBe(false)
     })
 })

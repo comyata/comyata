@@ -151,9 +151,16 @@ describe('Runtime', () => {
         })
         await runner.compute()
         expect(runner.output()).toStrictEqual(expectedOutput)
+        // data context with original dataNode:
         expect(runner.getValue(dataNode.children?.get('name') as IDataNode)).toBe('Surfboard Blue')
-        expect(runner.getValue(dataNode)).toStrictEqual(expectedOutput)
+        // but not for not-computed nodes:
+        expect(() => runner.getValue(dataNode)).toThrow('Missing Data Context')
+
+        // no data context without original dataNode:
         expect(() => runner.getValue(new DataNode(undefined, ['price'], 'number', 70.25))).toThrow('Missing Data Context')
+
+        // no data context for not-computed nodes:
+        expect(() => runner.getValue(dataNode.children?.get('price') as IDataNode)).toThrow('Missing Data Context')
     })
 
     it('Runtime Object With Expression - ordered output', async() => {
@@ -181,6 +188,44 @@ describe('Runtime', () => {
             iCheckout++
         }
     })
+
+    // todo: not possible, as missing dataChain when passing only a nested node to `runtime`,
+    //       see notes in runtime for a possible future implementation
+    // it('Runtime Object With Expression - partial recompute', async() => {
+    //     const dataNode = new Parser([DataNodeJSONata]).parse(objectTemplate)
+    //
+    //     const runner = runtime(
+    //         dataNode,
+    //         {variant: {name_short: 'Blue', color: 'blue'}},
+    //         {[DataNodeJSONata.engine]: jsonataCompute},
+    //     )
+    //
+    //     expect(runner.output()).toStrictEqual({
+    //         name: new UnresolvedJSONataExpression(),
+    //         price: 70.25,
+    //         tags: new UnresolvedJSONataExpression(),
+    //         checkout: {
+    //             priceOriginal: new UnresolvedJSONataExpression(),
+    //             amount: 3,
+    //         },
+    //     })
+    //     await runner.compute()
+    //     expect(runner.output()).toStrictEqual(expectedOutput)
+    //
+    //     const dataNodeCheckout = dataNode.children?.get('checkout') as IDataNode | DataNodeJSONata
+    //     const runner2 = runtime(
+    //         dataNodeCheckout,
+    //         {variant: {name_short: 'Blue', color: 'blue'}},
+    //         {[DataNodeJSONata.engine]: jsonataCompute},
+    //     )
+    //
+    //     await runner2.compute()
+    //     console.log('runner2.output()', runner2.output())
+    //     expect((runner2.output() as any).checkout).toStrictEqual(expectedOutput.checkout)
+    //     expect(
+    //         (runner.output() as any).checkout === (runner2.output() as any).checkout,
+    //     ).toBe(false)
+    // })
 
     it('Runtime Object With Hooks', async() => {
         const dataNode = new Parser([DataNodeJSONata]).parse(objectTemplate)

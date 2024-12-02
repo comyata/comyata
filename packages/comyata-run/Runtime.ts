@@ -1,6 +1,6 @@
 import { MissingEngineError, NodeComputeError, ResultError } from '@comyata/run/Errors'
 import { timer } from '@comyata/run/Helpers/Timer'
-import { IComputeTimeHooks, IDataNode, IDataNodeChildren, IDataNodeComputed } from '@comyata/run/DataNode'
+import { IDataNode, IDataNodeChildren, IDataNodeComputed, isComputedNode } from '@comyata/run/DataNode'
 import jsonpointer from 'json-pointer'
 
 export interface IComputeStatsBase {
@@ -54,7 +54,7 @@ type ResultState<TOutput = unknown, TNode extends IDataNode = IDataNode> = {
 }
 
 export type NodeComputeEngines<TNode extends IDataNode, C = unknown, TBaggage extends NodeRuntimeBaggage<TNode> = NodeRuntimeBaggage<TNode>> = {
-    [engine in NonNullable<TNode['engine']>]?: TNode extends { engine: engine } ? ComputeFn<TNode, C, TBaggage & NodeRuntimeBaggageComplete<TNode>> : never
+    [engine in NonNullable<TNode['engine']>]?: TNode extends { engine: engine, computed: true } ? ComputeFn<TNode, C, TBaggage & NodeRuntimeBaggageComplete<TNode>> : never
 }
 
 export const runtime = <TNode extends IDataNode, D = unknown, C = unknown, TBaggage extends NodeRuntimeBaggage<TNode> = NodeRuntimeBaggage<TNode>>(
@@ -124,24 +124,29 @@ export const runtime = <TNode extends IDataNode, D = unknown, C = unknown, TBagg
     //       but would mean for everything such a Set will be managed, while the File > Eval nesting relies on jit,
     //       and a context/baggage is only created for computed nested fields meaning,
     //       these currently only include computed nodes and not all.
-    nodesContexts.set(dataNode, [(v) => resultData = v, () => resultData, []])
+    if(isComputedNode(dataNode)) {
+        nodesContexts.set(dataNode, [(v) => resultData = v, () => resultData, []])
+    }
 
     const groups: [IDataNodeChildren<TNode>, any[]][] = dataNode.children ? [
         [dataNode.children as IDataNodeChildren<TNode>, [resultData]],
     ] : []
-    // todo: these hooks can be cached per processor
-    //       to reduce loops they can be only collected and materialized in first hydrate loop
-    const hooks: IComputeTimeHooks<TNode extends IDataNodeComputed ? TNode : never> = [...dataNode.hooks as IComputeTimeHooks<TNode extends IDataNodeComputed ? TNode : never> || []]
+    // todo: add support for partial computes
+    //       - not possible without dataChain, thus not possible by directly calling `runtime`
+    //       - requires returning a callback from runtime, that accepts any dataNode to trigger it's containing nodes
+    //       - requires that hooks are managed here and not accumulated in Parser to the e.g. rootNode
+    //       - may rely again on having nodesContext again for every node, not only for computed
+    const hooks: (TNode extends IDataNodeComputed ? TNode : never)[] = isComputedNode(dataNode) ? [dataNode] : []
 
     while(groups.length) {
         const [groupChildren, groupDataChain] = groups.pop()!
         const groupData = groupDataChain[0]
         groupChildren.forEach((childNode, childKey) => {
             groupData[childKey] = childNode.hydrate?.()
-            // todo: only set nodesContext for computed nodes?
-            nodesContexts.set(childNode, [(v) => groupData[childKey] = v, () => groupData[childKey], groupDataChain])
-            if(childNode.hooks) {
-                hooks.push(...childNode.hooks as IComputeTimeHooks<TNode extends IDataNodeComputed ? TNode : never>)
+            if(isComputedNode(childNode)) {
+                // only setting nodesContext for computed nodes
+                nodesContexts.set(childNode, [(v) => groupData[childKey] = v, () => groupData[childKey], groupDataChain])
+                hooks.push(childNode as TNode extends IDataNodeComputed ? TNode : never)
             }
             if(childNode.children) {
                 groups.push([childNode.children as IDataNodeChildren<TNode>, [groupData[childKey], ...groupDataChain]])
@@ -176,7 +181,8 @@ export const runtime = <TNode extends IDataNode, D = unknown, C = unknown, TBagg
         onDone: (nodeResult: unknown, err?: Error) => void,
         computeStatsTotal: IComputeStatsBase,
     ) => {
-        const [/*setter*/, /*getter*/, dataChain] = getNodeContext(computedNode)
+        // const [/*setter*/, /*getter*/, dataChain] = getNodeContext(computedNode)
+        const dataChain = nodesContexts.get(computedNode)![2]
 
         const computeStats: NodeComputeStats = {
             step: 'computeNode',
@@ -273,8 +279,7 @@ export const runtime = <TNode extends IDataNode, D = unknown, C = unknown, TBagg
             })
     }
 
-    const runCompute = async() => {
-        const computeHooks = hooks
+    const runCompute = async(computeHooks: (TNode extends IDataNodeComputed ? TNode : never)[]) => {
         const computeStatsTotal = {
             step: 'compute', dur: 0,
             stats: [],
@@ -297,7 +302,7 @@ export const runtime = <TNode extends IDataNode, D = unknown, C = unknown, TBagg
             if(__unsafeAllowCrossResolving) {
                 subscribers = []
                 valuePromise = new ValueSubscriberPromise(subscribers/*, computedNode*/)
-                nodesContexts.get(computedNode)?.[0]?.(valuePromise)
+                nodesContexts.get(computedNode)![0]!(valuePromise)
             }
             computationPromises.push(dispatchNodeCompute(
                 computedNode.engine,
@@ -323,7 +328,7 @@ export const runtime = <TNode extends IDataNode, D = unknown, C = unknown, TBagg
         computationPromises.splice(0, computationPromises.length)// clean up
 
         setters.splice(0, setters.length).forEach(([computedNode, valOrError]) => {
-            nodesContexts.get(computedNode)?.[0]?.(valOrError)
+            nodesContexts.get(computedNode)![0]!(valOrError)
         })
 
         computeStatsTotal.dur = timer.end(start)
@@ -358,7 +363,7 @@ export const runtime = <TNode extends IDataNode, D = unknown, C = unknown, TBagg
             isRunning = true
 
             try {
-                await runCompute()
+                await runCompute(hooks)
                 onDoneRun.splice(0).forEach(on => on(resultData, undefined))
             } catch(e) {
                 onDoneRun.splice(0).forEach(on => on(resultData, e))

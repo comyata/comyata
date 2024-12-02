@@ -3,17 +3,22 @@
  */
 export interface IDataNode {
     readonly engine?: string
+    readonly computed?: boolean
+
     readonly path: (string | number)[]
+
     readonly valueType: string
     readonly value: any
+
     readonly parent: (() => IDataNode) | undefined
+
     hydrate?: () => any
     children?: IDataNodeChildren
-    hooks?: IComputeTimeHooks
 }
 
 export interface IDataNodeComputed extends IDataNode {
     readonly engine: string
+    readonly computed?: true
 }
 
 export type ExtractExprFn = (value: string) => string
@@ -23,6 +28,7 @@ export type IDataNodeChildren<TNode extends IDataNode = IDataNode> = Map<string 
 export class DataNode implements IDataNode {
     static readonly engine: IDataNode['engine']
     readonly engine?: IDataNode['engine'] = undefined
+    readonly computed?: IDataNode['computed'] = undefined
 
     readonly path: IDataNode['path']
     // todo: this is mixing "data type" and "internal node type", not needed anymore?
@@ -31,7 +37,6 @@ export class DataNode implements IDataNode {
 
     readonly parent: IDataNode['parent']
     children?: IDataNode['children']
-    hooks?: IDataNode['hooks']
     hydrate?: IDataNode['hydrate']
 
     protected readonly extractExpr?: ExtractExprFn
@@ -78,4 +83,6 @@ export class DataNodeObject extends DataNode {
     }
 }
 
-export type IComputeTimeHooks<TNode extends IDataNodeComputed = IDataNodeComputed> = TNode[]
+export function isComputedNode<TNode extends IDataNode>(node: TNode): node is (TNode extends IDataNodeComputed ? TNode & IDataNodeComputed : never) {
+    return Boolean(node.engine && node.computed)
+}

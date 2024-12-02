@@ -129,8 +129,7 @@ describe('Parser', () => {
             expect(typeof dataNode.children).toBe('undefined')
             expect(dataNode.engine).toBe('$')
             expect(dataNode.value).toBe(template)
-            expect(dataNode.hooks?.length).toBe(1)
-            expect(dataNode.hooks?.[0] === dataNode).toBe(true)
+            expect(dataNode.computed).toBe(true)
             expect(dataNode?.hydrate?.()).toStrictEqual(new UnresolvedJSONataExpression('Unresolved JSONata expression'))
             expect('expr' in dataNode).toBe(true)
             if('expr' in dataNode) {
@@ -146,7 +145,7 @@ describe('Parser', () => {
         expect(typeof dataNode.children).toBe('undefined')
         expect(dataNode).toBeInstanceOf(DataNode)
         expect(dataNode.value).toBe('${ 10 + 5')
-        expect(dataNode.hooks?.length).toBe(undefined)
+        expect(dataNode.computed).toBe(undefined)
         expect(dataNode?.hydrate?.()).toBe('${ 10 + 5')
     })
 
@@ -157,7 +156,7 @@ describe('Parser', () => {
         expect(typeof dataNode.children).toBe('undefined')
         expect(dataNode).toBeInstanceOf(DataNode)
         expect(dataNode.value).toBe('liq{ 10 + 5 }')
-        expect(dataNode.hooks?.length).toBe(undefined)
+        expect(dataNode.computed).toBe(undefined)
         expect(dataNode?.hydrate?.()).toBe('liq{ 10 + 5 }')
     })
 
@@ -168,7 +167,7 @@ describe('Parser', () => {
         expect(typeof dataNode.children).toBe('undefined')
         expect(dataNode).toBeInstanceOf(DataNode)
         expect(dataNode.value).toBe('liq: 10 + 5')
-        expect(dataNode.hooks?.length).toBe(undefined)
+        expect(dataNode.computed).toBe(undefined)
         expect(dataNode?.hydrate?.()).toBe('liq: 10 + 5')
     })
 

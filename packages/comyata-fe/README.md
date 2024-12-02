@@ -2,7 +2,7 @@
 
 An engine to make data files computable! Simplify data lookup, dynamic configurations and more thanks to data templates with included logic.
 
-Execute YAML and JSON files like programs and get clean data to work with as results.
+Execute YAML and JSON files like programs and get clean data to work with as result.
 
 Add custom adapters to support more file formats, connect with databases or to work with templates stored databases or remote filesystems.
 
@@ -26,7 +26,7 @@ hits_count_from_london: ${ $sql('SELECT count(*) FROM hits where city = "London"
 
 - FileEngine as API Server: [codesandbox](https://codesandbox.io/p/devbox/github/comyata/comyata/tree/main/server/fe) | [stackblitz](https://stackblitz.com/github/comyata/comyata/tree/main/server/fe) | [source in GitHub](https://github.com/comyata/comyata/tree/main/server/fe)
 
-Learn more in the [GitHub README](https://github.com/comyata/comyata#setup-runtime).
+Learn more in the [GitHub README](https://github.com/comyata/comyata#setup-file-engine).
 
 ## License
 

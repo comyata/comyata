@@ -24,6 +24,11 @@ export class DataNodeJSONata extends DataNode {
     readonly engine = '$'
     expr: jsonata.Expression
 
+    /**
+     * @todo move custom toExpr overwrite out of global
+     */
+    static toExpr: typeof toExpr = toExpr
+
     constructor(
         parent: DataNodeObject | undefined,
         path: IDataNode['path'],
@@ -42,8 +47,7 @@ export class DataNodeJSONata extends DataNode {
             )
         }
 
-        // todo: support custom toExpr
-        this.expr = toExpr(exprText)
+        this.expr = DataNodeJSONata.toExpr(exprText)
 
         // todo: setting the hydrate reject when something attaches and disabling the promise-set for computes
         //       should throw a real exception when trying to access computed fields from within other computed fields (circular computation-nodes)

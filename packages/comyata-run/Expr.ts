@@ -39,7 +39,7 @@ export const jsonataExtraFunctions: JsonataFn[] = [
             }
             return false
         },
-        signature: '<af:b>',
+        signature: '<(al)f:b>',
     },
     {
         name: 'toJSON',
@@ -53,7 +53,7 @@ export const jsonataExtraFunctions: JsonataFn[] = [
     },
     {
         name: 'isNaN',
-        fn: (text: string) => Number.isNaN(Number(text)),
-        signature: '<s:b>',
+        fn: (text: string | number) => Number.isNaN(Number(text)),
+        signature: '<(sn):b>',
     },
 ]

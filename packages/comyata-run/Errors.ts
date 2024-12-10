@@ -36,12 +36,12 @@ export class NodeComputeError extends ComputableError {
     }
 }
 
-export class CircularNodeDependencyError extends ComputableError {
+export class CircularNodeDependencyError extends NodeComputeError {
     parents: Set<IDataNode>
     target: IDataNode
 
     constructor(parents: Set<IDataNode>, target: IDataNode, message?: string) {
-        super(message)
+        super(target, message)
         this.parents = parents
         this.target = target
     }

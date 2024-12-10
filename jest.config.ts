@@ -22,7 +22,7 @@ const base: Config.InitialProjectOptions = {
         '^(\\.{1,2}/.*)\\.js$': '$1',
         // '^(\\.{1,2}/.*)\\.ts$': '$1',
         // '^(\\.{1,2}/.*)\\.tsx$': '$1',
-        ...packages.reduce((nameMapper, pkg) => {
+        ...packages.reduce<Record<string, string>>((nameMapper, pkg) => {
             nameMapper[`^${pkg[0]}\\/(.*)$`] = `<rootDir>/packages/${toPackageFolder(pkg)}/$1`
             nameMapper[`^${pkg[0]}$`] = `<rootDir>/packages/${toPackageFolder(pkg)}`
             return nameMapper

@@ -177,7 +177,7 @@ describe('Parser', () => {
             price: 70.25,
             tags: '${ $append(["sports", "surfing"], ["color_" & $replace(variant.color, " ", "_")]) }',
             checkout: {
-                priceOriginal: '${ $parent()[0].price * $self().amount }',
+                priceOriginal: '${ $root().price * $self().amount }',
                 amount: 3,
             },
         })

@@ -13,6 +13,8 @@ import yaml from 'yaml'
 import jsonpointer from 'json-pointer'
 import { ComyataStats } from '../Components/ComyataStats'
 import { CustomCodeMirror } from '../Components/CustomCodeMirror'
+import { ErrorBoundary } from '../Components/ErrorBoundary'
+import { ErrorInfo } from '../Components/ErrorInfo'
 import { ProgressInfo } from '../Components/ProgressInfo'
 import { useComyataParser } from '../Components/useComyata'
 import { IProgressEvent, useComyataRuntime } from '../Components/useComyataRuntime'
@@ -112,14 +114,14 @@ export const PageStreaming = () => {
                 {evalOutError ?
                     <Alert severity={'error'}>
                         <AlertTitle>{'Eval Error'}</AlertTitle>
-                        <Typography whiteSpace={'pre-line'}>{evalOutError instanceof Error ? evalOutError.message : JSON.stringify(evalOutError.error)}</Typography>
+                        <ErrorInfo
+                            error={evalOutError}
+                        />
                     </Alert> : null}
                 {evalOutError ? null :
-                    <CustomCodeMirror
-                        value={JSON.stringify(evalOut?.output, undefined, 4) || ''}
-                        lang={'json'}
-                        style={{flexGrow: 1, display: 'flex'}}
-                    />}
+                    <ErrorBoundary allowRemount resetError={evalOut?.ts}>
+                        <DataCodeMirror data={evalOut?.output}/>
+                    </ErrorBoundary>}
 
                 <Box ml={'auto'}>
                     <Tooltip title={`${showStats ? 'hide' : 'show'} stats`} disableInteractive>
@@ -163,14 +165,23 @@ export const PageStreaming = () => {
                                 // note: most likely you want to show the errors in a better way, this is just a demo!
                                 //       BUT you can not use JSON.stringify, as error objects may contain cyclic values
                                 <Typography variant={'body2'} gutterBottom component={'p'}>{evt?.error?.message}</Typography> :
-                                <CustomCodeMirror
-                                    value={JSON.stringify(evt?.output, undefined, 4) || ''}
-                                    lang={'json'}
-                                    style={{flexGrow: 1, display: 'flex', fontSize: '0.825rem'}}
-                                /> : null}
+                                <ErrorBoundary allowRemount resetError={evalOut?.ts}>
+                                    <DataCodeMirror
+                                        data={evt?.output}
+                                        dense
+                                    />
+                                </ErrorBoundary> : null}
                     </Box>
                 })}
             </Paper>
         </Box>
     )
+}
+
+const DataCodeMirror = ({data, dense}: { data: unknown, dense?: boolean }) => {
+    return <CustomCodeMirror
+        value={JSON.stringify(data, undefined, 4) || ''}
+        lang={'json'}
+        style={{flexGrow: 1, display: 'flex', fontSize: dense ? '0.825rem' : undefined}}
+    />
 }

@@ -1,6 +1,7 @@
 import { DataNodeJSONata } from '@comyata/run/DataNodeJSONata'
 import { Parser } from '@comyata/run/Parser'
 import { ComputeFn, runtime } from '@comyata/run/Runtime'
+import { createValueProxy } from '@comyata/run/ValueProxy'
 
 // 1. Setup Parser with engines nodes
 
@@ -14,12 +15,12 @@ const jsonataCompute: ComputeFn<DataNodeJSONata> = (
     computedNode,
     context,
     parentData,
+    {getNodeContext},
 ) => {
     return computedNode.expr.evaluate(context, {
-        // allow access to raw data via relative access:
-        self: () => parentData[0],
-        parent: () => parentData.slice(1),
-        root: () => parentData[parentData.length - 1],
+        // allow access to contained data:
+        self: () => createValueProxy(parentData[0], computedNode, getNodeContext, computedNode.path.slice(0, -1)),
+        root: () => createValueProxy(parentData[parentData.length - 1] || null, computedNode, getNodeContext),
         // ... add any custom function here ...
     })
 }

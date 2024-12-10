@@ -6,11 +6,11 @@ import { IDataNode } from '@comyata/run/DataNode'
 export class ValueSubscriberPromise<T> extends Promise<T> {
     readonly dataNode: () => IDataNode
     #dependents: Set<IDataNode> = new Set()
-    #subscribers: ((result: T, err?) => void)[]
+    #subscribers: ((result: T, err?: any) => void)[]
     #result: undefined | { error?: any, value?: any } = undefined
 
     constructor(
-        subscribers: ((result: T, err?) => void)[],
+        subscribers: ((result: T, err?: any) => void)[],
         dataNode: IDataNode,
     ) {
         super((resolve) => {

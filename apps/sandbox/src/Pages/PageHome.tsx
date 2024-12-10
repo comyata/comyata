@@ -12,6 +12,8 @@ import { useCallback, useMemo, useState } from 'react'
 import yaml from 'yaml'
 import { ComyataStats } from '../Components/ComyataStats'
 import { CustomCodeMirror } from '../Components/CustomCodeMirror'
+import { ErrorBoundary } from '../Components/ErrorBoundary'
+import { ErrorInfo } from '../Components/ErrorInfo'
 import { ProgressInfo } from '../Components/ProgressInfo'
 import { useComyataParser } from '../Components/useComyata'
 import { useComyataRuntime } from '../Components/useComyataRuntime'
@@ -93,14 +95,16 @@ export const PageHome = () => {
                 {evalOutError ?
                     <Alert severity={'error'}>
                         <AlertTitle>{'Eval Error'}</AlertTitle>
-                        <Typography whiteSpace={'pre-line'}>{evalOutError instanceof Error ? evalOutError.message : JSON.stringify(evalOutError.error)}</Typography>
+                        <ErrorInfo
+                            error={evalOutError}
+                        />
                     </Alert> : null}
                 {evalOutError ? null :
-                    <CustomCodeMirror
-                        value={JSON.stringify(evalOut?.output, undefined, 4) || ''}
-                        lang={'json'}
-                        style={{flexGrow: 1, display: 'flex'}}
-                    />}
+                    <ErrorBoundary allowRemount resetError={evalOut?.ts}>
+                        <DataCodeMirror
+                            data={evalOut?.output}
+                        />
+                    </ErrorBoundary>}
 
                 <Box ml={'auto'}>
                     <Tooltip title={`${showStats ? 'hide' : 'show'} stats`} disableInteractive>
@@ -127,4 +131,12 @@ export const PageHome = () => {
             </Paper>
         </Box>
     )
+}
+
+const DataCodeMirror = ({data}: { data: unknown }) => {
+    return <CustomCodeMirror
+        value={JSON.stringify(data, undefined, 4) || ''}
+        lang={'json'}
+        style={{flexGrow: 1, display: 'flex'}}
+    />
 }

@@ -1,6 +1,7 @@
 import { DataNodeJSONata } from '@comyata/run/DataNodeJSONata'
 import { timer } from '@comyata/run/Helpers/Timer'
 import { ComputeFn } from '@comyata/run/Runtime'
+import { createValueProxy } from '@comyata/run/ValueProxy'
 import { customAlphabet, nanoid } from 'nanoid'
 import yaml from 'yaml'
 
@@ -14,7 +15,7 @@ export const cachedUrlGlobal = new Map<string, { value: any } | { pending: Promi
 
 export const jsonataCompute: (...args: [...Parameters<ComputeFn<DataNodeJSONata>>, { bindings?: Record<string, any>, cachedUrl?: typeof cachedUrlGlobal, abort?: AbortSignal }?]) => Promise<any> = (
     computedNode, context, parentData,
-    {stats: nodeComputeStats},
+    {stats: nodeComputeStats, getNodeContext},
     {
         bindings = {},
         cachedUrl = cachedUrlGlobal,
@@ -68,9 +69,8 @@ export const jsonataCompute: (...args: [...Parameters<ComputeFn<DataNodeJSONata>
     return computedNode.expr.evaluate(
         context,
         {
-            self: () => parentData[0],
-            parent: () => parentData.slice(1),
-            root: () => parentData[parentData.length - 1] || null,
+            self: () => createValueProxy(parentData[0], computedNode, getNodeContext, computedNode.path.slice(0, -1)),
+            root: () => createValueProxy(parentData[parentData.length - 1] || null, computedNode, getNodeContext),
             toYAML: (value: unknown) => yaml.stringify(value, {indent: 4 /*lineWidth: 0, minContentWidth: 0*/}),
             fromYAML: (text: string) => yaml.parse(text),
             nanoid: (size: number) => nanoid(size),

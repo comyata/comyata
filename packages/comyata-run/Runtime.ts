@@ -319,7 +319,7 @@ export const runtime = <TNode extends IDataNode, D = unknown, C = unknown, TBagg
             //       how could that be accomplished without passing a copied `context` to each compute cycle?
             //       maybe with overwriting the `dataChain` for each compute? and somehow only the computed nodes in it?
             let valuePromise: ValueSubscriberPromise<unknown> | undefined
-            let subscribers: ((result: any, err?) => any)[] | undefined
+            let subscribers: ((result: any, err?: any) => any)[] | undefined
             if(__unsafeAllowCrossResolving) {
                 subscribers = []
                 valuePromise = new ValueSubscriberPromise(subscribers, computedNode)

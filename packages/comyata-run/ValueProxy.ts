@@ -18,6 +18,8 @@ const PROXY_VALUE = Symbol('ProxyValue')
  *       but it could be detected:
  *       `a` > `b`
  *       `b.b1` > `a` > `b`
+ *       note that this doesn't result in a deadLock, as `a` > `b` can be resolved without waiting for `b.b1` and the final result of `b.b1` is set via reference,
+ *       yet it still leads to circular references instead of materialized data
  * @todo support adding to usages graph for transparent reporting on what uses what (interop with `addUsage` of DataFile)
  * @experimental
  */
@@ -133,10 +135,14 @@ function isSameBranch(
     return true
 }
 
-export function isProxy(proxy: unknown): proxy is typeof Proxy {
+export function isProxy(proxy: unknown): proxy is ValueProxy {
     return Boolean(proxy && typeof proxy === 'object' && Object.getPrototypeOf(proxy)[PROXY_FLAG] === true)
 }
 
-export function toRaw(proxy: typeof Proxy) {
+type ValueProxy = (typeof Proxy) & {
+    [PROXY_VALUE]: any
+}
+
+export function toRaw(proxy: ValueProxy) {
     return proxy[PROXY_VALUE]
 }

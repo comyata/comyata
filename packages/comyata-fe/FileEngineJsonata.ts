@@ -5,6 +5,7 @@ import { CircularNodeDependencyError } from '@comyata/run/Errors'
 import { isRelative } from '@comyata/fe/Helpers/isRelative'
 import { IDataNode } from '@comyata/run/DataNode'
 import { DataNodeJSONata } from '@comyata/run/DataNodeJSONata'
+import { createValueProxy } from '@comyata/run/ValueProxy'
 import url from 'node:url'
 import yaml from 'yaml'
 
@@ -24,6 +25,7 @@ export const fileEngineJsonata: (
         computeStats,
         stats: nodeComputeStats,
         runtimeContext: runtime,
+        getNodeContext,
         ...baggage
     } = runtimeBaggage
     const addUsage = (df: DataFile, dn: IDataNode) => {
@@ -61,9 +63,8 @@ export const fileEngineJsonata: (
     const bindings = {
         ...globalBindings?.(dataNode, context, parentData, runtimeBaggage) || {},
         // todo: move the DataNode generic out?
-        self: () => parentData[0],
-        parent: () => parentData.slice(1),
-        root: () => parentData[parentData.length - 1],
+        self: () => createValueProxy(parentData[0], dataNode, getNodeContext, dataNode.path.slice(0, -1)),
+        root: () => createValueProxy(parentData[parentData.length - 1] || null, dataNode, getNodeContext),
         // todo: move the generic function to browser/node/universal modules
         repeat: (str: string, count: number) => str.repeat(count),
         when: (condition: unknown, then: unknown, otherwise: unknown = undefined) => condition ? then : otherwise,

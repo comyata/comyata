@@ -220,35 +220,30 @@ export class FileEngine<TNode extends typeof DataNode> {
      * @todo risky method, only use outside of computations/runs, to not accidentally access the wrong files cache;
      *       safe to use outside of runs
      */
-    fileRef(fileUrl: string, importContext?: ImportContext): DataFile<InstanceType<TNode>> {
-        if(isRelative(fileUrl)) {
+    fileRef(file: string, importContext?: ImportContext): DataFile<InstanceType<TNode>> {
+        if(isRelative(file)) {
             if(importContext?.resolveRelative) {
-                fileUrl = importContext.resolveRelative(fileUrl)
+                file = importContext.resolveRelative(file)
             } else {
                 // todo: here it would be helpful to get the parentId,
                 //       which could be undefined for in-memory register without parents that exist in registers
-                throw new ComputableError(`Relative file not supported for: ${JSON.stringify(fileUrl)}`)
+                throw new ComputableError(`Relative file not supported for: ${JSON.stringify(file)}`)
             }
         }
-        const sourceRefExisting = this.files.get(fileUrl)
+        const sourceRefExisting = this.files.get(file)
         if(sourceRefExisting) return sourceRefExisting
 
-        const importer = this.importer?.match(fileUrl)
-
-        let fileContext: FileResolveContext | undefined
-        if(importer) {
-            if('resolveFile' in importer) {
-                fileContext = importer.resolveFile(fileUrl)
-            } else {
-                fileContext = importer
-            }
+        if(!this.importer) {
+            throw new ComputableError(`No importer registered, can not reference file: ${JSON.stringify(file)}`)
         }
 
-        if(fileContext) {
-            return this.newFile(fileUrl, fileContext)
+        const importer = this.importer.match(file)
+        if(!importer) {
+            throw new ComputableError(`No importer matched for file: ${JSON.stringify(file)}`)
         }
 
-        throw new ComputableError(`Can not reference file without registration or importer: ${JSON.stringify(fileUrl)}`)
+        const fileContext: FileResolveContext = importer.resolveFile(file)
+        return this.newFile(file, fileContext)
     }
 
     register(

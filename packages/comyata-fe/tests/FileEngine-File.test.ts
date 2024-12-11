@@ -1,5 +1,6 @@
 import { DataFile } from '@comyata/fe/DataFile'
 import { NodeComputeError } from '@comyata/run/Errors'
+import { ComputeStats } from '@comyata/run/Runtime'
 import { it, expect, describe } from '@jest/globals'
 import { FileEngine, FileComputeStats, RuntimeContext } from '@comyata/fe/FileEngine'
 import { fileEngineJsonata } from '@comyata/fe/FileEngineJsonata'
@@ -200,4 +201,162 @@ circular import: file loads itself ${JSON.stringify(url.pathToFileURL(path.join(
             },
         })
     })
+
+    it('FileEngine concurrent import - cached at load stage', async() => {
+        const fileEngine = new FileEngine({
+            nodes: [DataNodeJSONata],
+            compute: {[DataNodeJSONata.engine]: fileEngineJsonata()},
+            importer: new Importers()
+                .use(fileImporter({
+                    basePath: mocksDir,
+                })),
+        })
+        const resolveContext = fileEngine.contextOf(url.pathToFileURL(path.join(mocksDir)).href)
+        const dataFile = fileEngine.register('document', [
+            '${ $import("./cards/quote_1.yml").id }',
+            '${ $import("./cards/quote_1.yml").id }',
+            '${ $import("./cards/quote_1.yml").id }',
+        ], resolveContext)
+        const [r, stats] = await fileEngine.run(dataFile, {}) as [any, FileComputeStats, RuntimeContext]
+        expect(r).toStrictEqual([
+            1,
+            1,
+            1,
+        ])
+        const computeStats = stats.stats[1]
+        expect(computeStats.step).toBe('compute')
+        expect(computeStats.stats?.length).toBe(3)
+        // todo: why is this cast needed? `.reduce` otherwise is invalid "TS2558: Expected 0 type arguments, but got 1"
+        expect((computeStats.stats as ComputeStats[])?.reduce<number>(
+            (count, stats) => {
+                if(stats.stats?.[0]?.cached === 0) return count + 1
+                return count
+            },
+            0,
+        )).toBe(1)
+        expect((computeStats.stats as ComputeStats[])?.reduce<number>(
+            (count, stats) => {
+                if(stats.stats?.[0]?.cached === 1) return count + 1
+                return count
+            },
+            0,
+        )).toBe(2)
+        expect((computeStats.stats as ComputeStats[])?.reduce<number>(
+            (count, stats) => {
+                if(stats.stats?.[0]?.cached === 2) return count + 1
+                return count
+            },
+            0,
+        )).toBe(0)
+    })
+
+    it('FileEngine concurrent import - cached at import stage', async() => {
+        const fileEngine = new FileEngine({
+            nodes: [DataNodeJSONata],
+            compute: {
+                [DataNodeJSONata.engine]: fileEngineJsonata(() => ({
+                    sleep: (timeout?: number) =>
+                        new Promise<boolean>((resolve) => setTimeout(() => resolve(true), timeout || 50)),
+                })),
+            },
+            importer: new Importers()
+                .use(fileImporter({
+                    basePath: mocksDir,
+                })),
+        })
+        const resolveContext = fileEngine.contextOf(url.pathToFileURL(path.join(mocksDir)).href)
+        const dataFile = fileEngine.register('document', [
+            '${ $import("./cards/quote_1.yml").id }',
+            '${ $sleep(200) ? $import("./cards/quote_1.yml").id : null }',
+            '${ $sleep(200) ? $import("./cards/quote_1.yml").id : null }',
+        ], resolveContext)
+        const [r, stats] = await fileEngine.run(dataFile, {}) as [any, FileComputeStats, RuntimeContext]
+        expect(r).toStrictEqual([
+            1,
+            1,
+            1,
+        ])
+        const computeStats = stats.stats[1]
+        expect(computeStats.step).toBe('compute')
+        expect(computeStats.stats?.length).toBe(3)
+        expect((computeStats.stats as ComputeStats[])?.reduce<number>(
+            (count, stats) => {
+                if(stats.stats?.[0]?.cached === 0) return count + 1
+                return count
+            },
+            0,
+        )).toBe(1)
+        expect((computeStats.stats as ComputeStats[])?.reduce<number>(
+            (count, stats) => {
+                if(stats.stats?.[0]?.cached === 1) return count + 1
+                return count
+            },
+            0,
+        )).toBe(0)
+        expect((computeStats.stats as ComputeStats[])?.reduce<number>(
+            (count, stats) => {
+                if(stats.stats?.[0]?.cached === 2) return count + 1
+                return count
+            },
+            0,
+        )).toBe(2)
+    })
+
+    it('FileEngine concurrent import - cached at load and import stage', async() => {
+        const fileEngine = new FileEngine({
+            nodes: [DataNodeJSONata],
+            compute: {
+                [DataNodeJSONata.engine]: fileEngineJsonata(() => ({
+                    sleep: (timeout?: number) =>
+                        new Promise<boolean>((resolve) => setTimeout(() => resolve(true), timeout || 50)),
+                })),
+            },
+            importer: new Importers()
+                .use(fileImporter({
+                    basePath: mocksDir,
+                })),
+        })
+        const resolveContext = fileEngine.contextOf(url.pathToFileURL(path.join(mocksDir)).href)
+        const dataFile = fileEngine.register('document', [
+            '${ $import("./cards/quote_1.yml").id }',
+            '${ $import("./cards/quote_1.yml").id }',
+            '${ $sleep(200) ? $import("./cards/quote_1.yml").id : null }',
+        ], resolveContext)
+        const [r, stats] = await fileEngine.run(dataFile, {}) as [any, FileComputeStats, RuntimeContext]
+        expect(r).toStrictEqual([
+            1,
+            1,
+            1,
+        ])
+        const computeStats = stats.stats[1]
+        expect(computeStats.step).toBe('compute')
+        expect(computeStats.stats?.length).toBe(3)
+        expect((computeStats.stats as ComputeStats[])?.reduce<number>(
+            (count, stats) => {
+                if(stats.stats?.[0]?.cached === 0) return count + 1
+                return count
+            },
+            0,
+        )).toBe(1)
+        expect((computeStats.stats as ComputeStats[])?.reduce<number>(
+            (count, stats) => {
+                if(stats.stats?.[0]?.cached === 1) return count + 1
+                return count
+            },
+            0,
+        )).toBe(1)
+        expect((computeStats.stats as ComputeStats[])?.reduce<number>(
+            (count, stats) => {
+                if(stats.stats?.[0]?.cached === 2) return count + 1
+                return count
+            },
+            0,
+        )).toBe(1)
+    })
+
+    // todo: add concurrency tests, with all cache-layer possibilities, for cases:
+    //       - failure during file.load
+    //       - clearing files in between (needs a jsonata function with that side-effect)
+    //       - import chains: successful
+    //       - import chains: circular failures
 })

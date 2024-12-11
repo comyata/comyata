@@ -517,4 +517,34 @@ describe('FileEngine', () => {
         )
             .toThrow(new Error(`File import ${JSON.stringify(url.pathToFileURL(path.resolve(mocksDir, '../../SomeFile.yml')))} not relative to ${JSON.stringify(path.resolve(mocksDir))}`))
     })
+
+    it('FileEngine without importer', async() => {
+        const fileEngine = new FileEngine({
+            nodes: [],
+            compute: {},
+        })
+
+        expect(() =>
+            fileEngine.fileRef('https://example.org/api/file'),
+        )
+            .toThrow(new Error(`No importer registered, can not reference file: "https://example.org/api/file"`))
+    })
+
+    it('FileEngine without matching importer', async() => {
+        const fileEngine = new FileEngine({
+            nodes: [],
+            compute: {},
+            importer: new Importers()
+                .use(fileImporter({
+                    basePath: mocksDir,
+                })),
+        })
+
+        expect(fileEngine.fileRef(url.pathToFileURL(path.join(mocksDir, 'file.yml')).href).importContext?.importer).toBe('file')
+
+        expect(() =>
+            fileEngine.fileRef('https://example.org/api/file'),
+        )
+            .toThrow(new Error(`No importer matched for file: "https://example.org/api/file"`))
+    })
 })

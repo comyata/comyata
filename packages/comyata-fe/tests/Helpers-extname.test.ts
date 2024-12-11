@@ -16,16 +16,12 @@ describe('Helpers-extname', () => {
         ['', ''],
         ['.hiddenfile', ''],
         ['/directory/.hiddenfile', ''],
-        ['\\directory\\.hiddenfile', ''],
         ['file.with.many.dots.ext', '.ext'],
 
         // Ending with a slash
         ['/path/to/file.txt/', '.txt'],
         ['file.txt/', '.txt'],
-        ['\\path\\to\\file.txt\\', '.txt'],
-        ['file.txt\\', '.txt'],
         ['file.txt//', '.txt'],
-        ['file.txt\\\\', '.txt'],
 
         // Files starting with multiple dots
         ['..hiddenfile', '.hiddenfile'],
@@ -45,13 +41,7 @@ describe('Helpers-extname', () => {
 
         // Only slashes
         ['/', ''],
-        ['\\', ''],
         ['////', ''],
-        ['\\\\', ''],
-
-        // Mixed slash types
-        ['/path\\to\\file.txt', '.txt'],
-        ['\\path/to/file.txt', '.txt'],
 
         // Extensions with uncommon characters
         ['/path/to/file.name@1.0.zip', '.zip'],
@@ -80,17 +70,54 @@ describe('Helpers-extname', () => {
         ['https://example.org/path/.hiddenfile?query=1#fragment', ''],
         ['https://example.org/file.name-v1.2?query=string', '.2?query=string'],
         ['https://example.org/path/to.file?query.string.gz', '.gz'],
-
-        // Cases with UNC paths (Windows-specific)
-        ['\\\\server\\share\\file.txt', '.txt'],
-        ['\\\\server\\share\\.hiddenfile', ''],
-        ['\\\\server\\share\\file.', '.'],
     ])(
         '%p : %p',
         (file, ext) => {
             expect(extname(file)).toBe(ext)
             // ensure same behaviour as Node.js native
-            expect(path.extname(file)).toBe(ext)
+            expect(path.posix.extname(file)).toBe(ext)
+            expect(path.win32.extname(file)).toBe(ext)
+        },
+    )
+
+    const windowsPathStyle: [path: string, win32: string, posix: string][] = [
+        // Basic cases
+        ['\\directory\\.hiddenfile', '', '.hiddenfile'],
+
+        // Ending with a slash
+        ['\\path\\to\\file.txt\\', '.txt', '.txt\\'],
+        ['file.txt\\', '.txt', '.txt\\'],
+        ['file.txt\\\\', '.txt', '.txt\\\\'],
+
+        // Only slashes
+        ['\\', '', ''],
+        ['\\\\', '', ''],
+
+        // Mixed slash types
+        ['/path\\to\\file.txt', '.txt', '.txt'],
+        ['\\path/to/file.txt', '.txt', '.txt'],
+
+        // Cases with UNC paths (Windows-specific)
+        ['\\\\server\\share\\file.txt', '.txt', '.txt'],
+        ['\\\\server\\share\\.hiddenfile', '', '.hiddenfile'],
+        ['\\\\server\\share\\file.', '.', '.'],
+    ]
+
+    it.each(windowsPathStyle)(
+        '%p : %p (windows style paths)',
+        (file, ext) => {
+            expect(extname(file)).toBe(ext)
+            // ensure same behaviour as Node.js native `path.win32`;
+            // `path.posix` would treat `\\` as part of the filename, which is not consistent cross-platform
+            expect(path.win32.extname(file)).toBe(ext)
+        },
+    )
+
+    it.each(windowsPathStyle)(
+        '%p : %p (windows style paths, strictPosix)',
+        (file, _ext, posixExt) => {
+            expect(extname(file, true)).toBe(posixExt)
+            expect(path.posix.extname(file)).toBe(posixExt)
         },
     )
 
@@ -115,7 +142,8 @@ describe('Helpers-extname', () => {
             const pathname = new URL(file).pathname
             expect(extname(pathname)).toBe(ext)
             // ensure same behaviour as Node.js native
-            expect(path.extname(pathname)).toBe(ext)
+            expect(path.posix.extname(pathname)).toBe(ext)
+            expect(path.win32.extname(pathname)).toBe(ext)
         },
     )
 })

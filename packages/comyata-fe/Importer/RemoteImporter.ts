@@ -1,8 +1,7 @@
 import { convert, GenericConvert, GenericConverter } from '@comyata/fe/Converter'
 import { Resolver } from '@comyata/fe/FileEngine'
-import path from 'node:path'
+import { extname } from '@comyata/fe/Helpers/extname'
 import yaml from 'yaml'
-
 
 export const remoteImporter = (
     {
@@ -15,7 +14,7 @@ export const remoteImporter = (
     } = {},
 ): Resolver => {
     const importerId = 'remote'
-    const convertDefault = converterDefault ||= yaml.parse
+    const convertDefault = converterDefault ||= (value) => yaml.parse(value)
 
     const resolveContextWithRelative: Resolver['resolveDirectory'] = (baseUrl: string) => {
         const base = new URL(baseUrl)
@@ -37,6 +36,7 @@ export const remoteImporter = (
             : resolveContextWithRelative
 
     const resolveFileContext: Resolver['resolveFile'] = (fileUrl) => {
+        const uri = new URL(fileUrl)
         return {
             load: async() => await fetch(fileUrl)
                 .then(b => {
@@ -45,14 +45,15 @@ export const remoteImporter = (
                         b.text().then(t => Promise.reject({text: t, contentType: b.headers.get('content-type')}))
                 })
                 .then(b => {
+                    const contentTypeInfo = b.contentType?.split(';')
                     return convert(
                         converter, convertDefault,
                         {
-                            ext: path.extname(fileUrl).toLowerCase(),
-                            mime: b.contentType || undefined,
+                            ext: extname(uri.pathname).toLowerCase(),
+                            mime: contentTypeInfo?.[0],
                             url: fileUrl,
                         },
-                    )(b.text)
+                    )(b.text, contentTypeInfo?.[1])
                 }),
             ...resolveContext(fileUrl),
         }
@@ -60,6 +61,7 @@ export const remoteImporter = (
 
     return {
         id: importerId,
+        // todo: support adding url bases via scopes??
         scopes: ['http://', 'https://'],
         resolveDirectory: resolveContext,
         resolveFile: resolveFileContext,

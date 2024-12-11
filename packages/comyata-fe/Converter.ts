@@ -1,4 +1,4 @@
-export type GenericConvert = (value: string) => Promise<unknown> | unknown
+export type GenericConvert = (value: string, mimeParameters?: string) => Promise<unknown> | unknown
 
 /**
  * Map of converters, assign for file extensions and mimetypes the used converter.
@@ -10,7 +10,11 @@ export type GenericConverter = {
 export const convert = (
     converter: GenericConverter | undefined,
     converterDefault: GenericConvert,
-    file: { url: string, ext?: string, mime?: string },
+    file: {
+        url: string
+        ext?: string
+        mime?: string
+    },
 ): GenericConvert => {
     return converter && (
         file?.ext ? converter[file.ext] :

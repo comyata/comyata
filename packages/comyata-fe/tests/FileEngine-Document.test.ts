@@ -139,4 +139,34 @@ describe('FileEngine-Document', () => {
 
         expect(dataFile1 === dataFile2).toBe(false)
     })
+
+    it('FileEngine circular indirect (in-memory)', async() => {
+        const fileEngine = new FileEngine({
+            nodes: [DataNodeJSONata],
+            compute: {[DataNodeJSONata.engine]: fileEngineJsonata()},
+        })
+
+        // `documentC` > `documentA` > `documentB` > `documentC`
+        fileEngine.register('documentA', {
+            title: 'D-A',
+            'b': '${$import("documentB").title}',
+        })
+        fileEngine.register('documentB', {
+            title: 'D-B',
+            'c': '${$import("documentC").title}',
+        })
+        const dataFileC = fileEngine.register('documentC', {
+            title: 'D-C',
+            'a': '${$import("documentA").title}',
+        })
+
+        const run = fileEngine.run(dataFileC, {})
+        await expect(run).rejects.toThrow(NodeComputeError)
+        await expect(run).rejects.toThrow(
+            `Compute failure at "/a" with "$".
+Compute failure at "/b" with "$".
+Compute failure at "/c" with "$".
+circular import: files load each other "documentC"`,
+        )
+    })
 })

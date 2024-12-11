@@ -1,7 +1,6 @@
 import { CircularFileDependencyError } from '@comyata/fe/Errors'
 import { FileComputeFn } from '@comyata/fe/FileEngine'
 import { DataFile } from '@comyata/fe/DataFile'
-import { CircularNodeDependencyError } from '@comyata/run/Errors'
 import { IDataNode } from '@comyata/run/DataNode'
 import { DataNodeJSONata } from '@comyata/run/DataNodeJSONata'
 import yaml from 'yaml'
@@ -108,8 +107,6 @@ export const fileEngineJsonata: (
                 throw new CircularFileDependencyError(filesChain, dataFile, `circular import: file loads itself ${JSON.stringify(fileRef.fileId)}`)
             if(filesChain.has(fileRef)) // checking the to-be-imported file to never even go further when circular on file level
                 throw new CircularFileDependencyError(filesChain, dataFile, `circular import: files load each other ${JSON.stringify(fileRef.fileId)}`)
-            if(fileRef?.node && nodesChain.has(fileRef.node)) // checking against self-referencing nodes
-                throw new CircularNodeDependencyError(nodesChain, dataNode, `circular import: data-node already in processing chain ${JSON.stringify(fileRef.fileId)} ${JSON.stringify(dataNode.path as string[])}`)
             addUsage(fileRef, dataNode)
             addStatsUsage(fileRef, dataNode)
             getAwaiter().add(fileRef)
@@ -134,9 +131,6 @@ export const fileEngineJsonata: (
                 throw new CircularFileDependencyError(filesChain, dataFile, `circular process: file loads itself ${JSON.stringify(fileRef.fileId)}`)
             if(filesChain.has(fileRef))
                 throw new CircularFileDependencyError(filesChain, dataFile, `circular process: files load each other ${JSON.stringify(fileRef.fileId)}`)
-            // if(nodesChain.has(dataNode))
-            if(fileRef?.node && nodesChain.has(fileRef.node))
-                throw new CircularNodeDependencyError(nodesChain, dataNode, `circular process: data-node already in processing chain ${JSON.stringify(fileRef.fileId)} ${JSON.stringify(dataNode.path as string[])}`)
             addUsage(fileRef, dataNode)
             getAwaiter().add(fileRef)
             const [r2, computeStats2] = await fileEngine.run(
@@ -167,5 +161,3 @@ export const fileEngineJsonata: (
         bindings,
     )
 }
-
-export const jsonataFns = {}

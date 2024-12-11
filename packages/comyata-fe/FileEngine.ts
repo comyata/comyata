@@ -2,9 +2,7 @@ import { DataFile } from '@comyata/fe/DataFile'
 import { DataFileRegistry, DataRef } from '@comyata/fe/DataFileRegistry'
 import { CircularFileDependencyError, CircularProcessingDependencyError, ComputableFetchError } from '@comyata/fe/Errors'
 import { Importers } from '@comyata/fe/Importers'
-import {
-    CircularNodeDependencyError, ComputableError,
-} from '@comyata/run/Errors'
+import { ComputableError } from '@comyata/run/Errors'
 import { isRelative } from '@comyata/fe/Helpers/isRelative'
 import { timer } from '@comyata/run/Helpers/Timer'
 import { Parser } from '@comyata/run/Parser'
@@ -404,22 +402,14 @@ export class FileEngine<TNode extends typeof DataNode> {
         if(cachedRes) return Promise.resolve(cachedRes)
 
         const lockFile = (lockingDataFile: DataFile, dataEvalNode: IDataNode) => {
-            if(dataEvalNode ? nodesChain.has(dataEvalNode as InstanceType<TNode>) : null) {
-                throw new CircularNodeDependencyError(
-                    nodesChain, dataEvalNode,
-                    'Circular Node Dependency',
-                )
-            }
-
             if(runtimeContext.fileEvals.has(lockingDataFile)) {
                 throw new ComputableError(`Eval context corrupted, fileEval already defined for ${JSON.stringify(lockingDataFile.fileId)}`)
             }
 
-            runtimeContext.fileEvals.set(lockingDataFile, (requestingFilesChain, requestingNodesChain) => new Promise<unknown>((resolve, reject) => {
-                // todo check "any parent from requesting that are awaiting this file" to be sure no other is still pending?
-                const lastParentFile = Array.from(requestingFilesChain).pop()
-                if(lastParentFile) {
-                    if(runtimeContext.fileEvalsAwaiter.get(lockingDataFile)?.has(lastParentFile)) {
+            runtimeContext.fileEvals.set(lockingDataFile, (requestingFilesChain) => new Promise<unknown>((resolve, reject) => {
+                const lockingEvalAwaiter = runtimeContext.fileEvalsAwaiter.get(lockingDataFile)
+                for(const lastParentFile of requestingFilesChain) {
+                    if(lockingEvalAwaiter?.has(lastParentFile)) {
                         reject(new CircularProcessingDependencyError(
                             lastParentFile, lockingDataFile,
                             `Circular file processing, target ${JSON.stringify(lockingDataFile.fileId)} already depends on ${JSON.stringify(lastParentFile.fileId)}`,
@@ -432,10 +422,7 @@ export class FileEngine<TNode extends typeof DataNode> {
                     reject(new CircularFileDependencyError(requestingFilesChain, lockingDataFile, `requesting-circular XX-1 ${JSON.stringify(lockingDataFile.fileId)}\n\n`))
                     return
                 }
-                if(dataEvalNode ? requestingNodesChain.has(dataEvalNode) : null) {
-                    reject(new CircularNodeDependencyError(requestingNodesChain, dataEvalNode, `requesting-circular XX-2 ${JSON.stringify(lockingDataFile.fileId)}\n\n`))
-                    return
-                }
+
                 let listener = runtimeContext.fileListener.get(lockingDataFile)
                 if(!listener) {
                     listener = []

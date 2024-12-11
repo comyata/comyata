@@ -1,5 +1,5 @@
 import { DataFile } from '@comyata/fe/DataFile'
-import { DataFileRegistry } from '@comyata/fe/DataFileRegistry'
+import { DataFileRegistry, DataRef } from '@comyata/fe/DataFileRegistry'
 import { CircularFileDependencyError, CircularProcessingDependencyError, ComputableFetchError } from '@comyata/fe/Errors'
 import { Importers } from '@comyata/fe/Importers'
 import {
@@ -14,8 +14,6 @@ import { ComputeStats, runtime, IComputeStatsBase, NodeRuntimeBaggage, NodeRunti
 export interface Resolver {
     id: string
     /**
-     * @todo overthink and redo resolver logic, to not rely on "having valid URLs",
-     *       which would be nice, but e.g. redis or other integrations harder to make
      * @todo most pure-loaders shouldn't need to specify resolveRelative,
      *       but only with real-data, for filtering/sorting, (and not just a string as $load arg) something like 'genFileIdFromArgs" would make sense
      */
@@ -38,6 +36,9 @@ export interface ResolveContext {
 
 export interface FileResolveContext extends ResolveContext {
     load: () => Promise<unknown> | unknown
+    // todo: it should be possible to transiently load data, which isn't cached after its current usages are done
+    // todo: allow per file control what is allowed to do with it? would need to be persisted at the respective DataFile
+    // supports?: ('load' | 'import')[] // or `capabilities`, `enabled`, `can`
 }
 
 export interface FileComputeStats extends IComputeStatsBase {
@@ -73,7 +74,6 @@ export type RuntimeContext<TNode extends IDataNode = IDataNode> = {
     usages: Map<DataFile, Map<DataFile, Set<IDataNode>>>
 }
 
-
 export interface FileRuntimeBaggage<TNode extends IDataNode> extends NodeRuntimeBaggage<TNode> {
     dataFile: DataFile<TNode | IDataNode>
     filesChain: Set<DataFile<TNode | IDataNode>>
@@ -95,42 +95,13 @@ export type FileComputeFn2<TNode extends IDataNode, C = unknown> = (
 type FileComputeEngines<TNode extends IDataNode, C = unknown, TBaggage extends FileRuntimeBaggage<TNode> = FileRuntimeBaggage<TNode>> =
     NodeComputeEngines<TNode, C, TBaggage>
 
-export class DataRef<TNode extends IDataNode> {
-    file?: DataFile
-    /**
-     * The parsed data to use for computing.
-     */
-    node?: TNode | IDataNode
-    /**
-     * The loaded data value to use for parsing.
-     */
-    value?: { current: unknown }
-
-    constructor(
-        file: DataRef<TNode>['file'],
-    ) {
-        this.file = file
-        this.value = file?.value
-        this.node = file?.node
-    }
-
-    static withValue<TNode extends DataNode>(
-        file: DataRef<TNode>['file'],
-        value: unknown,
-    ) {
-        const ref = new DataRef<TNode>(file)
-        ref.value = {current: value}
-        return ref
-    }
-}
-
-export type MapValueChanges<K, V> =
+type MapValueChanges<K, V> =
     {
         add: ((key: K, value: V) => void)[]
         delete: ((deletedKey: K) => void)[]
     }
 
-export class SubscribeMap<K, V> extends Map<K, V> {
+class SubscribeMap<K, V> extends Map<K, V> {
     private readonly listeners: MapValueChanges<K, V> = {
         add: [],
         delete: [],
@@ -161,7 +132,7 @@ export class SubscribeMap<K, V> extends Map<K, V> {
         }
     }
 
-    onAdd(cb) {
+    onAdd(cb: (key: K, value: V) => void) {
         this.listeners.add.push(cb)
         return () => {
             const i = this.listeners.add.indexOf(cb)
@@ -170,7 +141,7 @@ export class SubscribeMap<K, V> extends Map<K, V> {
         }
     }
 
-    onDelete(cb) {
+    onDelete(cb: (deletedKey: K) => void) {
         this.listeners.delete.push(cb)
         return () => {
             const i = this.listeners.delete.indexOf(cb)
@@ -185,10 +156,7 @@ export class FileEngine<TNode extends typeof DataNode> {
     readonly files: SubscribeMap<string, DataFile<InstanceType<TNode>>> = new SubscribeMap()
     readonly compute: FileComputeEngines<InstanceType<TNode>>
     readonly processorOptions: Parameters<typeof runtime>[3]
-    /**
-     * A map of protocols to their respective resolver.
-     */
-    private readonly importer: Importers
+    private readonly importer: Importers | undefined
 
     constructor(
         {
@@ -203,7 +171,7 @@ export class FileEngine<TNode extends typeof DataNode> {
             // todo: these Importers, especially the whole loader, converter, caching, woud be useful in pipe,
             //       that is the most interesting part, which is not only for remote-execution engines, but also any other file based/datanode collections computing,
             //       including the standardized usages collector and updatable caches
-            importer: Importers
+            importer?: Importers
             processorOptions?: Parameters<typeof runtime>[3]
             parserOptions?: Partial<Parser<TNode>['options']>
         },
@@ -236,12 +204,9 @@ export class FileEngine<TNode extends typeof DataNode> {
             throw new ComputableError(`No source registered for ${contextBaseUrl}`)
         }
 
-        const importer = this.importer.match(contextBaseUrl)
+        const importer = this.importer?.match(contextBaseUrl)
         if(importer) {
-            if(!('resolveDirectory' in importer)) {
-                throw new ComputableError(`File importer does not support directory context, required to load ${contextBaseUrl}`)
-            }
-            if(!importer?.resolveDirectory) {
+            if(!('resolveDirectory' in importer) || !importer?.resolveDirectory) {
                 throw new ComputableError(`Importer ${importer.id} does not support directory context, required to load ${contextBaseUrl}`)
             }
             return importer.resolveDirectory(contextBaseUrl)
@@ -252,7 +217,7 @@ export class FileEngine<TNode extends typeof DataNode> {
 
     /**
      * @todo maybe move into registry?
-     * @todo risky method, only use outside of computations/runs, to not accidentally access the wrong files cachel
+     * @todo risky method, only use outside of computations/runs, to not accidentally access the wrong files cache;
      *       safe to use outside of runs
      */
     fileRef(fileUrl: string, importContext?: ImportContext): DataFile<InstanceType<TNode>> {
@@ -268,7 +233,7 @@ export class FileEngine<TNode extends typeof DataNode> {
         const sourceRefExisting = this.files.get(fileUrl)
         if(sourceRefExisting) return sourceRefExisting
 
-        const importer = this.importer.match(fileUrl)
+        const importer = this.importer?.match(fileUrl)
 
         let fileContext: FileResolveContext | undefined
         if(importer) {

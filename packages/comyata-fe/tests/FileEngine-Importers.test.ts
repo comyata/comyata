@@ -8,6 +8,7 @@ import { Importers } from '@comyata/fe/Importers'
 import { DataNodeJSONata } from '@comyata/run/DataNodeJSONata'
 import path from 'node:path'
 import url from 'node:url'
+import yaml from 'yaml'
 
 // npm run tdd -- --selectProjects=test-@comyata/fe
 // npm run tdd -- --selectProjects=test-@comyata/fe --testPathPattern=FileEngine-Importers
@@ -51,6 +52,54 @@ global.fetch = jest.fn<typeof fetch>((input) => {
             status: 200,
             headers: {'Content-Type': 'application/json'},
         })
+    } else if(input === 'http://localhost:8082/invalid-result') {
+        const jsonResponse = {
+            error: 'Generic Error Message',
+        }
+        res = new Response(JSON.stringify(jsonResponse), {
+            status: 400,
+            headers: {'Content-Type': 'application/json'},
+        })
+    } else if(input === 'http://localhost:8082/content-type-missing') {
+        const jsonResponse = {
+            title: 'Missing Content Type',
+        }
+        res = new Response(JSON.stringify(jsonResponse), {
+            status: 200,
+            // @ts-expect-error by default adds text/plain content-type
+            headers: {
+                'Content-Type': undefined,
+            },
+        })
+    } else if(input === 'http://localhost:8082/content-type-with-parameters') {
+        const jsonResponse = {
+            title: 'Static Result',
+            views: 123,
+            content: 'Lorem Ipsum',
+        }
+        res = new Response(JSON.stringify(jsonResponse), {
+            status: 200,
+            headers: {
+                'Content-Type': 'application/json;charset=UTF-8',
+            },
+        })
+    } else if(input === 'http://localhost:8082/md-frontmatter') {
+        const mdContent = `---
+meta:
+    title: "Lorem Ipsum"
+    description: "Markdown with frontmatter data."
+---
+
+# Lorem Ipsum
+
+Pizza, spaghetti, cannelloni, lasagna, ravioli, risotto, gnocchi, fettuccine, tortellini.
+`
+        res = new Response(mdContent, {
+            status: 200,
+            headers: {
+                'Content-Type': 'text/markdown',
+            },
+        })
     } else {
         res = new Response(null, {
             status: 404,
@@ -61,6 +110,38 @@ global.fetch = jest.fn<typeof fetch>((input) => {
     return Promise.resolve(res)
 })
 
+const converterMarkdown = (value: string) => {
+    // a very simple and naive MD-FM parser
+    const parsed = value
+        .split('\n')
+        .reduce((parsed, line, i) => {
+            if(i === 0 && line === '---') {
+                parsed.hasFm = true
+                parsed.openFm = true
+            } else if(parsed.openFm && line === '---') {
+                parsed.openFm = false
+            } else if(parsed.openFm) {
+                parsed.fm.push(line)
+            } else {
+                parsed.content.push(line)
+            }
+            return parsed
+        }, {
+            fm: [] as string[],
+            hasFm: false,
+            openFm: false,
+            content: [] as string[],
+        })
+    let data: any = null
+    if(parsed.fm.length) {
+        data = yaml.parse(parsed.fm.join('\n'))
+    }
+    return {
+        data: data,
+        content: parsed.content.join('\n').trimStart(),
+    }
+}
+
 describe('FileEngine', () => {
 
     it('FileEngine HTTP resolver', async() => {
@@ -68,7 +149,7 @@ describe('FileEngine', () => {
             nodes: [DataNodeJSONata],
             compute: {[DataNodeJSONata.engine]: fileEngineJsonata()},
             importer: new Importers()
-                .use(remoteImporter({})),
+                .use(remoteImporter()),
         })
 
         const quotesResolver = fileEngine.contextOf('https://dummyjson.com/quotes/')
@@ -114,6 +195,54 @@ describe('FileEngine', () => {
             'views': 123,
             'content': 'Lorem Ipsum',
         })
+    })
+
+    it('FileEngine HTTP run w/ missing content-type header', async() => {
+        const fileEngine = new FileEngine({
+            nodes: [DataNodeJSONata],
+            compute: {[DataNodeJSONata.engine]: fileEngineJsonata()},
+            importer: new Importers()
+                .use(remoteImporter({})),
+        })
+
+        const mockApiResolver = fileEngine.contextOf(mockApiHost)
+        expect(mockApiResolver).toBeInstanceOf(Object)
+        expect(mockApiResolver.resolveRelative).toBeInstanceOf(Function)
+        expect(mockApiResolver.importer).toBe('remote')
+
+        const staticResultFile = fileEngine.fileRef('./content-type-missing', mockApiResolver)
+        expect(staticResultFile.fileId).toBe(mockApiHost + '/content-type-missing')
+
+        const [r] = await fileEngine.run(staticResultFile, {})
+        expect(fileEngine.files.has(staticResultFile.fileId)).toBe(true)
+        expect(r).toStrictEqual({
+            title: 'Missing Content Type',
+        })
+    })
+
+    it('FileEngine HTTP run w/ invalid status code', async() => {
+        const fileEngine = new FileEngine({
+            nodes: [DataNodeJSONata],
+            compute: {[DataNodeJSONata.engine]: fileEngineJsonata()},
+            importer: new Importers()
+                .use(remoteImporter({})),
+        })
+
+        const mockApiResolver = fileEngine.contextOf(mockApiHost)
+        expect(mockApiResolver).toBeInstanceOf(Object)
+        expect(mockApiResolver.resolveRelative).toBeInstanceOf(Function)
+        expect(mockApiResolver.importer).toBe('remote')
+
+        const staticResultFile = fileEngine.fileRef('./invalid-result', mockApiResolver)
+        expect(staticResultFile.fileId).toBe(mockApiHost + '/invalid-result')
+
+        await expect(() => fileEngine.run(staticResultFile, {}))
+            .rejects
+            .toStrictEqual({
+                contentType: 'application/json',
+                text: '{"error":"Generic Error Message"}',
+            })
+        expect(fileEngine.files.has(staticResultFile.fileId)).toBe(true)
     })
 
     it('FileEngine HTTP run w/ remote template', async() => {
@@ -210,6 +339,75 @@ describe('FileEngine', () => {
         })
     })
 
+    it('FileEngine HTTP run w/ custom converter', async() => {
+        const fileEngine = new FileEngine({
+            nodes: [DataNodeJSONata],
+            compute: {[DataNodeJSONata.engine]: fileEngineJsonata()},
+            importer: new Importers()
+                .use(remoteImporter({
+                    converter: {
+                        'text/markdown': converterMarkdown,
+                    },
+                })),
+        })
+
+        const mockApiResolver = fileEngine.contextOf(mockApiHost)
+        expect(mockApiResolver).toBeInstanceOf(Object)
+        expect(mockApiResolver.resolveRelative).toBeInstanceOf(Function)
+        expect(mockApiResolver.importer).toBe('remote')
+
+        const staticResultFile = fileEngine.fileRef('./md-frontmatter', mockApiResolver)
+        expect(staticResultFile.fileId).toBe(mockApiHost + '/md-frontmatter')
+
+        const [r] = await fileEngine.run(staticResultFile, {})
+        expect(fileEngine.files.has(staticResultFile.fileId)).toBe(true)
+        expect(r).toStrictEqual({
+            data: {
+                meta: {
+                    title: 'Lorem Ipsum',
+                    description: 'Markdown with frontmatter data.',
+                },
+            },
+            content: '# Lorem Ipsum\n\nPizza, spaghetti, cannelloni, lasagna, ravioli, risotto, gnocchi, fettuccine, tortellini.\n',
+        })
+    })
+
+    it('FileEngine HTTP run w/ custom converter + mimeParameters', async() => {
+        let calledMimeParameters: string | undefined = undefined
+        const fileEngine = new FileEngine({
+            nodes: [DataNodeJSONata],
+            compute: {[DataNodeJSONata.engine]: fileEngineJsonata()},
+            importer: new Importers()
+                .use(remoteImporter({
+                    converter: {
+                        'application/json': (value, mimeParameters) => {
+                            calledMimeParameters = mimeParameters
+                            return JSON.parse(value)
+                        },
+                    },
+                })),
+        })
+
+        const mockApiResolver = fileEngine.contextOf(mockApiHost)
+        expect(mockApiResolver).toBeInstanceOf(Object)
+        expect(mockApiResolver.resolveRelative).toBeInstanceOf(Function)
+        expect(mockApiResolver.importer).toBe('remote')
+
+        const staticResultFile = fileEngine.fileRef('./content-type-with-parameters', mockApiResolver)
+        expect(staticResultFile.fileId).toBe(mockApiHost + '/content-type-with-parameters')
+
+        expect(calledMimeParameters).toBe(undefined)
+
+        const [r] = await fileEngine.run(staticResultFile, {})
+        expect(fileEngine.files.has(staticResultFile.fileId)).toBe(true)
+        expect(calledMimeParameters).toBe('charset=UTF-8')
+        expect(r).toStrictEqual({
+            title: 'Static Result',
+            views: 123,
+            content: 'Lorem Ipsum',
+        })
+    })
+
     it('FileEngine file resolver', async() => {
         const fileEngine = new FileEngine({
             nodes: [],
@@ -226,6 +424,64 @@ describe('FileEngine', () => {
         expect(mocksResolver.importer).toBe('file')
     })
 
+    it('FileEngine file resolver w/ custom converter by ext', async() => {
+        let called = false
+        const fileEngine = new FileEngine({
+            nodes: [],
+            compute: {},
+            importer: new Importers()
+                .use(fileImporter({
+                    basePath: mocksDir,
+                    converter: {
+                        '.yml': (value) => {
+                            called = true
+                            return yaml.parse(value)
+                        },
+                    },
+                })),
+        })
+
+        const mocksResolver = fileEngine.contextOf(url.pathToFileURL(path.join(mocksDir)).href)
+        const dataFile = fileEngine.fileRef('./cards/quote_1.yml', mocksResolver)
+        expect(called).toBe(false)
+        const [r] = await fileEngine.run(dataFile, {})
+        expect(fileEngine.files.has(dataFile.fileId)).toBe(true)
+        expect(called).toBe(true)
+        expect(r).toStrictEqual({
+            id: 1,
+            quote: 'Lorem ipsum quotum',
+        })
+    })
+
+    it('FileEngine file resolver w/ custom converter, no extension or mime', async() => {
+        // testing that converterDefault is used when none of `converter` matches and there is not even a file extension or mime
+        let called = false
+        const fileEngine = new FileEngine({
+            nodes: [],
+            compute: {},
+            importer: new Importers()
+                .use(fileImporter({
+                    basePath: mocksDir,
+                    converter: {},
+                    converterDefault: (value) => {
+                        called = true
+                        return yaml.parse(value)
+                    },
+                })),
+        })
+
+        const mocksResolver = fileEngine.contextOf(url.pathToFileURL(path.join(mocksDir)).href)
+        const dataFile = fileEngine.fileRef('./cards/quote_3', mocksResolver)
+        expect(called).toBe(false)
+        const [r] = await fileEngine.run(dataFile, {})
+        expect(fileEngine.files.has(dataFile.fileId)).toBe(true)
+        expect(called).toBe(true)
+        expect(r).toStrictEqual({
+            id: 3,
+            quote: 'Quia non numquam',
+        })
+    })
+
     it('FileEngine file invalid path access', async() => {
         const fileEngine = new FileEngine({
             nodes: [],
@@ -236,7 +492,7 @@ describe('FileEngine', () => {
                 })),
         })
 
-        // todo: test both cases, for when it returns an async and when directly a sync result
+        // todo: test both cases, for when it returns an async (during run) and when directly a sync result
         expect(() =>
             fileEngine.fileRef(
                 '../../SomeFile.yml',
@@ -244,21 +500,51 @@ describe('FileEngine', () => {
             ),
         )
             .toThrow(new Error(`File import ${JSON.stringify(url.pathToFileURL(path.resolve(mocksDir, '../../SomeFile.yml')))} not relative to ${JSON.stringify(path.resolve(mocksDir))}`))
+    })
 
-        // const dataFile = fileEngine.register('document', {
-        //     objOrEval: {
-        //         someImport: '${ $import("../../../Parser.test.ts").none }',
-        //         // le.resolveFromBase
-        //     },
-        // }, fileEngine.fileRefContext(url.pathToFileURL(path.join(mocksDir)).href))
-        //
-        // try {
-        //     await fileEngine.run(dataFile, {}).catch(() => console.log('in-catch-cb'))
-        // } catch(e) {
-        //     console.log('in-catch-try', e)
-        // }
-        // await expect(fileEngine.run(dataFile, {}))
-        //     .rejects
-        //     .toThrow(new Error(`File import ${JSON.stringify(url.pathToFileURL(path.resolve(mocksDir, '../../Parser.test.ts')))} not relative to ${JSON.stringify(path.resolve(mocksDir))}`))
+    it('FileEngine file invalid path access for content', async() => {
+        const fileEngine = new FileEngine({
+            nodes: [],
+            compute: {},
+            importer: new Importers()
+                .use(fileImporter({
+                    basePath: mocksDir,
+                })),
+        })
+
+        expect(() =>
+            fileEngine.contextOf(url.pathToFileURL(path.join(mocksDir, '../../SomeFile.yml')).href),
+        )
+            .toThrow(new Error(`File import ${JSON.stringify(url.pathToFileURL(path.resolve(mocksDir, '../../SomeFile.yml')))} not relative to ${JSON.stringify(path.resolve(mocksDir))}`))
+    })
+
+    it('FileEngine without importer', async() => {
+        const fileEngine = new FileEngine({
+            nodes: [],
+            compute: {},
+        })
+
+        expect(() =>
+            fileEngine.fileRef('https://example.org/api/file'),
+        )
+            .toThrow(new Error(`No importer registered, can not reference file: "https://example.org/api/file"`))
+    })
+
+    it('FileEngine without matching importer', async() => {
+        const fileEngine = new FileEngine({
+            nodes: [],
+            compute: {},
+            importer: new Importers()
+                .use(fileImporter({
+                    basePath: mocksDir,
+                })),
+        })
+
+        expect(fileEngine.fileRef(url.pathToFileURL(path.join(mocksDir, 'file.yml')).href).importContext?.importer).toBe('file')
+
+        expect(() =>
+            fileEngine.fileRef('https://example.org/api/file'),
+        )
+            .toThrow(new Error(`No importer matched for file: "https://example.org/api/file"`))
     })
 })

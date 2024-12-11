@@ -1,6 +1,35 @@
 import { DataFile } from '@comyata/fe/DataFile'
-import { IDataNode } from '@comyata/run/DataNode'
-import { DataRef, ImportContext } from '@comyata/fe/FileEngine'
+import { DataNode, IDataNode } from '@comyata/run/DataNode'
+import { ImportContext } from '@comyata/fe/FileEngine'
+
+export class DataRef<TNode extends IDataNode> {
+    file?: DataFile
+    /**
+     * The parsed data to use for computing.
+     */
+    node?: TNode | IDataNode
+    /**
+     * The loaded data value to use for parsing.
+     */
+    value?: { current: unknown }
+
+    constructor(
+        file: DataRef<TNode>['file'],
+    ) {
+        this.file = file
+        this.value = file?.value
+        this.node = file?.node
+    }
+
+    static withValue<TNode extends DataNode>(
+        file: DataRef<TNode>['file'],
+        value: unknown,
+    ) {
+        const ref = new DataRef<TNode>(file)
+        ref.value = {current: value}
+        return ref
+    }
+}
 
 export class DataFileRegistry<TNode extends IDataNode> {
     readonly files: Map<string, DataFile<TNode>> = new Map()

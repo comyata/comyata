@@ -1,11 +1,11 @@
-import { FileResolveContext, Resolver } from '@comyata/fe/FileEngine'
+import { Resolver } from '@comyata/fe/FileEngine'
 
 export class TrieNode {
     /**
      * Map of character to child node
      */
     children: Map<string, TrieNode>
-    resolver: null | Resolver | FileResolveContext
+    resolver: null | Resolver
 
     constructor(resolver: TrieNode['resolver'] = null) {
         this.resolver = resolver
@@ -27,7 +27,7 @@ export class Importers {
         return this
     }
 
-    insert(scope: string, resolver: Resolver | FileResolveContext) {
+    insert(scope: string, resolver: Resolver) {
         let node = this.root
         for(let i = 0; i < scope.length; i++) {
             const char = scope[i]
@@ -44,16 +44,18 @@ export class Importers {
 
     match(scope: string) {
         let node: TrieNode | undefined = this.root
-        let lastMatchNode: TrieNode = node
+        let lastResolver: TrieNode['resolver'] = node.resolver
         for(let i = 0; i < scope.length; i++) {
             const char = scope[i]
             node = node.children.get(char)
             if(!node) {
                 break
             }
-            lastMatchNode = node
+            if(node.resolver) {
+                lastResolver = node.resolver
+            }
         }
 
-        return lastMatchNode.resolver
+        return lastResolver
     }
 }

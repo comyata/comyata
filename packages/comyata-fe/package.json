@@ -1,7 +1,7 @@
 {
     "name": "@comyata/fe",
-    "version": "0.0.4",
-    "description": "Comyata FileEngine",
+    "version": "0.0.5",
+    "description": "Execute YAML and JSON files like programs and get clean data to work with as result.",
     "author": {
         "name": "Michael Becker",
         "url": "https://i-am-digital.eu"
@@ -13,14 +13,24 @@
         "directory": "packages/comyata-fe"
     },
     "type": "module",
+    "keywords": [
+        "query",
+        "transformation",
+        "data",
+        "data-template",
+        "config",
+        "yaml",
+        "json",
+        "jsonata"
+    ],
     "exports": {
         "./*": "./*.js"
     },
     "peerDependencies": {
-        "@comyata/run": "~0.0.1"
+        "@comyata/run": "~0.0.5"
     },
     "devDependencies": {
-        "@comyata/run": "~0.0.4"
+        "@comyata/run": "~0.0.5"
     },
     "dependencies": {
         "yaml": "^2.2.1"

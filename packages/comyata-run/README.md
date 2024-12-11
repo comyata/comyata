@@ -1,6 +1,6 @@
 # Comyata Runtime
 
-A Runtime to make data computable! Simplify data operations thanks to data templates with included logic.
+A Runtime to make data computable! Simplify data operations thanks to data templates with embedded logic.
 
 **🕹️ Examples:**
 

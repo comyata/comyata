@@ -3,9 +3,9 @@
 [![Github actions Build](https://github.com/comyata/comyata/actions/workflows/blank.yml/badge.svg)](https://github.com/comyata/comyata/actions)
 [![Coverage Status](https://img.shields.io/codecov/c/github/comyata/comyata/main.svg?style=flat-square)](https://codecov.io/gh/comyata/comyata/branch/main)
 
-Model data with dynamic parts easily, write data structures including queries and transformations.
+Use data like programs: write data templates with embedded queries, logic and transformations.
 
-Run it in the browser or on a server, save the templates in files or a database, and do whatever you want.
+Run them in the browser or on a server, save the templates in files or a database, and do whatever you want.
 
 **🕹️ Examples:**
 

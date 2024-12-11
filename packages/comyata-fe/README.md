@@ -1,10 +1,10 @@
 # Comyata FileEngine
 
-An engine to make data files computable! Simplify data lookup, dynamic configurations and more thanks to data templates with included logic.
+An engine to make data files computable! Simplify data lookup, dynamic configurations and more thanks to data templates with embedded logic.
 
 Execute YAML and JSON files like programs and get clean data to work with as result.
 
-Add custom adapters to support more file formats, connect with databases or to work with templates stored databases or remote filesystems.
+Add custom adapters to support more file formats, connect with databases or to work with templates stored in databases or remote filesystems.
 
 It's as easy (or complex) as:
 

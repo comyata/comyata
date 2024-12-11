@@ -274,6 +274,7 @@ describe('Parser', () => {
         //       https://github.com/jestjs/jest/issues/8698
         //       https://github.com/jest-community/eslint-plugin-jest/issues/295#issuecomment-509974545
         //       see workaround with bulky and not fully strict asserts in `FileEngine-Document.test.ts` (only works for async)
+        //       > `.rejects.toMatchObject` can be used for promise
         expect(() => {
             new Parser([DataNodeJSONata]).parse({
                 invalidExpr: '${ }',

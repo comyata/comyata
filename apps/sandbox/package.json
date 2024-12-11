@@ -1,7 +1,6 @@
 {
     "name": "comyata-app",
-    "version": "0.0.4",
-    "description": "Comyata - computable data templates.",
+    "description": "Example setup of @comyata/run - to write and execute data templates in React.",
     "private": true,
     "license": "MIT",
     "main": "src/main.tsx",
@@ -18,7 +17,7 @@
         "@codemirror/search": "^6.0.0",
         "@codemirror/state": "^6.0.0",
         "@codemirror/view": "^6.0.0",
-        "@comyata/run": "~0.0.4",
+        "@comyata/run": "~0.0.5",
         "@emotion/react": "^11.9.0",
         "@emotion/styled": "^11.8.1",
         "@mui/icons-material": "^5.10",

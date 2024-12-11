@@ -69,9 +69,9 @@ const runner = runtime(
 // initial output, which contains all static values, and `Promise` placeholders in computed nodes
 // const initial = runner.output()
 
-// run compute and get the complete output
+// run compute and get the output
 const output = await runner.compute()
 console.log(output)
 
-// or get the complete output from the runner, after it is computed
+// or get the resulting output from the runner, after it was computed
 // const output1 = runner.output()

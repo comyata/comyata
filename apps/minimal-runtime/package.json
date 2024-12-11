@@ -1,7 +1,6 @@
 {
     "name": "comyata-minimal-runtime",
-    "version": "0.0.4",
-    "description": "Minimal setup example of @comyata/run",
+    "description": "Minimal setup example of @comyata/run - execute data templates on client and server.",
     "private": true,
     "type": "module",
     "license": "MIT",
@@ -10,7 +9,7 @@
         "build": "tsc --project tsconfig.json"
     },
     "dependencies": {
-        "@comyata/run": "~0.0.4"
+        "@comyata/run": "~0.0.5"
     },
     "devDependencies": {
         "typescript": "^5.0.0",

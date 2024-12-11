@@ -1,12 +1,20 @@
 {
     "name": "@comyata/run",
-    "version": "0.0.4",
-    "description": "Comyata Runtime",
+    "version": "0.0.5",
+    "description": "Simplify data workflows and management with data templates, for browser and server.",
     "author": {
         "name": "Michael Becker",
         "url": "https://i-am-digital.eu"
     },
     "license": "MIT",
+    "keywords": [
+        "query",
+        "transformation",
+        "data",
+        "data-template",
+        "json",
+        "jsonata"
+    ],
     "type": "module",
     "repository": {
         "type": "git",

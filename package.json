@@ -17,7 +17,7 @@
         "prebuild": "npm run clean && npm run lint && npm run test && npm run tsc",
         "tsc": "tsc --project tsconfig.json --noEmit",
         "tsgen": "tsc --project tsconfig.packages.json --emitDeclarationOnly --pretty",
-        "build": "npm run server:fe:build && npm run build-packages && npm run build -w comyata-app",
+        "build": "npm run server:fe:build && npm run build-packages && npm run build -w comyata-app && npm run build -w comyata-minimal-runtime",
         "build-packages": "npm run tsgen && npm run babel-packages",
         "babel-packages": "cross-env NODE_ENV=node babel packages -d dist --extensions \".ts,.js,.jsx,.tsx\" --copy-files",
         "licenses-all": "license-checker --json --out licenses.json && node view-licenses.js",

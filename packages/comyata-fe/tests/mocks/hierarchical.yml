@@ -4,15 +4,11 @@ nameRootA: ${$root().name}
 
 nested:
     nameRootB: ${$root().name}
-    nameParent0: ${$parent()[0].name}
 
     count: 111
     countSelf: ${$self().count}
     countRootA: ${$root().nested.count}
 
     deeper:
-        countParent0: ${$parent()[0].count}
-        nameParent1: ${$parent()[1].name}
-
         nameRootC: ${$root().name}
         countRootB: ${$root().nested.count}

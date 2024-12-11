@@ -180,7 +180,11 @@ export class Parser<TNode extends typeof DataNode> {
 
         const type = typeof currentValue
         if(type in Parser.dataNodeParsers) {
-            return Parser.dataNodeParsers[type](currentValue, currentPath, parent)
+            return Parser.dataNodeParsers[type as keyof DataParserTypes](
+                // @ts-expect-error not possible to type guard value
+                currentValue,
+                currentPath, parent,
+            )
         }
 
         throw new NodeParserError(

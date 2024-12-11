@@ -6,7 +6,8 @@
     "type": "module",
     "license": "MIT",
     "scripts": {
-        "start": "node --import ./ts-node.register.mjs --watch ./src/index.ts"
+        "start": "node --import ./ts-node.register.mjs --watch ./src/index.ts",
+        "build": "tsc --project tsconfig.json"
     },
     "dependencies": {
         "@comyata/run": "~0.0.4"

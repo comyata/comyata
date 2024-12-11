@@ -1,6 +1,8 @@
 import { MissingEngineError, NodeComputeError, ResultError } from '@comyata/run/Errors'
 import { timer } from '@comyata/run/Helpers/Timer'
 import { IDataNode, IDataNodeChildren, IDataNodeComputed, isComputedNode } from '@comyata/run/DataNode'
+import { isProxy, toRaw } from '@comyata/run/ValueProxy'
+import { ValueSubscriberPromise } from '@comyata/run/ValueSubscriberPromise'
 import jsonpointer from 'json-pointer'
 
 export interface IComputeStatsBase {
@@ -24,6 +26,7 @@ export interface NodeRuntimeBaggage<TNode extends IDataNode> {
 
 export interface NodeRuntimeBaggageComplete<TNode extends IDataNode> extends NodeRuntimeBaggage<TNode> {
     stats: NodeComputeStats
+    getNodeContext: (node: TNode | IDataNode) => NodeContext
 }
 
 export type ComputeFn<
@@ -39,7 +42,7 @@ export type ComputeFn<
 
 export type ComputeStats = IComputeStatsBase | NodeComputeStats
 
-type NodeContext = [
+export type NodeContext = [
     setter: (value: unknown) => void,
     // todo: maybe add nodesChain to getter call, to check circular nodes internally at this level
     getter: () => unknown,
@@ -125,10 +128,23 @@ export const runtime = <TNode extends IDataNode, D = unknown, C = unknown, TBagg
     //       and a context/baggage is only created for computed nested fields meaning,
     //       these currently only include computed nodes and not all.
     if(isComputedNode(dataNode)) {
-        nodesContexts.set(dataNode, [(v) => resultData = v, () => resultData, []])
+        // note: adding rootDataChain for a non-group (not object or array),
+        //       to always provide a value for `$root()`
+        //       even if only used for preventing self-reference
+        const rootDataChain = [resultData]
+        nodesContexts.set(dataNode, [
+            (v) => {
+                resultData = v
+                rootDataChain[0] = v
+            },
+            () => resultData,
+            rootDataChain,
+        ])
     }
 
     const groups: [IDataNodeChildren<TNode>, any[]][] = dataNode.children ? [
+        // note: if `.children`, root is `object|array`, thus it is safe to pass resultData by reference,
+        //       thus not requiring `rootDataChain`
         [dataNode.children as IDataNodeChildren<TNode>, [resultData]],
     ] : []
     // todo: add support for partial computes
@@ -208,9 +224,14 @@ export const runtime = <TNode extends IDataNode, D = unknown, C = unknown, TBagg
                 ...baggage,
                 nodesChain: new Set(nodesChain).add(computedNode),
                 stats: computeStats,
+                getNodeContext: getNodeContext,
             } as TBaggage & NodeRuntimeBaggageComplete<TNode>,
         )
             .then((val) => {
+                if(isProxy(val)) {
+                    // ensure that plain value again, for referential integrity and e.g. native circular references in JSON.stringify
+                    val = toRaw(val)
+                }
                 // todo: added here to reduce looping again over all computedNodes,
                 //       this is the has-node-resolved-to-error check for every compute node
                 // todo: checking for functions here can allow to postpone and dispatch follow-up functions or break out of the actual jsonata nesting
@@ -298,10 +319,10 @@ export const runtime = <TNode extends IDataNode, D = unknown, C = unknown, TBagg
             //       how could that be accomplished without passing a copied `context` to each compute cycle?
             //       maybe with overwriting the `dataChain` for each compute? and somehow only the computed nodes in it?
             let valuePromise: ValueSubscriberPromise<unknown> | undefined
-            let subscribers: ((result: any, err?) => any)[] | undefined
+            let subscribers: ((result: any, err?: any) => any)[] | undefined
             if(__unsafeAllowCrossResolving) {
                 subscribers = []
-                valuePromise = new ValueSubscriberPromise(subscribers/*, computedNode*/)
+                valuePromise = new ValueSubscriberPromise(subscribers, computedNode)
                 nodesContexts.get(computedNode)![0]!(valuePromise)
             }
             computationPromises.push(dispatchNodeCompute(
@@ -374,59 +395,5 @@ export const runtime = <TNode extends IDataNode, D = unknown, C = unknown, TBagg
 
             return resultData
         },
-    }
-}
-
-class ValueSubscriberPromise<T> extends Promise<T> {
-    #subscribers: ((result: T, err?) => void)[]
-    // #dataNode: () => IDataNode
-    #result: undefined | { error?: any, value?: any } = undefined
-
-    constructor(
-        subscribers: ((result: T, err?) => void)[],
-        // dataNode: IDataNode,
-    ) {
-        super((resolve) => {
-            // throwing here may lead to uncaught errors in react but not nodejs somehow,
-            // in react it is only used to know when to show progress loaders in e.g. JSONView, but not awaited
-            // as anything which tries to listen, will receive rejects below and the actual exception is handled at another position,
-            // it should be best and safe to just set to undefined on errors
-            subscribers.push((nodeResult, err) => {
-                this.#result = err ? {error: err} : {value: nodeResult}
-                resolve((err ? undefined : nodeResult) as any)
-            })
-        })
-        this.#subscribers = subscribers
-        // this.#dataNode = () => dataNode
-    }
-
-    then<TResult1 = T, TResult2 = never>(
-        onfulfilled?: ((value: T) => (PromiseLike<TResult1> | TResult1)) | undefined | null,
-        onrejected?: ((reason: any) => (PromiseLike<TResult2> | TResult2)) | undefined | null,
-    ): Promise<TResult1 | TResult2> {
-        if(this.#result) {
-            // note: using the approach without another wrapped Promise doesn't correctly handle `.reject`,
-            //       it won't be caught in await etc.
-            // return this.result.error ? Promise.reject(this.result.error) : Promise.resolve(this.result.value)
-            //     .then(onfulfilled, onrejected)
-            return new Promise<T>((resolve, reject) => {
-                if(this.#result?.error) {
-                    reject(this.#result.error)
-                    return
-                }
-                resolve(this.#result?.value)
-            })
-                .then(onfulfilled, onrejected)
-        }
-        return new Promise<T>((resolve, reject) => {
-            this.#subscribers.push((result, err) => {
-                if(err) {
-                    reject(err)
-                    return
-                }
-                resolve(result)
-            })
-        })
-            .then(onfulfilled, onrejected)
     }
 }

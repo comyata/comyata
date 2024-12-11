@@ -187,13 +187,10 @@ circular import: file loads itself ${JSON.stringify(url.pathToFileURL(path.join(
             nameRootA: 'Root',
             nested: {
                 nameRootB: 'Root',
-                nameParent0: 'Root',
                 count: 111,
                 countSelf: 111,
                 countRootA: 111,
                 deeper: {
-                    countParent0: 111,
-                    nameParent1: 'Root',
                     nameRootC: 'Root',
                     countRootB: 111,
                 },

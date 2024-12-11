@@ -1,6 +1,7 @@
 /**
  * @jest-environment jsdom
  */
+import { createValueProxy } from '@comyata/run/ValueProxy'
 import { it, expect, describe, beforeAll } from '@jest/globals'
 import { DataNodeJSONata, UnresolvedJSONataExpression } from '@comyata/run/DataNodeJSONata'
 import { ComputeFn, runtime } from '@comyata/run/Runtime'
@@ -16,13 +17,12 @@ beforeAll(() => {
 })
 
 describe('Runtime jsdom', () => {
-    const jsonataCompute: ComputeFn<DataNodeJSONata> = (computedNode, context, parentData) => {
+    const jsonataCompute: ComputeFn<DataNodeJSONata> = (computedNode, context, parentData, {getNodeContext}) => {
         return computedNode.expr.evaluate(
             context,
             {
-                self: () => parentData[0],
-                parent: () => parentData.slice(1),
-                root: () => parentData[parentData.length - 1],
+                self: () => createValueProxy(parentData[0], computedNode, getNodeContext, computedNode.path.slice(0, -1)),
+                root: () => createValueProxy(parentData[parentData.length - 1] || null, computedNode, getNodeContext),
             },
         )
     }

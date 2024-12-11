@@ -48,7 +48,7 @@ export const useComyataRuntime = (
     const evalRef = useRef<AbortController | null>(null)
     const timerRef = useRef<undefined | number>(undefined)
     const [processing, setProcessing] = useState<Progress>(null)
-    const [evalOut, setEvalOut] = useState<{ stats: ComputeStats[], output: unknown } | null>(null)
+    const [evalOut, setEvalOut] = useState<{ stats: ComputeStats[], output: unknown, ts: number } | null>(null)
     const [evalOutError, setEvalOutError] = useState<null | Error | { error: any }>(null)
 
     const [parserError, setParserError] = useState<Error | undefined>(undefined)
@@ -146,6 +146,7 @@ export const useComyataRuntime = (
                 // output: result.output(),
                 output: null,
                 stats: result.stats,
+                ts: Date.now(),
             })
 
             result.compute()
@@ -156,6 +157,7 @@ export const useComyataRuntime = (
                         ...resultContainer,
                         stats: result.stats,
                         output: result.output(),
+                        ts: Date.now(),
                     } : resultContainer)
 
                     onProgress?.({
@@ -177,6 +179,7 @@ export const useComyataRuntime = (
                         ...resultContainer,
                         stats: result.stats,
                         output: result.output(), // updating here to get errors
+                        ts: Date.now(),
                     } : resultContainer)
                     setEvalOutError(e instanceof Error ? e : {error: e})
                 })

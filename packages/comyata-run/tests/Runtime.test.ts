@@ -1,5 +1,6 @@
 import { DataNode, IDataNode } from '@comyata/run/DataNode'
 import { NodeComputeError } from '@comyata/run/Errors'
+import { createValueProxy } from '@comyata/run/ValueProxy'
 import { it, expect, describe } from '@jest/globals'
 import { DataNodeJSONata, UnresolvedJSONataExpression } from '@comyata/run/DataNodeJSONata'
 import { Parser } from '@comyata/run/Parser'
@@ -24,9 +25,8 @@ describe('Runtime', () => {
         return computedNode.expr.evaluate(
             context,
             {
-                self: () => parentData[0],
-                parent: () => parentData.slice(1),
-                root: () => parentData[parentData.length - 1],
+                self: () => createValueProxy(parentData[0], computedNode, runtimeBaggage.getNodeContext, computedNode.path.slice(0, -1)),
+                root: () => createValueProxy(parentData[parentData.length - 1] || null, computedNode, runtimeBaggage.getNodeContext),
                 aborted: () => runtimeBaggage.abort?.aborted,
             },
         )
@@ -112,7 +112,7 @@ describe('Runtime', () => {
         price: 70.25,
         tags: '${ $append(["sports", "surfing"], ["color_" & $replace(variant.color, " ", "_")]) }',
         checkout: {
-            priceOriginal: '${ $parent()[0].price * $self().amount }',
+            priceOriginal: '${ $root().price * $self().amount }',
             amount: 3,
         },
     }

@@ -65,7 +65,7 @@ export type RuntimeContext<TNode extends IDataNode = IDataNode> = {
      */
     fileEvals: Map<DataFile, { result: unknown } | ((requestingFilesChain: Set<DataFile>, requestingNodesChain: Set<IDataNode>) => Promise<unknown>)>
     fileEvalsAwaiter: Map<DataFile, Set<DataFile>>
-    fileListener: Map<DataFile, ((result, err?: any) => void)[]>
+    fileListener: Map<DataFile, ((result: unknown, err?: any) => void)[]>
     /**
      * map which DataFile is used by which DataFile in which DataNode
      */

@@ -78,7 +78,7 @@ export const jsonataCompute: (...args: [...Parameters<ComputeFn<DataNodeJSONata>
             nanoidSimpleLower: (size: number) => nanoidSimpleLower(size),
             nanoidAlpha: (size: number) => nanoidAlpha(size),
             nanoidAlphaLower: (size: number) => nanoidAlphaLower(size),
-            sleep: async(delay) => {
+            sleep: async(delay: number) => {
                 await new Promise<void>((resolve) => {
                     const timer = window.setTimeout(() => resolve(), delay || 0)
                     abort?.addEventListener('abort', () => {

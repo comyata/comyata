@@ -64,7 +64,7 @@ export const PageStreaming = () => {
         parser, state.template,
         useMemo(() => null, []),
         {
-            onProgress: useCallback((progress) => {
+            onProgress: useCallback((progress: IProgressEvent) => {
                 console.log('progress', progress)
                 if(progress.type === 'start') {
                     // clear existing progress history on a new start

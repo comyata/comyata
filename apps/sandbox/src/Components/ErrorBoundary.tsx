@@ -12,19 +12,19 @@ export interface ErrorBoundaryProps {
 }
 
 export class ErrorBoundary extends Component<PropsWithChildren<ErrorBoundaryProps>> {
-    readonly state: { hasError: boolean, error: any }
+    readonly state: { hasError: boolean, error: unknown }
 
-    constructor(props) {
+    constructor(props: ErrorBoundaryProps) {
         super(props)
         this.state = {hasError: false, error: null}
     }
 
-    static getDerivedStateFromError(error) {
+    static getDerivedStateFromError(error: unknown) {
         console.error('ErrorBoundary', error)
         return {hasError: true, error: error}
     }
 
-    componentDidCatch(error, info) {
+    componentDidCatch(error: unknown, info: any) {
         console.error('ErrorBoundary', error, info.componentStack)
     }
 

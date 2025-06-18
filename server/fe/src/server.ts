@@ -161,7 +161,10 @@ app.use(setupFileEngine({
     publicPath: opts.publicPath,
 }))
 
-const server = app.listen(opts.port, () => {
+const server = app.listen(opts.port, (error) => {
+    if(error) {
+        throw error
+    }
     console.log('server: listening on port ' + opts.port)
 })
 

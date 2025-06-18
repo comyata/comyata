@@ -37,12 +37,12 @@
     },
     "devDependencies": {
         "@types/json-pointer": "^1.0.34",
-        "@types/node": "^18.19.45",
+        "@types/node": "^20.19.1",
         "@types/react": "^18.3.4",
         "@types/react-dom": "^18.3.0",
         "@vitejs/plugin-react": "^4.0.0",
-        "typescript": "~5.3.3",
-        "vite": "^4.5.5"
+        "typescript": "~5.8.3",
+        "vite": "^6.3.5"
     },
     "scripts": {
         "start": "tsc && cross-env NODE_ENV=development PORT=8080 vite",
